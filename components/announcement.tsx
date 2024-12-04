@@ -6,7 +6,7 @@ export default function Announcement() {
     <div className="bg-amber-500 px-4 py-3 text-white">
       <p className="text-center text-sm font-medium">
         Love our services?
-        <Link href="#" className="inline-block underline">
+        <Link href="#" className="inline-block ml-2 underline">
           take time to give us a review here please 🙏 man!
         </Link>
       </p>
