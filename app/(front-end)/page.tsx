@@ -38,15 +38,20 @@ export default async function Home() {
   return (
     <div className="min-h-screen">
       {/* <Hero /> */}
+
       {/* New Products */}
       <Products
         title="New Arrivals"
         description="100+ products added today"
         products={latestProducts as any}
       />
+
+      {/* Shop by category */}
       <CategoryGrid data={categoriesData} />
 
       {/* <HalfBannerOne/> */}
+
+      {/* More categories */}
       {categories?.map((category: Category) => {
         return (
           <div className="lg:pb-4 pb-2" key={category.id}>
