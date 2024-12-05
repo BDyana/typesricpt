@@ -16,6 +16,7 @@ interface IProduct {
   productStock: any;
   salePrice: any;
   productPrice: any;
+  description: string;
   slug: string;
   productLeft: any;
 }
@@ -39,7 +40,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
         <div className="overflow-hidden">
           <Image
             src={product.imageUrl}
-            alt={product.slug}
+            alt={product.description}
             width={500}
             height={500}
             className="w-full transition-transform duration-300 hover:scale-110"
