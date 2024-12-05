@@ -35,7 +35,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
   console.log(progress);
 
   return (
-    <div className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white dark:bg-slate-900 overflow-hidden border border-gray-100 hover:shadow">
+    <div className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow">
       <Link href={`/products/${product.slug}`}>
         <div className="overflow-hidden">
           <Image
@@ -81,7 +81,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 handleAddToCart();
                 handleClick();
               }}
-              className="flex items-center hover:bg-gray-100 p-2 lg:p-3 rounded-full text-black"
+              className="flex items-center hover:bg-brandColor/10 p-2 lg:p-3 rounded-full text-black"
             >
               <ShoppingCart size={17} />
             </button>
