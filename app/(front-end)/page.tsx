@@ -7,6 +7,7 @@ import { getAllCategories } from '@/actions/categories';
 import Products from '@/components/(front-end)/products';
 import { getLatestProducts } from '@/actions/products';
 import CategoryList from '@/components/(front-end)/category-list';
+import CategoryGrid from '@/components/(front-end)/category-grid';
 
 export default async function Home() {
   const handleClick = () => {
@@ -43,7 +44,7 @@ export default async function Home() {
         description="100+ products added today"
         products={latestProducts as any}
       />
-      {/* <CategoryGrid /> */}
+      <CategoryGrid data={categoriesData} />
 
       {/* <HalfBannerOne/> */}
       {categories?.map((category: Category) => {
