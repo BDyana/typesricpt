@@ -1,3 +1,4 @@
+import React from 'react';
 import { AppSidebar } from '@/components/(back-end)/app-sidebar';
 import {
   Breadcrumb,
@@ -14,7 +15,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 
-export default function Page() {
+export default function page() {
   return (
     <SidebarProvider>
       <AppSidebar />
