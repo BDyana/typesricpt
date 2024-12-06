@@ -141,3 +141,52 @@ body {
     transform: rotateY(-180deg);
   }
 }
+
+/* ----------------------------------------------swiper------------------------------------ */
+.react-multiple-carousel__arrow {
+  background: #fff !important;
+  z-index: 0 !important;
+  box-shadow: 0px 0px 4px 0px #ddd;
+}
+.react-multiple-carousel__arrow:before {
+  color: #939393 !important;
+}
+.react-multiple-carousel__arrow--left {
+  left: calc(0% + 5px) !important;
+}
+.react-multiple-carousel__arrow--right {
+  right: calc(0% + 5px) !important;
+}
+.swiper-initialized {
+  box-shadow: 0px 0 1px #aaa;
+  margin-bottom: 8px;
+}
+.swiper-slide-thumb-active {
+  border: 2px solid #aaa;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.demo-slide {
+  min-width: 100%;
+  min-height: 100%;
+}

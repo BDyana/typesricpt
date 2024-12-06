@@ -8,6 +8,8 @@ import Products from '@/components/(front-end)/products';
 import { getLatestProducts } from '@/actions/products';
 import CategoryList from '@/components/(front-end)/category-list';
 import CategoryGrid from '@/components/(front-end)/category-grid';
+import Hero from '@/components/(front-end)/hero';
+import { getBanners } from '@/actions/banners';
 
 export default async function Home() {
   const handleClick = () => {
@@ -33,11 +35,14 @@ export default async function Home() {
   const trainings_res = await getTrainings();
   const trainingsData = trainings_res?.data;
 
+  const bannersData = await getBanners();
+  const banners = bannersData?.data;
+
   const session = await getServerSession(authOptions);
 
   return (
     <div className="min-h-screen">
-      {/* <Hero /> */}
+      <Hero banners={banners} />
 
       {/* New Products */}
       <Products
