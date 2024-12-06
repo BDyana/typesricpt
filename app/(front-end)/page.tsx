@@ -1,15 +1,17 @@
 import * as fbq from '../../lib/fpixel';
 import { Category } from '@prisma/client';
 import { getServerSession } from 'next-auth';
+import { getBanners } from '@/actions/banners';
 import { authOptions } from '@/lib/authOptions';
+import Hero from '@/components/(front-end)/hero';
 import { getTrainings } from '@/actions/trainings';
+import { getLatestProducts } from '@/actions/products';
 import { getAllCategories } from '@/actions/categories';
 import Products from '@/components/(front-end)/products';
-import { getLatestProducts } from '@/actions/products';
 import CategoryList from '@/components/(front-end)/category-list';
 import CategoryGrid from '@/components/(front-end)/category-grid';
-import Hero from '@/components/(front-end)/hero';
-import { getBanners } from '@/actions/banners';
+import TrendingDeals from '@/components/(front-end)/trending-deals';
+import { PromotionalBanner } from '@/components/(front-end)/promotional-banner';
 
 export default async function Home() {
   const handleClick = () => {
@@ -55,6 +57,14 @@ export default async function Home() {
       <CategoryGrid data={categoriesData} />
 
       {/* <HalfBannerOne/> */}
+      <div className="py-8">
+        <PromotionalBanner
+          title="Summer Sale is Here!"
+          description="Get up to 50% off on all summer essentials. Limited time offer, shop now and save big!"
+          ctaText="Shop Now"
+          // onCtaClick={() => console.log('CTA clicked')}
+        />
+      </div>
 
       {/* More categories */}
       {categories?.map((category: Category) => {
@@ -65,7 +75,7 @@ export default async function Home() {
         );
       })}
 
-      {/* <ArenaGrid/> */}
+      <TrendingDeals categories={categoriesData} />
     </div>
   );
 }

@@ -21,7 +21,6 @@ export default function HeroCarousel({ banners }: IProps) {
   return (
     <Carousel
       autoplay
-      autoplayReverse
       showArrows
       keyboard={false}
       title="Bdyana | Your one stop Shop"

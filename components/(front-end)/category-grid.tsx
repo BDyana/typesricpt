@@ -18,13 +18,13 @@ export default async function CategoryGrid({ data }: any) {
   const newCategories = selectRandomCategories(categories, 24);
   // console.log(categories);
   return (
-    <div className="bg-white border border-gray-300 rounded-sm dark:bg-gray-700 dark:border-gray-700 text-slate-800 overflow-hidden mb-4">
-      <div className="dark:bg-gray-800 pt-2 pl-2 text-slate-800 dark:text-slate-100 flex justify-between items-center border-b border-gray-200 dark:border-gray-600">
-        <h2 className="pl-3 pb-2 pt-0.5 font-semibold text-slate-800 dark:text-slate-100">
+    <div className="border rounded-sm text-slate-800 overflow-hidden mb-4">
+      <div className="pt-2 pl-2 text-slate-800 flex justify-between items-center border-b border-gray-200">
+        <h2 className="pl-3 pb-2 pt-0.5 font-semibold text-slate-800">
           Shop By Category
         </h2>
         <Link
-          className="duration-300 transition-all text-slate-800 dark:text-slate-100 rounded-md px-4 flex gap-3 items-center"
+          className="duration-300 transition-all text-slate-800 rounded-md px-4 flex gap-3 items-center"
           href={`/category`}
         >
           View All
@@ -38,7 +38,7 @@ export default async function CategoryGrid({ data }: any) {
               <Link
                 key={category.id}
                 href={`/category/${category.slug}`}
-                className="gap-3 hover:bg-brandColor/10 duration-300 transition-all dark:text-slate-300  rounded-sm pt-3 pb-2 lg:pt-3.5 lg:pb-2.5"
+                className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-3.5 lg:pb-2.5"
               >
                 <Image
                   width={500}

@@ -71,11 +71,14 @@ export async function updateCategoryById(id: string, data: CategoryProps) {
     console.log(error);
   }
 }
-export async function getCategoryById(id: string) {
+export async function getCategoryBySlug(id: string) {
   try {
     const category = await db.category.findUnique({
       where: {
         id,
+      },
+      include: {
+        products: true,
       },
     });
     return category;

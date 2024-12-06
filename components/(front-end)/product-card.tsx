@@ -32,11 +32,11 @@ export default function ProductCard({ product }: { product: IProduct }) {
     toast.success('Product added Successfully');
   }
   const progress = (product.productLeft / product.productStock) * 100;
-  console.log(progress);
+  // console.log(progress);
 
   return (
     <div className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow">
-      <Link href={`/products/${product.slug}`}>
+      <Link href={`/product/${product.slug}`}>
         <div className="overflow-hidden">
           <Image
             src={product.imageUrl}
@@ -48,7 +48,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
         </div>
       </Link>
       <div className="px-1 lg:px-2">
-        <Link href={`/products/${product.slug}`}>
+        <Link href={`/product/${product.slug}`}>
           <h4 className="lg:text-sm text-xs dark:text-slate-200 text-slate-900 my-2 line-clamp-2">
             {product.title}
           </h4>

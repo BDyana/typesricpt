@@ -5,8 +5,8 @@ interface CartItem {
   id: string;
   title: string;
   salePrice: number;
-  qty: number;
-  imageUrl: string;
+  qty: number | null;
+  imageUrl: string | null;
   vendorId: string;
 }
 
@@ -26,11 +26,11 @@ const cartSlice = createSlice({
     addToCart: (state, action: PayloadAction<CartItem>) => {
       const { id, title, salePrice, imageUrl, vendorId } = action.payload;
       // Check if the item already exists in the cart
-      const existingItem = state.find((item) => item.id === id);
+      const existingItem = state?.find((item) => item.id === id);
 
       if (existingItem) {
         // If the item exists, update the quantity
-        existingItem.qty += 1;
+        existingItem.qty = (existingItem.qty ?? 0) + 1;
       } else {
         // If the item doesn't exist, add it to the cart
         const newItem: CartItem = {
@@ -61,11 +61,9 @@ const cartSlice = createSlice({
       return newState;
     },
     incrementQty: (state, action: PayloadAction<string>) => {
-      const cartId = action.payload;
-      const cartItem = state.find((item) => item.id === cartId);
-
+      const cartItem = state.find((item) => item.id === action.payload);
       if (cartItem) {
-        cartItem.qty += 1;
+        cartItem.qty = (cartItem.qty ?? 0) + 1;
         // Update localStorage with the new state
         if (typeof window !== 'undefined') {
           localStorage.setItem('cart', JSON.stringify(state));
@@ -73,10 +71,8 @@ const cartSlice = createSlice({
       }
     },
     decrementQty: (state, action: PayloadAction<string>) => {
-      const cartId = action.payload;
-      const cartItem = state.find((item) => item.id === cartId);
-
-      if (cartItem && cartItem.qty > 1) {
+      const cartItem = state.find((item) => item.id === action.payload);
+      if (cartItem && cartItem.qty && cartItem.qty > 1) {
         cartItem.qty -= 1;
         // Update localStorage with the new state
         if (typeof window !== 'undefined') {

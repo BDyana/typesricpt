@@ -20,3 +20,16 @@ export const getLatestProducts = async (pageSize: number) => {
     throw new Error('Error while fetching lastest products');
   }
 };
+
+export async function getProductBySlug(slug: string) {
+  try {
+    const product = await db.product.findUnique({
+      where: {
+        slug,
+      },
+    });
+    return product;
+  } catch (error) {
+    console.log(error);
+  }
+}

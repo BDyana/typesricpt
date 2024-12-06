@@ -7,7 +7,7 @@ import 'react-multi-carousel/lib/styles.css';
 
 interface IProps {
   products: any;
-  isMarketPage: boolean;
+  isMarketPage?: boolean;
 }
 
 export default function CategoryCarousel({
