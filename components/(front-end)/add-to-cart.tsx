@@ -10,8 +10,7 @@ import { addToCart } from '@/redux/slices/cart';
 import { cn } from '@/lib/utils';
 
 interface IProps {
-  product: Product;
-
+  product: Product | null;
   className?: string;
 }
 
@@ -20,14 +19,23 @@ export default function AddToCartButton({ product, className }: IProps) {
     fbq.event('Purchase', { currency: 'USD', value: 10 });
   };
   const dispatch = useDispatch();
+
+  // const { addItemToCart } = useCart();
   function handleAddToCart() {
     // Transforming product to match CartItem interface
     const cartItem = {
-      ...product,
-      vendorId: product.userId, // Assuming userId is the equivalent of vendorId
+      id: product?.id,
+      slug: product?.slug,
+      title: product?.title,
+      salePrice: product?.salePrice,
+      qty: product?.qty,
+      imageUrl: product?.imageUrl,
+      vendorId: product?.userId, // Assuming userId is the equivalent of vendorId
     };
-    dispatch(addToCart(cartItem));
-    toast.success('Item added Successfully');
+
+    // addItemToCart(cartItem);
+    dispatch(addToCart(cartItem as any));
+    toast.success('Product added Successfully');
   }
   return (
     <button

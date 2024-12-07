@@ -119,7 +119,7 @@ export default function Modal({ product, category }: ProductModalProps) {
             <div className="mt-6">
               <span className="text-sm text-gray-500">BDT</span>
               <span className="text-5xl font-light text-gray-800 ml-1">
-                {product.productPrice}
+                {product.salePrice}
               </span>
             </div>
 

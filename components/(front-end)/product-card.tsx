@@ -19,19 +19,33 @@ interface IProduct {
   description: string;
   slug: string;
   productLeft: any;
+  userId: string;
+  id: string;
+  qty: any;
 }
 export default function ProductCard({ product }: { product: IProduct }) {
   const handleClick = () => {
     fbq.event('Purchase', { currency: 'USD', value: 10 });
   };
-
   const dispatch = useDispatch();
+
+  // const { addItemToCart } = useCart();
   function handleAddToCart() {
-    // Dispatch the reducer
-    dispatch(addToCart(product as any));
+    // Transforming product to match CartItem interface
+    const cartItem = {
+      id: product?.id,
+      slug: product?.slug,
+      title: product?.title,
+      salePrice: product?.salePrice,
+      qty: product?.qty,
+      imageUrl: product?.imageUrl,
+      vendorId: product?.userId, // Assuming userId is the equivalent of vendorId
+    };
+
+    // addItemToCart(cartItem);
+    dispatch(addToCart(cartItem as any));
     toast.success('Product added Successfully');
   }
-  const progress = (product.productLeft / product.productStock) * 100;
   // console.log(progress);
 
   return (
