@@ -1,4 +1,3 @@
-import { Product } from '@prisma/client';
 import { getProductBySlug } from '@/actions/products';
 import { getCategoryBySlug } from '@/actions/categories';
 import ProductView from '@/components/(front-end)/product-view';

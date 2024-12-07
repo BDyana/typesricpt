@@ -1,6 +1,8 @@
-import { CONTACT_INFO } from '@/constants/contacts';
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
+import { CONTACT_INFO } from '@/constants/contacts';
+import { siteConfig } from '@/constants/site';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -8,7 +10,13 @@ export default function Footer() {
       <div className="px-4 mx-auto sm:px-6  lg:px-0 max-w-6xl">
         <div className="grid grid-cols-2 md:col-span-3 lg:grid-cols-6 gap-y-8 lg:gap-y-16 gap-x-12">
           <div className="col-span-2 md:col-span-3 lg:col-span-2 lg:pr-8">
-            <img className="w-auto h-9" src="/Logo.png" alt="" />
+            <Image
+              width={200}
+              height={200}
+              className="w-auto h-9"
+              src={siteConfig.logo}
+              alt={siteConfig.description}
+            />
             <p className="lg:text-base text-sm leading-relaxed text-gray-600 my-3 lg:mt-7">
               Best Online E-Commerce Website in Bangladesh. You can Buy your
               Essential Products with Best Price. Happy Shopping...
@@ -21,7 +29,7 @@ export default function Footer() {
                 <Link
                   href="https://www.facebook.com/BDyana.com.bd"
                   title=""
-                  className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
                 >
                   <svg
                     className="w-4 h-4"
@@ -37,7 +45,7 @@ export default function Footer() {
                 <Link
                   href="#"
                   title=""
-                  className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
                 >
                   <svg
                     className="w-4 h-4"
@@ -53,7 +61,7 @@ export default function Footer() {
                 <Link
                   href="#"
                   title=""
-                  className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
                 >
                   <svg
                     className="w-4 h-4"
@@ -71,7 +79,7 @@ export default function Footer() {
                 <Link
                   href="#"
                   title=""
-                  className="flex items-center justify-center text-white transition-all duration-200 bg-gray-800 rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
                 >
                   <svg
                     className="w-4 h-4"
@@ -90,7 +98,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">
+            <p className="text-sm font-semibold tracking-widest text-brandBlack uppercase">
               Company
             </p>
             <ul className="mt-4 lg:mt-6 lg:space-y-4 space-y-2">
@@ -133,7 +141,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">
+            <p className="text-sm font-semibold tracking-widest text-brandBlack uppercase">
               Help
             </p>
             <ul className="mt-4 lg:mt-6 lg:space-y-4 space-y-2">
@@ -168,7 +176,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="col-span-2 md:col-span-1 lg:col-span-2 lg:pl-8">
-            <p className="text-sm font-semibold tracking-widest text-gray-400 uppercase">
+            <p className="text-sm font-semibold tracking-widest text-brandBlack uppercase">
               Subscribe to newsletter
             </p>
             <form action="#" method="POST" className="mt-4 lg:mt-6 flex gap-2">
@@ -186,7 +194,7 @@ export default function Footer() {
               </div>
               <button
                 type="submit"
-                className="items-center justify-center px-3 py-2 font-semibold bg-gray-700 hover:bg-gray-900 text-white transition-all duration-200 rounded-md focus:bg-blue-700"
+                className="items-center justify-center px-3 py-2 font-semibold bg-brandBlack hover:bg-gray-900 text-white transition-all duration-200 rounded-md focus:bg-blue-700"
               >
                 Subscribe
               </button>
@@ -195,7 +203,7 @@ export default function Footer() {
         </div>
         <hr className="mt-6 mb-4 lg:mt-12 lg:mb-5 border-gray-200" />
         <p className="text-sm text-center text-gray-600">
-          © Copyright 2024, All Rights Reserved by <b>BDyana</b>
+          © Copyright 2024, All Rights Reserved by <b>{siteConfig.name}</b>
         </p>
       </div>
     </section>

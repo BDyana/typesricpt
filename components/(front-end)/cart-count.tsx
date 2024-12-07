@@ -3,9 +3,18 @@
 import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
 import { useAppSelector } from '@/redux/hooks/hooks';
+import { useCart } from '@/redux/slices/cart';
+import { useEffect, useState } from 'react';
 
 export default function CartCount() {
-  const cartItems = useAppSelector((state) => state.cart);
+  const { cart } = useCart();
+
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    setCartCount(cart?.length || 0);
+  }, [cart]);
+
   return (
     <Link
       href="/cart"
@@ -14,7 +23,7 @@ export default function CartCount() {
       <ShoppingCart className="text-slate-700 dark:text-lime-500" />
       <span className="sr-only">Cart</span>
       <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-brandColor shadow-md rounded-full -top-1 right-0 dark:border-gray-900">
-        {cartItems?.length}
+        {cartCount}
       </div>
     </Link>
   );

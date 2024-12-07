@@ -1,14 +1,15 @@
 'use client';
-import { PhoneCall, User } from 'lucide-react';
-import Image from 'next/image';
+
 import Link from 'next/link';
-import logo from '../../public/Logo.png';
+import Image from 'next/image';
 import Loader from '../loader';
-import SearchForm from '../forms/search-from';
-import { CONTACT_INFO } from '@/constants/contacts';
 import CartCount from './cart-count';
 import UserAvatar from '../user-avatar';
 import Announcement from '../announcement';
+import SearchForm from '../forms/search-from';
+import { siteConfig } from '@/constants/site';
+import { PhoneCall, User } from 'lucide-react';
+import { CONTACT_INFO } from '@/constants/contacts';
 // import ThemeSwitcherBtn from '../ThemeSwitcherBtn';
 // import CartCount from './CartCount';
 // import ContactInfo from './ContactInfo';
@@ -34,7 +35,7 @@ export default function Navbar({ session, status }: NavBarProps) {
           {/* Logo */}
           <Link className="" href="/">
             <Image
-              src={logo}
+              src={siteConfig.logo}
               alt="Bdyana Logo | Your one shop stock center"
               width={400}
               height={400}
@@ -67,6 +68,7 @@ export default function Navbar({ session, status }: NavBarProps) {
               {status == undefined && (
                 <Link
                   href="/login"
+                  prefetch={true}
                   className="flex ml-2 items-center space-x-1 justify-center gap-2s whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2 lg:px-8 text-green-950 dark:text-slate-100"
                 >
                   <User />

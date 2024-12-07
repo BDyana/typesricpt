@@ -1,4 +1,7 @@
+'use client';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
 // Define the type for an individual cart item
 interface CartItem {
@@ -13,75 +16,103 @@ interface CartItem {
 // Define the type for the cart state (array of cart items)
 type CartState = CartItem[];
 
-// Get initial state from localStorage if available
-const initialState: CartState =
-  (typeof window !== 'undefined' &&
-    JSON.parse(localStorage.getItem('cart') || '[]')) ||
-  [];
-
 const cartSlice = createSlice({
   name: 'cart',
-  initialState,
+  initialState: [], // Start with an empty array
   reducers: {
     addToCart: (state, action: PayloadAction<CartItem>) => {
       const { id, title, salePrice, imageUrl, vendorId } = action.payload;
+
       // Check if the item already exists in the cart
-      const existingItem = state?.find((item) => item.id === id);
+      const existingItem: any = state?.find((item: CartItem) => item.id === id);
 
       if (existingItem) {
         // If the item exists, update the quantity
         existingItem.qty = (existingItem.qty ?? 0) + 1;
       } else {
         // If the item doesn't exist, add it to the cart
-        const newItem: CartItem = {
+        const newItem = {
           id,
           title,
           salePrice,
           qty: 1,
           imageUrl,
           vendorId,
-        };
+        } as never;
         state.push(newItem);
       }
 
-      // Update localStorage with the new state
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('cart', JSON.stringify(state));
-      }
+      return state;
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
       const cartId = action.payload;
-      const newState = state.filter((item) => item.id !== cartId);
-
-      // Update localStorage with the new state
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('cart', JSON.stringify(newState));
-      }
-
-      return newState;
+      return state.filter((item: any) => item.id !== cartId);
     },
     incrementQty: (state, action: PayloadAction<string>) => {
-      const cartItem = state.find((item) => item.id === action.payload);
+      const cartItem: any = state.find(
+        (item: any) => item.id === action.payload,
+      );
       if (cartItem) {
         cartItem.qty = (cartItem.qty ?? 0) + 1;
-        // Update localStorage with the new state
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('cart', JSON.stringify(state));
-        }
       }
+      return state;
     },
     decrementQty: (state, action: PayloadAction<string>) => {
-      const cartItem = state.find((item) => item.id === action.payload);
+      const cartItem: any = state.find(
+        (item: any) => item.id === action.payload,
+      );
       if (cartItem && cartItem.qty && cartItem.qty > 1) {
         cartItem.qty -= 1;
-        // Update localStorage with the new state
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('cart', JSON.stringify(state));
-        }
       }
+      return state;
     },
   },
 });
+
+// Custom hook to manage cart with localStorage
+export const useCart = () => {
+  const [cart, setCart] = useLocalStorage<CartItem[]>('cart', []);
+  const dispatch = useDispatch();
+
+  // Wrapper functions that sync Redux and localStorage
+  const addItemToCart = (item: CartItem) => {
+    dispatch(addToCart(item));
+    setCart([...cart, item]);
+  };
+
+  const removeItemFromCart = (id: string) => {
+    dispatch(removeFromCart(id));
+    setCart(cart.filter((item) => item.id !== id));
+  };
+
+  const incrementItemQty = (id: string) => {
+    dispatch(incrementQty(id));
+    setCart(
+      cart.map((item) =>
+        item.id === id ? { ...item, qty: (item.qty ?? 0) + 1 } : item,
+      ),
+    );
+  };
+
+  const decrementItemQty = (id: string) => {
+    dispatch(decrementQty(id));
+    setCart(
+      cart.map((item) =>
+        item.id === id && item.qty && item.qty > 1
+          ? { ...item, qty: item.qty - 1 }
+          : item,
+      ),
+    );
+  };
+
+  return {
+    cart,
+    addItemToCart,
+    removeItemFromCart,
+    incrementItemQty,
+    decrementItemQty,
+  };
+};
 
 // Export actions and reducer
 export const { addToCart, removeFromCart, incrementQty, decrementQty } =

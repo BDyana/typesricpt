@@ -24,7 +24,7 @@ export default function TrendingDeals({ categories }: IProps) {
                 href={`${category.slug}`}
                 className="group relative overflow-hidden rounded-lg"
               >
-                <div className="aspect-[3/4] w-full">
+                <div className="aspect-[3/4] relative w-full">
                   <Image
                     src={category.imageUrl as string}
                     alt={category.title}

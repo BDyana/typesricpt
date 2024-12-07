@@ -1,22 +1,38 @@
-import Image from 'next/image';
+'use client';
+
 import Link from 'next/link';
-import React from 'react';
+import Image from 'next/image';
 import { MoveRight } from 'lucide-react';
 import { Category } from '@prisma/client';
+import React, { useState, useEffect } from 'react';
 
-export default async function CategoryGrid({ data }: any) {
-  const categories = data?.filter(
-    (category: any) => category.products.length > 0,
-  );
+interface IProps {
+  data: (Category & { products: any[] })[] | null | undefined;
+}
 
-  const selectRandomCategories = (categories: any, count: number) => {
-    let shuffled = categories?.sort(() => 0.5 - Math.random());
+export default function CategoryGrid({ data }: IProps) {
+  const [categories, setCategories] = useState<Category[]>([]);
 
-    return shuffled?.slice(0, count);
-  };
+  useEffect(() => {
+    // Client-side logic to filter and randomize categories
+    if (data) {
+      const filteredCategories = data.filter(
+        (category: Category) => category.products.length > 0,
+      );
 
-  const newCategories = selectRandomCategories(categories, 24);
-  // console.log(categories);
+      // Create a stable random sort using a seed
+      const shuffled = filteredCategories.sort(() => 0.5 - Math.random());
+      const randomCategories = shuffled.slice(0, 24);
+
+      setCategories(randomCategories);
+    }
+  }, [data]);
+
+  // Render nothing on initial server render
+  if (typeof window === 'undefined' || categories.length === 0) {
+    return null;
+  }
+
   return (
     <div className="border rounded-sm text-slate-800 overflow-hidden mb-4">
       <div className="pt-2 pl-2 text-slate-800 flex justify-between items-center border-b border-gray-200">
@@ -32,25 +48,22 @@ export default async function CategoryGrid({ data }: any) {
         </Link>
       </div>
       <div className="grid lg:grid-cols-8 grid-cols-4 text-center items-center gap-1 lg:px-2 lg:py-2 py-3">
-        {newCategories?.length > 0 &&
-          newCategories.map((category: Category) => {
-            return (
-              <Link
-                key={category.id}
-                href={`/category/${category.slug}`}
-                className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-3.5 lg:pb-2.5"
-              >
-                <Image
-                  width={500}
-                  height={500}
-                  className="lg:w-14 w-11 lg:h-14 h-11 rounded-lg object-cover m-auto"
-                  src={category.imageUrl as string}
-                  alt={category.slug}
-                />
-                <p className="mt-2.5 line-clamp-1">{category.title}</p>
-              </Link>
-            );
-          })}
+        {categories.map((category: Category) => (
+          <Link
+            key={category.id}
+            href={`/category/${category.slug}`}
+            className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-3.5 lg:pb-2.5"
+          >
+            <Image
+              width={500}
+              height={500}
+              className="lg:w-14 w-11 lg:h-14 h-11 rounded-lg object-cover m-auto"
+              src={category.imageUrl as string}
+              alt={category.title}
+            />
+            <p className="mt-2.5 line-clamp-1">{category.title}</p>
+          </Link>
+        ))}
       </div>
     </div>
   );
