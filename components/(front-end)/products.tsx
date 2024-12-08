@@ -17,7 +17,7 @@ export default function Products({
   description,
   products,
   buttonTitle = 'View All',
-  className = 'lg:grid-cols-7',
+  className = 'lg:grid-cols-6',
 }: IProps) {
   return (
     <div className="lg:pt-8 pt-6 pb-4">

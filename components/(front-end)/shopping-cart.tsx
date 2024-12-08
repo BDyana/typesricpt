@@ -21,9 +21,6 @@ export default function ShoppingCart({ products }: IProps) {
   const cartItems = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
-  // const cartItems = cart;
-  const base_url = process.env.NEXTAUTH_URL as string;
-
   const subTotal =
     cartItems
       .reduce((acc, currentItem) => {
@@ -216,8 +213,9 @@ export default function ShoppingCart({ products }: IProps) {
 
             <Link
               href="/checkout"
+              prefetch={true}
               title="Proceed to checkout"
-              className="flex bg-brandColor w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="flex bg-brandColor w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-brandBlack dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
               Proceed to Checkout
             </Link>

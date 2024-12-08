@@ -1,14 +1,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Category } from '@prisma/client';
+import { cn } from '@/lib/utils';
 
 interface IProps {
   categories: (Category & { products: any[] })[] | null | undefined;
+  className: string;
 }
-export default function TrendingDeals({ categories }: IProps) {
+export default function TrendingDeals({
+  categories,
+  className = 'bg-green-600',
+}: IProps) {
   return (
     <div className="w-full bg-white">
-      <div className="w-full bg-green-600 shadow-md py-4">
+      <div className={cn('w-full shadow-md py-4', className)}>
         <h2 className="text-center text-xl font-bold text-white">
           Trending Deals
         </h2>

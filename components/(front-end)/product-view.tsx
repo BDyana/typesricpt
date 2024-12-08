@@ -52,7 +52,7 @@ export default function ProductView({ product, category }: IProps) {
                   Cateogory :{' '}
                   <Link
                     className="text-brandColor"
-                    href={`/category/${category?.slug}`}
+                    href={`/categories/${category?.slug}`}
                   >
                     {category?.title}
                   </Link>

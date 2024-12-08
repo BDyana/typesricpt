@@ -36,7 +36,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="https://www.bdyana.com/project/garments-accessories"
+              href="/categories/garments-accessories"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Building2 className="text-slate-500" size={16} />
@@ -47,7 +47,7 @@ export default async function SidebarMenu() {
               <h3 className="mb-1">Thread/Yarn</h3>
               <li className="py-1">
                 <Link
-                  href="https://www.bdyana.com/category/wool-thread"
+                  href="/categories/wool-thread"
                   className="hover:text-black transition-all"
                 >
                   Wool Thread
@@ -71,7 +71,7 @@ export default async function SidebarMenu() {
               <li className="py-0.5">
                 <Link
                   className="hover:text-black transition-all"
-                  href="https://www.bdyana.com/category/lacchi-suta"
+                  href="/categories/lacchi-suta"
                 >
                   Lacchi Thread
                 </Link>
@@ -80,7 +80,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/computer-hardware"
+              href="/project/computer-hardware"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Laptop className="text-slate-500" size={16} />
@@ -89,7 +89,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/gadget-accessories"
+              href="/project/gadget-accessories"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Cpu className="text-slate-500" size={16} />
@@ -98,7 +98,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/mens-fashion"
+              href="/project/mens-fashion"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Luggage className="text-slate-500" size={16} />
@@ -107,7 +107,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="https://www.bdyana.com/project/womens-girls-fashion"
+              href="/project/womens-girls-fashion"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <BookHeart className="text-slate-500" size={16} />
@@ -139,7 +139,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="https://www.bdyana.com/project/mothers-kids"
+              href="/project/mothers-kids"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <PawPrint className="text-slate-500" size={16} />
@@ -151,7 +151,7 @@ export default async function SidebarMenu() {
               <li className="py-1 hover:text-blue-700">
                 <Link
                   className="hover:text-blue-700"
-                  href="https://www.bdyana.com/category/lactogen"
+                  href="/categories/lactogen"
                 >
                   Lactogen
                 </Link>
@@ -159,7 +159,7 @@ export default async function SidebarMenu() {
               <li className="py-1 hover:text-blue-700">
                 <Link
                   className="hover:text-blue-700"
-                  href="https://www.bdyana.com/category/cerelac"
+                  href="/categories/cerelac"
                 >
                   Cerelac
                 </Link>
@@ -168,7 +168,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/grocery-beverage"
+              href="/project/grocery-beverage"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <ShoppingBasket className="text-slate-500" size={16} />
@@ -177,7 +177,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/home-appliance"
+              href="/project/home-appliance"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Microwave className="text-slate-500" size={16} />
@@ -186,7 +186,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/electronics-device"
+              href="/project/electronics-device"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Cable className="text-slate-500" size={16} />
@@ -195,7 +195,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/sports-entertainment"
+              href="/project/sports-entertainment"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Trophy className="text-slate-500" size={16} />
@@ -204,7 +204,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="https://www.bdyana.com/category"
+              href="/categories"
               target="_blank"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all text-slate-800"
             >

@@ -23,14 +23,13 @@ export default function CustomText({
   type = 'text',
   placeholder,
   page,
-  className = 'col-span-full',
+  className = 'col-span-full text-white',
 }: TextInputProps) {
   return (
     <div className={cn('grid gap-2', className)}>
       {type === 'password' && page === 'login' ? (
         <div className="flex items-center">
-          <Label htmlFor={`${name}`} className="dark:text-orangeB">
-            {' '}
+          <Label htmlFor={`${name}`} className="">
             {label}
           </Label>
           <Link
@@ -41,7 +40,7 @@ export default function CustomText({
           </Link>
         </div>
       ) : (
-        <Label className="text-sm font-medium text-white" htmlFor={`${name}`}>
+        <Label className="text-sm font-medium" htmlFor={`${name}`}>
           {' '}
           {label}
         </Label>
@@ -54,7 +53,7 @@ export default function CustomText({
         type={type}
         autoComplete="name"
         placeholder={placeholder ? placeholder : ''}
-        className="bg-transparent border-brandBorder text-white"
+        className="bg-transparent border-brandBorder"
       />
       {errors[`${name}`] && (
         <span className="text-red-600  text-sm">{label} is required</span>

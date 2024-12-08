@@ -8,23 +8,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { LayoutDashboard, LogOut, Settings } from 'lucide-react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-// import { signOut } from "next-auth/react";
 import { generateInitials } from '@/lib/generateInitials';
+import { LayoutDashboard, LogOut, Settings } from 'lucide-react';
+import { signOut } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function UserAvatar({ user }: any) {
-  // const { name, image } = user;
   const name = user?.name;
   const image = user?.image;
+
+  // console.log('image,', image);
   const initials = generateInitials(name ? (name as string) : 'Uncle Moses');
   const role = user?.role;
-  const router = useRouter();
   async function handleLogout() {
-    // await signOut();
-    router.push('/');
+    await signOut({ callbackUrl: '/' });
+    // router.push('/');
+    location.reload();
   }
   return (
     <DropdownMenu>
@@ -33,7 +33,7 @@ export default function UserAvatar({ user }: any) {
           <>
             {image ? (
               <Image
-                src="/profile.JPG"
+                src={user.image ? user.image : '/profile.JPG'}
                 alt="User profile"
                 width={200}
                 height={200}

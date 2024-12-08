@@ -10,10 +10,7 @@ import SearchForm from '../forms/search-from';
 import { siteConfig } from '@/constants/site';
 import { PhoneCall, User } from 'lucide-react';
 import { CONTACT_INFO } from '@/constants/contacts';
-// import ThemeSwitcherBtn from '../ThemeSwitcherBtn';
-// import CartCount from './CartCount';
-// import ContactInfo from './ContactInfo';
-// import SearchForm from './SearchForm';
+import { useSession } from 'next-auth/react';
 
 interface NavBarProps {
   // session: Session | null;
@@ -21,8 +18,9 @@ interface NavBarProps {
   status?: any;
 }
 
-export default function Navbar({ session, status }: NavBarProps) {
-  // console.log(`Session:`, session);
+export default function Navbar() {
+  const { data: session, status } = useSession();
+
   if (status === 'loading') {
     return <Loader />;
   }
@@ -65,7 +63,7 @@ export default function Navbar({ session, status }: NavBarProps) {
           <div>
             <div className="flex items-center gap-1 lg:gap-2 ml-2">
               <CartCount />
-              {status == undefined && (
+              {status == 'unauthenticated' && (
                 <Link
                   href="/login"
                   prefetch={true}

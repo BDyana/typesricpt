@@ -41,7 +41,7 @@ export default function CategoryGrid({ data }: IProps) {
         </h2>
         <Link
           className="duration-300 transition-all text-slate-800 rounded-md px-4 flex gap-3 items-center"
-          href={`/category`}
+          href={`/categories`}
         >
           View All
           <MoveRight size={32} strokeWidth={1.5} />
@@ -51,7 +51,7 @@ export default function CategoryGrid({ data }: IProps) {
         {categories.map((category: Category) => (
           <Link
             key={category.id}
-            href={`/category/${category.slug}`}
+            href={`/categories/${category.slug}`}
             className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-3.5 lg:pb-2.5"
           >
             <Image

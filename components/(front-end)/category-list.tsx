@@ -38,7 +38,7 @@ export default function CategoryList({
         <h2>{category.title}</h2>
         <Link
           className="duration-300 transition-all text-slate-800  rounded-md px-4"
-          href={`/category/${category.slug}`}
+          href={`/categories/${category.slug}`}
         >
           <MoveRight className="size-8 text-white" strokeWidth={1.5} />
         </Link>

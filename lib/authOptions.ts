@@ -44,12 +44,14 @@ export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       profile(profile) {
+        console.log('Profile', profile);
         return {
           id: profile.sub,
           name: `${profile.given_name} ${profile.family_name}`,
           email: profile.email,
           role: 'USER',
           emailVerified: profile.email_verified,
+          image: profile.picture,
         };
       },
       clientId: process.env.GOOGLE_CLIENT_ID || '',
@@ -104,7 +106,6 @@ export const authOptions: NextAuthOptions = {
             email: existingUser.email,
             role: existingUser.role,
             status: existingUser.status,
-            // image: existingUser.image,
             emailVerified: existingUser.emailVerified,
           };
           //
@@ -132,7 +133,7 @@ export const authOptions: NextAuthOptions = {
         token.email = user.email;
         token.role = user.role;
         token.status = user.status;
-        token.image = user.picture;
+        token.image = user.image;
         token.emailVerified = user.emailVerified;
       }
       return token;
@@ -145,10 +146,13 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email;
         session.user.role = token.role;
         session.user.status = token.status;
-        session.user.image = token.picture;
+        session.user.image = token.image;
         session.user.emailVerified = token.emailVerified;
       }
-      return session;
+      return {
+        ...session,
+        user: session.user || {},
+      };
     },
   },
 };
