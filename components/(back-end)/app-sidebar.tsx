@@ -6,12 +6,19 @@ import {
   Bot,
   Command,
   Frame,
+  Headset,
+  ImageIcon,
   LifeBuoy,
+  List,
   Map,
+  Package,
   PieChart,
   Send,
   Settings2,
   SquareTerminal,
+  Tag,
+  Users,
+  UsersRound,
 } from 'lucide-react';
 
 import { NavMain } from '@/components/(back-end)/nav-main';
@@ -36,87 +43,53 @@ const data = {
   },
   navMain: [
     {
-      title: 'Playground',
+      title: 'Catalogue',
       url: '#',
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: 'History',
-          url: '#',
+          title: 'Products',
+          url: '/dashboard/products',
+          icon: Package,
         },
         {
-          title: 'Starred',
-          url: '#',
+          title: 'Categories',
+          url: '/dashboard/categories',
+          icon: List,
         },
         {
-          title: 'Settings',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Models',
-      url: '#',
-      icon: Bot,
-      items: [
-        {
-          title: 'Genesis',
-          url: '#',
+          title: 'Coupons',
+          url: '/dashboard/coupons',
+          icon: Tag,
         },
         {
-          title: 'Explorer',
-          url: '#',
-        },
-        {
-          title: 'Quantum',
-          url: '#',
+          title: 'Store Banners',
+          url: '/dashboard/store-banners',
+          icon: ImageIcon,
         },
       ],
     },
     {
-      title: 'Documentation',
+      title: 'People',
       url: '#',
-      icon: BookOpen,
+      icon: SquareTerminal,
+      isActive: true,
       items: [
         {
-          title: 'Introduction',
-          url: '#',
+          title: 'Customers',
+          url: '/dashboard/customers',
+          icon: Users,
         },
         {
-          title: 'Get Started',
-          url: '#',
+          title: 'Farmers',
+          url: '/dashboard/farmers',
+          icon: UsersRound,
         },
         {
-          title: 'Tutorials',
-          url: '#',
-        },
-        {
-          title: 'Changelog',
-          url: '#',
-        },
-      ],
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings2,
-      items: [
-        {
-          title: 'General',
-          url: '#',
-        },
-        {
-          title: 'Team',
-          url: '#',
-        },
-        {
-          title: 'Billing',
-          url: '#',
-        },
-        {
-          title: 'Limits',
-          url: '#',
+          title: 'Our Staff',
+          url: '/dashboard/our-staff',
+          icon: Headset,
         },
       ],
     },
@@ -135,7 +108,7 @@ const data = {
   ],
   projects: [
     {
-      name: 'Design Engineering',
+      name: 'Customers',
       url: '#',
       icon: Frame,
     },
