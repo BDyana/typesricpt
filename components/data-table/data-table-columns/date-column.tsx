@@ -62,5 +62,5 @@ export default function DateColumn({
   const year = originalDate.getFullYear();
   const time = timeAgo(createdAt);
   const pastDays = getPastDays(createdAt);
-  return <div className="">{pastDays > 10 ? date : time}</div>;
+  return <div className="w-full">{pastDays > 10 ? date : time}</div>;
 }

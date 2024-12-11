@@ -34,27 +34,52 @@ export const columns: ColumnDef<any>[] = [
     accessorKey: 'title',
     header: ({ column }) => <SortableColumn column={column} title="Title" />,
   },
+
+  {
+    accessorKey: 'isActive',
+    header: ({ column }) => (
+      <SortableColumn column={column} title="Product Status" />
+    ),
+    cell: ({ row }) => (
+      <span className="text-center">
+        {row.original.isActive ? 'Active' : 'Draft'}
+      </span>
+    ),
+  },
+  {
+    accessorKey: 'productPrice',
+    header: ({ column }) => (
+      <SortableColumn column={column} title="Product Price" />
+    ),
+    cell: ({ row }) => (
+      <span className="text-center">
+        <span className="font-bold">$</span>
+        {Number(row.original.productPrice).toLocaleString()}
+      </span>
+    ),
+  },
+
   {
     accessorKey: 'imageUrl',
-    header: 'Category Image',
+    header: 'Image',
     cell: ({ row }) => <ImageColumn row={row} accessorKey="imageUrl" />,
   },
 
   {
     accessorKey: 'createdAt',
-    header: 'Date Created',
+    header: 'Created',
     cell: ({ row }) => <DateColumn row={row} accessorKey="createdAt" />,
   },
   {
     id: 'actions',
     cell: ({ row }) => {
-      const category = row.original;
+      const product = row.original;
       return (
         <ActionColumn
           row={row}
-          model="category"
-          editEndpoint={`categories/update/${category.id}`}
-          id={category.id}
+          model="product"
+          editEndpoint={`products/update/${product.id}`}
+          id={product.id}
         />
       );
     },

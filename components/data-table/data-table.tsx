@@ -127,7 +127,7 @@ export default function DataTable<TData, TValue>({
 
       <div className="rounded-md border">
         <Table>
-          <TableHeader>
+          <TableHeader className="w-full">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -145,7 +145,7 @@ export default function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="mx-auto text-center w-full">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

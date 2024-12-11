@@ -12,6 +12,7 @@ export default function SortableColumn({
   return (
     <Button
       variant="ghost"
+      className="w-full mx-auto bg-transparent hover:bg-transparent"
       onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
     >
       {title}
