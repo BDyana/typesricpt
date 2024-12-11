@@ -1,5 +1,6 @@
 import { Loader, Plus } from 'lucide-react';
 import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
 
 type SubmitButtonProps = {
   title: string;
@@ -15,7 +16,7 @@ export default function SubmitButton({
   title,
   loadingTitle = 'Saving Please wait...',
   loading,
-  className,
+  className = 'w-full ',
   loaderIcon = Loader,
   buttonIcon = Plus,
   showIcon = true,
@@ -28,7 +29,10 @@ export default function SubmitButton({
       {loading ? (
         <Button
           type="submit"
-          className="w-full py-2 px-4 bg-brandBlack text-white font-semibold rounded-md hover:bg-brandColor transition-all disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className={cn(
+            className,
+            'py-2 px-4 bg-brandBlack text-white font-semibold rounded-md hover:bg-brandColor transition-all disabled:bg-gray-400 disabled:cursor-not-allowed',
+          )}
           disabled={loading}
         >
           <LoaderIcon className="w-4 h-4 animate-spin mr-2" />

@@ -195,3 +195,31 @@ export async function getUsers() {
     };
   }
 }
+
+export async function getFarmers() {
+  try {
+    const users = await db.user.findMany({
+      where: {
+        role: 'FARMER',
+      },
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        // email: true,
+        // role: true,
+        // createdAt: true,
+      },
+    });
+    return {
+      message: 'Farmers fetched successfully',
+      data: users,
+    };
+  } catch (error) {
+    console.error('Fetch farmers error:', error);
+    return {
+      message: 'Failed to fetch farmers',
+      errors: error instanceof Error ? { server: [error.message] } : {},
+    };
+  }
+}

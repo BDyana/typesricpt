@@ -128,3 +128,28 @@ export async function createBulkCategories(categories: CategoryProps[]) {
     console.log(error);
   }
 }
+
+export async function getCategoryBrief() {
+  try {
+    const users = await db.category.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        // email: true,
+        // role: true,
+        // createdAt: true,
+      },
+    });
+    return {
+      message: 'Categories fetched successfully',
+      data: users,
+    };
+  } catch (error) {
+    console.error('Fetch farmers error:', error);
+    return {
+      message: 'Failed to fetch farmers',
+      errors: error instanceof Error ? { server: [error.message] } : {},
+    };
+  }
+}

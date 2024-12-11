@@ -1,6 +1,7 @@
 'use client';
 
 import { deleteCategory } from '@/actions/categories';
+import { deleteProduct } from '@/actions/products';
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -42,6 +43,12 @@ export default function ActionColumn({
     try {
       if (model === 'category') {
         const res = await deleteCategory(id);
+        if (res?.ok) {
+          window.location.reload();
+        }
+        toast.success(`${model} Deleted Successfully`);
+      } else if (model === 'product') {
+        const res = await deleteProduct(id);
         if (res?.ok) {
           window.location.reload();
         }

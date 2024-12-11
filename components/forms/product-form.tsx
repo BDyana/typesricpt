@@ -20,8 +20,8 @@ import { Textarea } from '@/components/ui/textarea';
 
 import MultipleImageInput from '../re-usable-inputs/multiple-image-input';
 
-import { createProduct } from '@/actions/products';
-import { Loader2 } from 'lucide-react';
+import { createProduct, updateProduct } from '@/actions/products';
+import { Loader } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -37,6 +37,7 @@ import {
   FormLabel,
 } from '../ui/form';
 import FormHeader from './form-header';
+import SubmitButton from './submit-button';
 const QuillEditor = dynamic(
   () => import('@/components/re-usable-inputs/quill-editor'),
   {
@@ -48,15 +49,21 @@ export default function ProductForm({
   categories,
   farmers,
   initialData,
-  updateData = {},
+  editingId,
 }: any) {
-  const initialContent = updateData?.content ?? '';
-  const initialImageUrl = updateData?.imageUrl ?? '';
-  const initialTags = updateData?.tags ?? '';
-  const id = updateData?.id ?? '';
+  const initialContent = initialData?.content ?? '';
+  const initialImageUrl = initialData?.imageUrl ?? '';
+  const initialTags = Array.isArray(initialData?.tags)
+    ? initialData.tags.join(', ')
+    : (initialData?.tags ?? '');
+  const id = initialData?.id ?? '';
   const [tags, setTags] = useState(initialTags);
   const [loading, setLoading] = useState(false);
-  const [productImages, setProductImages] = useState(['/placeholder.svg']);
+  const [productImages, setProductImages] = useState<string[]>(
+    initialData?.productImages?.length
+      ? initialData.productImages
+      : ['/placeholder.svg'],
+  );
   const [productcontent, setProductContent] = useState(initialContent);
   const [isFormComplete, setIsFormComplete] = useState(false);
   const [activeTab, setActiveTab] = useState('basic');
@@ -66,7 +73,8 @@ export default function ProductForm({
     defaultValues: {
       isActive: false,
       isWholesale: false,
-      ...updateData,
+      // ...updateData,
+      ...initialData,
     },
   });
 
@@ -140,14 +148,24 @@ export default function ProductForm({
     setTags(tagsArray);
   };
 
-  const [selectedCategory, setSelectedCategory] = useState<any>({
-    label: '',
-    value: '',
+  const [selectedCategory, setSelectedCategory] = useState<any>(() => {
+    const initialCategory = categories?.find(
+      (category: any) => category.id === initialData?.categoryId,
+    );
+    return initialCategory
+      ? { value: initialCategory.id, label: initialCategory.title }
+      : { label: '', value: '' };
   });
-  const [selectedFarmer, setSelectedFarmer] = useState<any>({
-    label: '',
-    value: '',
+
+  const [selectedFarmer, setSelectedFarmer] = useState<any>(() => {
+    const initialFarmer = farmers?.find(
+      (farmer: any) => farmer.id === initialData?.userId,
+    );
+    return initialFarmer
+      ? { value: initialFarmer.id, label: initialFarmer.title }
+      : { label: '', value: '' };
   });
+
   // console.log('selectedFarmer;', selectedFarmer);
   // console.log('selectedcategory;', selectedCategory);
   async function onSubmit(data: any, event: React.BaseSyntheticEvent) {
@@ -175,13 +193,28 @@ export default function ProductForm({
     setLoading(true);
     try {
       if (id) {
-        data.id = id;
+        // data.id = id;
         // Update logic here
-        // For example:
-        // await updateProduct(data);
+        const res = await updateProduct(id, data);
+
+        if (res.status === 200) {
+          toast.success(`${res.message}`);
+          location.reload();
+        } else if (
+          res.status === 409 ||
+          res.status === 400 ||
+          res.status === 500 ||
+          res.status === 404
+        ) {
+          toast.error(`${res.message}`);
+          reset();
+          setTags(initialData);
+        } else {
+          // Handle any unexpected status codes
+          toast.error('An unexpected error occurred');
+        }
       } else {
         // Create logic here
-        // For example:
         const res = await createProduct(data);
 
         if (res.status === 201) {
@@ -274,7 +307,6 @@ export default function ProductForm({
                     register={register}
                     errors={errors}
                   />
-
                   <div className="space-y-2">
                     <FormSelectInput
                       label="Category"
@@ -423,9 +455,9 @@ export default function ProductForm({
         </Card>
 
         <Card>
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
+          <CardContent className="pt-6 flex justify-between w-full">
+            <div className="flex w-full items-center justify-between">
+              <div className="flex w-full items-center space-x-2">
                 <FormField
                   control={form.control}
                   name="isActive"
@@ -442,25 +474,11 @@ export default function ProductForm({
                   )}
                 />
               </div>
-              <Button type="submit" disabled={!isFormComplete || loading}>
-                {loading
-                  ? `${
-                      id ? (
-                        <span className="flex gap-2">
-                          <Loader2 className="size-4 animate-spin" />
-                          Updating...
-                        </span>
-                      ) : (
-                        <span className="flex gap-2">
-                          <Loader2 className="size-4 animate-spin" />
-                          Creating...
-                        </span>
-                      )
-                    } Product...`
-                  : id
-                    ? 'Update Product'
-                    : 'Create Product'}
-              </Button>
+              <SubmitButton
+                className="w-sm"
+                title={editingId ? `Update Product` : `Save Product`}
+                loading={loading}
+              />
             </div>
             {!isFormComplete && activeTab === 'description' && (
               <p className="text-red-500 mt-2 text-sm">
