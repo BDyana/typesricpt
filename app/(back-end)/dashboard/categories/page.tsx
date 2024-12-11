@@ -5,7 +5,6 @@ import { columns } from './columns';
 export default async function page() {
   const categories = await getAllCategories();
 
-  // console.log('Categories:', categories);
   return (
     <div className="">
       <CommonHeader

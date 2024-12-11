@@ -6,6 +6,7 @@ import { CategoryProps } from '@/types/types';
 
 export async function createCategory(data: CategoryProps) {
   const slug = data.slug;
+  console.log('Data:', data);
   try {
     const existingCategory = await db.category.findUnique({
       where: {
@@ -71,11 +72,27 @@ export async function updateCategoryById(id: string, data: CategoryProps) {
     console.log(error);
   }
 }
-export async function getCategoryBySlug(id: string) {
+export async function getCategoryById(id: string) {
   try {
     const category = await db.category.findUnique({
       where: {
         id,
+      },
+      include: {
+        products: true,
+      },
+    });
+    return category;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getCategoryBySlug(slug: string) {
+  try {
+    const category = await db.category.findUnique({
+      where: {
+        slug,
       },
       include: {
         products: true,

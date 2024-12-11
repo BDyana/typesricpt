@@ -1,5 +1,5 @@
+import { getCategoryById } from '@/actions/categories';
 import { getProductBySlug } from '@/actions/products';
-import { getCategoryBySlug } from '@/actions/categories';
 import Modal from './modal';
 
 export default async function ProductModalPage({
@@ -14,7 +14,7 @@ export default async function ProductModalPage({
     return <div>Product not found</div>;
   }
 
-  const category: any = await getCategoryBySlug(product.categoryId);
+  const category: any = await getCategoryById(product.categoryId);
 
   return <Modal product={product} category={category} />;
 }

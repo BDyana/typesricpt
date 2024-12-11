@@ -1,5 +1,5 @@
 import { getProductBySlug } from '@/actions/products';
-import { getCategoryBySlug } from '@/actions/categories';
+import { getCategoryById, getCategoryBySlug } from '@/actions/categories';
 import ProductView from '@/components/(front-end)/product-view';
 
 export default async function page({ params }: { params: { slug: string } }) {
@@ -12,7 +12,7 @@ export default async function page({ params }: { params: { slug: string } }) {
 
   const categoryId = product?.categoryId;
 
-  const category = await getCategoryBySlug(categoryId);
+  const category = await getCategoryById(categoryId);
 
   return (
     <div className="md:mx-2">

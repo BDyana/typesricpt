@@ -76,15 +76,15 @@ model Category {
   slug        String     @unique
   imageUrl    String?
   description String?
-  isActive    Boolean
+  isActive    Boolean    @default(false) // Set default value to false
   products    Product[]
   trainings   Training[]
 
-  marketIds String[] @db.ObjectId
-  markets   Market[] @relation(fields: [marketIds], references: [id])
+  marketIds   String[]   @db.ObjectId
+  markets     Market[]   @relation(fields: [marketIds], references: [id])
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime?  @updatedAt
 }
 
 model Market {
