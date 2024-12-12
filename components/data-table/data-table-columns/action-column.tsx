@@ -1,6 +1,7 @@
 'use client';
 
 import { deleteCategory } from '@/actions/categories';
+import { deleteCoupon } from '@/actions/coupons';
 import { deleteProduct } from '@/actions/products';
 import {
   AlertDialog,
@@ -53,10 +54,16 @@ export default function ActionColumn({
           window.location.reload();
         }
         toast.success(`${model} Deleted Successfully`);
+      } else if (model === 'coupon') {
+        const res = await deleteCoupon(id);
+        if (res?.ok) {
+          window.location.reload();
+        }
+        toast.success(`${model} Deleted Successfully`);
       }
     } catch (error) {
       console.log(error);
-      toast.error("Category Couldn't be deleted");
+      toast.error("Couldn't be deleted");
     }
   }
   return (

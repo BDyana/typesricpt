@@ -16,7 +16,7 @@ export default function Providers({ children, session }: ProvidersProps) {
     <Provider store={store}>
       <SessionProvider session={session}>
         {children}
-        <Toaster position="bottom-right" richColors={false} />
+        <Toaster richColors position="bottom-right" />
       </SessionProvider>
     </Provider>
   );

@@ -50,7 +50,7 @@ model VerificationToken {
 model Coupon {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   title      String
-  couponCode String
+  couponCode String   @unique
   expiryDate DateTime
   isActive   Boolean
   user       User     @relation(fields: [vendorId], references: [id], onDelete: Cascade, onUpdate: Cascade)

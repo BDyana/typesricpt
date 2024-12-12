@@ -5,6 +5,13 @@ export type CategoryProps = {
   description: string;
   isActive: boolean;
 };
+export type CouponProps = {
+  title: string;
+  isActive: boolean;
+  couponCode: string;
+  vendorId: string;
+  expiryDate: Date | null;
+};
 export type UserProps = {
   name: string;
   firstName: string;

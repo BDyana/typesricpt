@@ -13,9 +13,29 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+import { authOptions } from '@/lib/authOptions';
+import { getServerSession } from 'next-auth';
+import { notFound, redirect } from 'next/navigation';
 import React from 'react';
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const session = await getServerSession(authOptions);
+  // console.log('Session;', session);
+
+  const sessionRole = session?.user.role;
+  const userRole = 'ADMIN';
+
+  if (!session) {
+    redirect('/login');
+  }
+
+  if (!userRole === sessionRole) {
+    return notFound();
+  }
   return (
     <SidebarProvider>
       <AppSidebar />
