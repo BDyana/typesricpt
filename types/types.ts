@@ -5,6 +5,13 @@ export type CategoryProps = {
   description: string;
   isActive: boolean;
 };
+
+export type BannerProps = {
+  title: string;
+  imageUrl: string;
+  link: string;
+  isActive: boolean;
+};
 export type CouponProps = {
   title: string;
   isActive: boolean;

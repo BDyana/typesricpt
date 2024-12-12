@@ -1,5 +1,6 @@
 'use client';
 
+import { deleteBanner } from '@/actions/banners';
 import { deleteCategory } from '@/actions/categories';
 import { deleteCoupon } from '@/actions/coupons';
 import { deleteProduct } from '@/actions/products';
@@ -40,6 +41,12 @@ export default function ActionColumn({
   id = '',
 }: ActionColumnProps) {
   const isActive = row.isActive;
+
+  function capitalizeFirstLetter(str: string): string {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
   async function handleDelete() {
     try {
       if (model === 'category') {
@@ -47,19 +54,25 @@ export default function ActionColumn({
         if (res?.ok) {
           window.location.reload();
         }
-        toast.success(`${model} Deleted Successfully`);
+        toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
       } else if (model === 'product') {
         const res = await deleteProduct(id);
         if (res?.ok) {
           window.location.reload();
         }
-        toast.success(`${model} Deleted Successfully`);
+        toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
       } else if (model === 'coupon') {
         const res = await deleteCoupon(id);
         if (res?.ok) {
           window.location.reload();
         }
-        toast.success(`${model} Deleted Successfully`);
+        toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
+      } else if (model === 'banner') {
+        const res = await deleteBanner(id);
+        if (res?.ok) {
+          window.location.reload();
+        }
+        toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
       }
     } catch (error) {
       console.log(error);
@@ -79,9 +92,6 @@ export default function ActionColumn({
         <DropdownMenuSeparator />
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            {/* <DropdownMenuItem className="text-red-600 hover:text-red-700 transition-all duration-500 cursor-pointer">
-              
-            </DropdownMenuItem> */}
             <Button
               variant={'ghost'}
               size={'sm'}
@@ -107,15 +117,9 @@ export default function ActionColumn({
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        {/* <DropdownMenuItem
-          className="text-red-600 hover:text-red-700 transition-all duration-500 cursor-pointer"
-          onClick={() => handleDelete()}
-        >
-          <Trash className="w-4 h-4  mr-2 flex-shrink-0" />
-          <span>Delete</span>
-        </DropdownMenuItem> */}
+
         <DropdownMenuItem>
-          <Link href={editEndpoint} className="flex item gap-2">
+          <Link href={editEndpoint} className="flex item w-full gap-2">
             <Pencil className="w-4 h-4 " />
             <span>Edit</span>
           </Link>

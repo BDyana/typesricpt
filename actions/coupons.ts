@@ -52,7 +52,7 @@ export async function getCouponById(id: string) {
 }
 export async function deleteCoupon(id: string) {
   try {
-    const deletedCategory = await db.coupon.delete({
+    const deletedCoupon = await db.coupon.delete({
       where: {
         id,
       },
@@ -60,7 +60,7 @@ export async function deleteCoupon(id: string) {
 
     return {
       ok: true,
-      data: deletedCategory,
+      data: deletedCoupon,
     };
   } catch (error) {
     console.log(error);
