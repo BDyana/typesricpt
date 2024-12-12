@@ -141,11 +141,11 @@ export async function getOrders() {
       };
     }
 
-    const categories = req;
+    const orders = req;
 
     return {
       status: 200,
-      data: categories,
+      data: orders,
       message: 'Successfully fetched back orders',
     };
   } catch (error) {

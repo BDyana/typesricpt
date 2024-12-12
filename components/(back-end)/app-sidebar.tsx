@@ -1,9 +1,6 @@
 'use client';
 
-import * as React from 'react';
 import {
-  BookOpen,
-  Bot,
   Command,
   Frame,
   Headset,
@@ -14,12 +11,12 @@ import {
   Package,
   PieChart,
   Send,
-  Settings2,
   SquareTerminal,
   Tag,
   Users,
   UsersRound,
 } from 'lucide-react';
+import * as React from 'react';
 
 import { NavMain } from '@/components/(back-end)/nav-main';
 import { NavProjects } from '@/components/(back-end)/nav-projects';
@@ -108,8 +105,8 @@ const data = {
   ],
   projects: [
     {
-      name: 'Customers',
-      url: '#',
+      name: 'Orders',
+      url: '/dashboard/orders',
       icon: Frame,
     },
     {
