@@ -1,5 +1,6 @@
 'use client';
 
+import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
@@ -7,7 +8,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import CustomText from '../re-usable-inputs/text-reusable';
 import { Button } from '../ui/button';
-import { Loader2 } from 'lucide-react';
 
 export default function RegisterForm({ role = 'USER' }) {
   const router = useRouter(); // Redirecting on the client side

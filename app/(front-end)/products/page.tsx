@@ -3,8 +3,11 @@
 import { getLatestProducts } from '@/actions/products';
 import Paginate from '@/components/(front-end)/filter/paginate';
 import ProductCard from '@/components/(front-end)/product-card';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
+function SearchBarFallback() {
+  return <></>;
+}
 export default function AllProducts() {
   const [productsList, setProductsList] = useState([]);
   const [isSearch, setIsSearch] = useState(false); // Track search state if needed
@@ -30,7 +33,7 @@ export default function AllProducts() {
   return (
     <div className="pt-8 pb-4 px-4 rounded-md bg-gradient-to-b from-slate-50 to-white">
       <h2 className="text-xl font-bold">All Products</h2>
-      <div>
+      <Suspense fallback={<SearchBarFallback />}>
         <div className="grid grid-cols-3 lg:grid-cols-5 gap-y-2 md:grid-cols-4 mt-4">
           {productsList.map((product, i) => (
             <div key={i}>
@@ -41,7 +44,7 @@ export default function AllProducts() {
         <div className="p-8 mx-auto flex items-center justify-center w-full">
           <Paginate totalPages={totalPages} isSearch={isSearch} />
         </div>
-      </div>
+      </Suspense>
     </div>
   );
 }

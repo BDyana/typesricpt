@@ -5,28 +5,15 @@ import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import FilterComponent from '@/components/(front-end)/filter/filter-component';
 
-interface Category {
-  id: string;
-  name: string;
-  // Define other properties based on your category model
+function SearchBarFallback() {
+  return <></>;
 }
 
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  // Define other properties based on your product model
-}
-
-interface PageProps {
-  category: Category;
-}
-
-export default function CategoryDetailed({ category }: PageProps) {
+export default function CategoryDetailed({ category }: any) {
   const searchParams = useSearchParams();
 
   // Await searchParams to properly access query params
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,7 +30,7 @@ export default function CategoryDetailed({ category }: PageProps) {
         const page = searchParams.get('page') || '1';
 
         // Fetch products based on the category and search parameters
-        const fetchedProducts: Product[] = await getData(
+        const fetchedProducts: any[] = await getData(
           `products?catId=${category.id}&page=${page}&sort=${sort}&min=${min}&max=${max}`,
         );
         setProducts(fetchedProducts); // Save the products in state
@@ -62,10 +49,12 @@ export default function CategoryDetailed({ category }: PageProps) {
   if (error) return <div>{/* {error} */}</div>;
 
   return (
-    <>
-      {category && products && (
-        <FilterComponent category={category as any} products={products} />
-      )}
-    </>
+    <div>
+      <Suspense fallback={<SearchBarFallback />}>
+        {category && products && (
+          <FilterComponent category={category as any} products={products} />
+        )}
+      </Suspense>
+    </div>
   );
 }

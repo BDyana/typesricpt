@@ -4,9 +4,9 @@ import OrderConfirmation from '@/components/(front-end)/order-confirmation';
 export default async function OrderConfirmationPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
+  const id = (await params).id;
   const orderData = await getOrderById(id);
   const order = orderData?.data;
 

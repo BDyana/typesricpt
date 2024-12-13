@@ -5,7 +5,6 @@ import { generateUserCode } from '@/lib/generateUserCode';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -21,7 +20,6 @@ import { Textarea } from '@/components/ui/textarea';
 import MultipleImageInput from '../re-usable-inputs/multiple-image-input';
 
 import { createProduct, updateProduct } from '@/actions/products';
-import { Loader } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { toast } from 'sonner';
 import { z } from 'zod';

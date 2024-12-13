@@ -1,17 +1,22 @@
 import { db } from '@/lib/db';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const { id } = await params;
-
+export async function GET(req: NextRequest) {
   try {
+    // Extract `id` from the URL using `req.nextUrl`
+    const id = req.nextUrl.searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json(
+        { message: 'User ID is required' },
+        { status: 400 },
+      );
+    }
+
+    // Fetch user from the database
     const user = await db.user.findUnique({
-      where: {
-        id,
-      },
+      where: { id },
       select: {
         email: true,
         name: true,
@@ -21,51 +26,16 @@ export async function GET(
         profile: true,
       },
     });
+
+    if (!user) {
+      return NextResponse.json({ message: 'User not found' }, { status: 404 });
+    }
+
     return NextResponse.json(user);
   } catch (error) {
-    console.log(error);
+    console.error('Error fetching user:', error);
     return NextResponse.json(
-      {
-        message: 'Failed to Fetch User',
-        error,
-      },
-      { status: 500 },
-    );
-  }
-}
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const { id } = await params;
-  try {
-    const existingUser = await db.user.findUnique({
-      where: {
-        id,
-      },
-    });
-    if (!existingUser) {
-      return NextResponse.json(
-        {
-          data: null,
-          message: 'User Not Found',
-        },
-        { status: 404 },
-      );
-    }
-    const deletedUser = await db.user.delete({
-      where: {
-        id,
-      },
-    });
-    return NextResponse.json(deletedUser);
-  } catch (error) {
-    console.log(error);
-    return NextResponse.json(
-      {
-        message: 'Failed to Delete User',
-        error,
-      },
+      { message: 'Failed to fetch user', error },
       { status: 500 },
     );
   }

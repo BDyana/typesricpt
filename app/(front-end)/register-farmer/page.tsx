@@ -1,5 +1,9 @@
 import RegisterForm from '@/components/forms/register-form';
+import { Suspense } from 'react';
 
+function SearchBarFallback() {
+  return <></>;
+}
 export default function Register() {
   return (
     <section className=" bg-gradient-to-b from-slate-50 to-white">
@@ -9,7 +13,9 @@ export default function Register() {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl text-center">
               Register Farmer Account
             </h1>
-            <RegisterForm role="FARMER" />
+            <Suspense fallback={<SearchBarFallback />}>
+              <RegisterForm role="FARMER" />
+            </Suspense>
           </div>
         </div>
       </div>

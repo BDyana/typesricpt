@@ -17,7 +17,8 @@ export default function CategoryGrid({ data }: IProps) {
     // Client-side logic to filter and randomize categories
     if (data) {
       const filteredCategories = data.filter(
-        (category: Category) => category.products.length > 0,
+        (category: Category & { products: any[] }) =>
+          category.products.length > 0,
       );
 
       // Create a stable random sort using a seed

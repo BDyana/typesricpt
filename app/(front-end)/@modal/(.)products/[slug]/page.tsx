@@ -1,13 +1,18 @@
 import { getCategoryById } from '@/actions/categories';
 import { getProductBySlug } from '@/actions/products';
 import Modal from './modal';
+import { Suspense } from 'react';
 
+function SearchBarFallback() {
+  return <></>;
+}
 export default async function ProductModalPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const slug = (await params).slug;
+
   const product = await getProductBySlug(slug);
 
   if (!product) {
@@ -16,5 +21,9 @@ export default async function ProductModalPage({
 
   const category: any = await getCategoryById(product.categoryId);
 
-  return <Modal product={product} category={category} />;
+  return (
+    <Suspense fallback={<SearchBarFallback />}>
+      <Modal product={product} category={category} />;
+    </Suspense>
+  );
 }

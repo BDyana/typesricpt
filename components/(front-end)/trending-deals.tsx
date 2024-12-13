@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 interface IProps {
   categories: (Category & { products: any[] })[] | null | undefined;
-  className: string;
+  className?: string;
 }
 export default function TrendingDeals({
   categories,

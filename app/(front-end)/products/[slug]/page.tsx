@@ -1,9 +1,13 @@
+import { getCategoryById } from '@/actions/categories';
 import { getProductBySlug } from '@/actions/products';
-import { getCategoryById, getCategoryBySlug } from '@/actions/categories';
 import ProductView from '@/components/(front-end)/product-view';
 
-export default async function page({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+export default async function page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
   const product = await getProductBySlug(slug);
 
   if (!product) {

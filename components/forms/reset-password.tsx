@@ -21,7 +21,7 @@ import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as z from 'zod';
@@ -43,10 +43,6 @@ const formSchema = z
   });
 
 type FormData = z.infer<typeof formSchema>;
-
-function SearchBarFallback() {
-  return <></>;
-}
 
 export default function ResetPasswordForm() {
   const searchParams = useSearchParams();
@@ -98,7 +94,7 @@ export default function ResetPasswordForm() {
   }
 
   return (
-    <Suspense fallback={<SearchBarFallback />}>
+    <>
       <Card className="w-full max-w-md mx-auto">
         <CardHeader>
           <CardTitle>Reset Password</CardTitle>
@@ -160,6 +156,6 @@ export default function ResetPasswordForm() {
           </Button>
         </CardFooter>
       </Card>
-    </Suspense>
+    </>
   );
 }

@@ -3,15 +3,8 @@ import FilteredProducts from './filtered-products';
 import Filters from './filters';
 import Sorting from './sorting';
 
-interface Category {
-  title: string;
-  slug: string;
-  products: any[];
-  isSearch?: boolean;
-}
-
 interface FilterComponentProps {
-  category: Category;
+  category: any;
   products: any[];
 }
 
