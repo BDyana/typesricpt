@@ -58,9 +58,6 @@ export default function CategoryDetailed({ category }: PageProps) {
     fetchProducts(); // Trigger the async fetch function
   }, [category.id, searchParams]); // Add the dependencies for category and searchParams
 
-  if (loading) return <div></div>;
-  if (error) return <div>{/* {error} */}</div>;
-
   return (
     <>
       {category && products && (
