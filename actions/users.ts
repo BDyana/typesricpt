@@ -1,11 +1,12 @@
 'use server';
 
-import bcrypt from 'bcrypt';
+import EmailTemplate from '@/components/email/email-template';
 import { db } from '@/lib/db';
 import { UserProps } from '@/types/types';
-import { v4 as uuidv4 } from 'uuid';
 import base64url from 'base64url';
+import bcrypt from 'bcrypt';
 import { Resend } from 'resend';
+import { v4 as uuidv4 } from 'uuid';
 import { z } from 'zod';
 
 const RegisterSchema = z.object({
@@ -14,6 +15,18 @@ const RegisterSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters'),
   role: z.any(),
   plan: z.string(),
+});
+
+const ResetPasswordSchema = z.object({
+  userId: z.string(),
+  token: z.string(),
+  password: z
+    .string()
+    .min(8, 'Password must be at least 8 characters long')
+    .regex(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+    ),
 });
 
 export async function createUser(data: UserProps) {
@@ -249,6 +262,186 @@ export async function getNormalUsers() {
     return {
       message: 'Failed to fetch farmers',
       errors: error instanceof Error ? { server: [error.message] } : {},
+    };
+  }
+}
+
+export async function getUserById(id: string) {
+  try {
+    const user = await db.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        products: true,
+      },
+    });
+    return user;
+  } catch (error) {
+    console.log(error);
+  }
+}
+export async function sendPasswordResetEmail(email: string) {
+  try {
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
+    // Verify if the user exists
+    const existingUser = await db.user.findUnique({
+      where: { email },
+      select: { id: true, name: true, email: true },
+    });
+
+    if (!existingUser) {
+      return {
+        success: false,
+        status: 404, // Not Found
+        message: `User with email (${email}) does not exist in our database. Please sign up instead.`,
+      };
+    }
+
+    // Generate a secure reset token and store it in the database
+    const rawToken = uuidv4();
+    const token = base64url.encode(rawToken);
+    const expirationDate = new Date(Date.now() + 60 * 60 * 1000); // Token valid for 1 hour
+
+    await db.passwordResetToken.create({
+      data: {
+        userId: existingUser.id,
+        token,
+        expires: expirationDate,
+      },
+    });
+
+    // Prepare email content
+    const baseUrl = process.env.NEXTAUTH_URL;
+    const redirectUrl = `${baseUrl}/verify-email?token=${token}&id=${existingUser.id}`;
+    const description =
+      'Click the link below to reset your password. Thank you.';
+    const subject = 'Password Reset - Bdyana.com Ecommerce';
+
+    const emailResult = await resend.emails.send({
+      from: 'Bdyana <info@bdyana.com>',
+      to: email,
+      subject,
+      react: EmailTemplate({
+        name: existingUser.name as string,
+        redirectUrl,
+        linkText: 'Reset Password',
+        description,
+        subject,
+      }),
+    });
+
+    if (emailResult.error) {
+      return {
+        success: false,
+        status: 500, // Internal Server Error
+        message: `Failed to send email: ${emailResult.error.message}`,
+      };
+    }
+
+    return {
+      success: true,
+      status: 201, // Created
+      message: `Password reset email sent successfully to ${email}. Please check your inbox.`,
+    };
+  } catch (error) {
+    console.error('Send password reset email error:', error);
+
+    // Specific error handling
+    if (error instanceof Error) {
+      if (error.message.includes('Connection')) {
+        return {
+          success: false,
+          status: 503, // Service Unavailable
+          message: 'Database connection error. Please try again later.',
+        };
+      }
+
+      return {
+        success: false,
+        status: 500, // Internal Server Error
+        message: `An unexpected error occurred: ${error.message}`,
+      };
+    }
+
+    // Fallback for unexpected cases
+    return {
+      success: false,
+      status: 500,
+      message: 'An unknown error occurred during the email sending process.',
+    };
+  }
+}
+
+export async function resetPassword(data: any) {
+  const { userId, token, newPassword } = data;
+  try {
+    // Validate the reset token
+    const resetToken = await db.passwordResetToken.findFirst({
+      where: {
+        userId,
+        token,
+        expires: { gt: new Date() }, // Ensure token is not expired
+      },
+    });
+
+    if (!resetToken) {
+      return {
+        success: false,
+        status: 409, // Conflict - invalid token or expired
+        message: 'The token you are trying to use might be expired or invalid.',
+      };
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password and optionally verify email
+    await db.user.update({
+      where: { id: userId },
+      data: {
+        password: hashedPassword,
+        emailVerified: true, // Mark email as verified
+      },
+    });
+
+    // Delete all reset tokens associated with the user
+    await db.passwordResetToken.deleteMany({
+      where: { userId },
+    });
+
+    return {
+      success: true,
+      status: 201, // Created - operation successful
+      message:
+        'Your password has been reset successfully. Please log in again.',
+    };
+  } catch (error) {
+    console.error('Password reset error:', error);
+
+    // Specific error handling
+    if (error instanceof Error) {
+      if (error.message.includes('Connection')) {
+        return {
+          success: false,
+          status: 503, // Service Unavailable
+          message: 'Database connection error. Please try again later.',
+        };
+      }
+
+      return {
+        success: false,
+        status: 500, // Internal Server Error
+        message: `An unexpected error occurred: ${error.message}`,
+      };
+    }
+
+    // Fallback for unexpected cases
+    return {
+      success: false,
+      status: 500,
+      message: 'An unknown error occurred during the password reset process.',
     };
   }
 }

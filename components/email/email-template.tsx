@@ -1,18 +1,15 @@
+import { siteConfig } from '@/constants/site';
 import {
   Body,
-  Column,
   Container,
   Head,
   Html,
   Img,
   Link,
   Preview,
-  Row,
   Section,
   Text,
 } from '@react-email/components';
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 interface IProps {
   name?: string;
@@ -34,12 +31,7 @@ const EmailTemplate = ({
     <Preview>{subject}</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Img
-          src={`${baseUrl}/static/github.png`}
-          width="32"
-          height="32"
-          alt="Github"
-        />
+        <Img src={`${siteConfig.logo}`} width="32" height="32" alt="Github" />
         <Text style={title}>{linkText}</Text>
         <Section style={section}>
           <Text style={text}>
@@ -47,68 +39,10 @@ const EmailTemplate = ({
           </Text>
           <Text style={text}>{description}</Text>
 
-          <Link style={button} href={`${baseUrl}${redirectUrl}`}>
+          <Link style={button} href={redirectUrl}>
             {linkText}
           </Link>
         </Section>
-        <Section>
-          <Row style={footerLogos}>
-            <Column style={{ width: '66%' }}>
-              <Img
-                src={`${baseUrl}/static/slack-logo.png`}
-                width="120"
-                height="36"
-                alt="Slack"
-              />
-            </Column>
-            <Column>
-              <Row>
-                <Column>
-                  <Link href="/">
-                    <Img
-                      src={`${baseUrl}/static/slack-twitter.png`}
-                      width="32"
-                      height="32"
-                      alt="Slack"
-                      style={socialMediaIcon}
-                    />
-                  </Link>
-                </Column>
-                <Column>
-                  <Link href="/">
-                    <Img
-                      src={`${baseUrl}/static/slack-facebook.png`}
-                      width="32"
-                      height="32"
-                      alt="Slack"
-                      style={socialMediaIcon}
-                    />
-                  </Link>
-                </Column>
-                <Column>
-                  <Link href="/">
-                    <Img
-                      src={`${baseUrl}/static/slack-linkedin.png`}
-                      width="32"
-                      height="32"
-                      alt="Slack"
-                      style={socialMediaIcon}
-                    />
-                  </Link>
-                </Column>
-              </Row>
-            </Column>
-          </Row>
-        </Section>
-        <Text style={links}>
-          <Link style={link}>Your security audit log</Link> ・{' '}
-          <Link style={link}>Contact support</Link>
-        </Text>
-
-        <Text style={footer}>
-          Auth System By JB, Inc. ・88 Colin P Kelly Jr Street ・San Francisco,
-          CA 94107
-        </Text>
       </Container>
     </Body>
   </Html>

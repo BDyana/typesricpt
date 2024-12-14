@@ -1,17 +1,17 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import { toast } from 'sonner';
-import { useState } from 'react';
-import { Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { siteConfig } from '@/constants/site';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { siteConfig } from '@/constants/site';
+import { Loader2 } from 'lucide-react';
+import { signIn } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import CustomText from '../re-usable-inputs/text-reusable';
-import { signIn, signOut, useSession } from 'next-auth/react';
 
 interface SignInFormData {
   email: string;
@@ -139,7 +139,7 @@ export default function SignIn() {
               name="email"
               label="Email address"
               type="email"
-              className="w-full"
+              className="w-full text-white"
               placeholder="Enter your email"
             />
             <CustomText
@@ -148,7 +148,7 @@ export default function SignIn() {
               name="password"
               label="Password"
               type="password"
-              className="w-full"
+              className="w-full text-white"
               placeholder="********"
             />
             {/* Continue Button */}
@@ -164,6 +164,15 @@ export default function SignIn() {
 
           {/* Sign Up Link */}
           <div className="text-sm text-muted-foreground">
+            Forgot password?{' '}
+            <Link
+              href="/reset-password"
+              className="text-brandColor hover:underline"
+            >
+              Rest It Now
+            </Link>
+          </div>
+          <div className="text-sm text-muted-foreground">
             Don't have an account?{' '}
             <Link href="/register" className="text-brandColor hover:underline">
               Sign up
@@ -171,7 +180,7 @@ export default function SignIn() {
           </div>
 
           {/* Developer Branding */}
-          <div className="text-xs text-muted-foreground flex items-center gap-2">
+          {/* <div className="text-xs text-muted-foreground flex items-center gap-2">
             Secured by
             <Link
               target="blank"
@@ -180,7 +189,7 @@ export default function SignIn() {
             >
               @mosespace
             </Link>
-          </div>
+          </div> */}
         </div>
       </CardContent>
     </Card>

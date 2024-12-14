@@ -5,7 +5,7 @@ import React from 'react';
 export default function Layout({
   children,
   modal,
-  auth,
+  // auth,
 }: {
   children: React.ReactNode;
   modal: React.ReactNode;
@@ -17,7 +17,7 @@ export default function Layout({
       <div className="lg:w-[1185px] min-h-screen mx-auto py-2 lg:py-5 px-2 bg-[#f6f8fa]s">
         {children}
         {modal}
-        {auth}
+        {/* {auth} */}
       </div>
       <Footer />
     </div>
