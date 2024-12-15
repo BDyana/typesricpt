@@ -87,7 +87,7 @@ export default function SignIn() {
           <div className="flex gap-3 w-full">
             <Button
               variant="outline"
-              onClick={() => signIn('facebook')}
+              onClick={() => signIn('facebook', { callbackUrl: '/' })}
               className="flex-1 bg-transparent border-brandBorder hover:text-white hover:bg-brandBorder text-white"
             >
               <svg viewBox="0 0 438.549 438.549" className="mr-2 h-4 w-4">
