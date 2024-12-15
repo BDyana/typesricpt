@@ -7,7 +7,7 @@ interface FilterComponentProps {
   products: any[];
 }
 
-export default function FilterComponent({ products }: FilterComponentProps) {
+export default function FilterComponent({ products }: any) {
   const productCount = products.length;
 
   return (

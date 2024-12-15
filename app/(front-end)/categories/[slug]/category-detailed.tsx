@@ -1,9 +1,9 @@
 'use client';
 
-import { getData } from '@/lib/getData';
-import { Suspense, useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import FilterComponent from '@/components/(front-end)/filter/filter-component';
+import { getData } from '@/lib/getData';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface Category {
   id: string;

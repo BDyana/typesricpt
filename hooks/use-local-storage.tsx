@@ -34,27 +34,3 @@ export const useLocalStorage = <T,>(
 
   return [storedValue, setValue];
 };
-
-// use in a component
-// function CartComponent() {
-//   const {
-//     cart,
-//     addItemToCart,
-//     removeItemFromCart,
-//     incrementItemQty,
-//     decrementItemQty,
-//   } = useCart();
-
-//   return (
-//     <div>
-//       {cart.map((item) => (
-//         <div key={item.id}>
-//           {item.title}
-//           <button onClick={() => incrementItemQty(item.id)}>+</button>
-//           <button onClick={() => decrementItemQty(item.id)}>-</button>
-//           <button onClick={() => removeItemFromCart(item.id)}>Remove</button>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }

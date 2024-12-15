@@ -42,7 +42,7 @@ export default function AllProducts() {
           ))}
         </div>
         <div className="p-8 mx-auto flex items-center justify-center w-full">
-          <Paginate totalPages={totalPages} isSearch={isSearch} />
+          <Paginate totalPages={totalPages} />
         </div>
       </Suspense>
     </div>
