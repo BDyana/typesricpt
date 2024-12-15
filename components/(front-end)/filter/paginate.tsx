@@ -13,10 +13,9 @@ import { useSearchParams } from 'next/navigation';
 
 interface PaginateProps {
   totalPages: number;
-  isSearch: boolean;
 }
 
-export default function Paginate({ totalPages, isSearch }: PaginateProps) {
+export default function Paginate({ totalPages }: PaginateProps) {
   const searchParams = useSearchParams();
   const sort = searchParams.get('sort') || 'asc';
   const min = searchParams.get('min') || '0';
@@ -30,7 +29,7 @@ export default function Paginate({ totalPages, isSearch }: PaginateProps) {
       sort,
       min,
       max,
-      ...(isSearch ? { search } : {}),
+      search,
     };
     return `?${new URLSearchParams(params)}`;
   };
@@ -61,7 +60,10 @@ export default function Paginate({ totalPages, isSearch }: PaginateProps) {
           <>
             {Array.from({ length: 3 }, (_, index) => (
               <PaginationItem key={index}>
-                <PaginationLink href={generateLink(index + 1)}>
+                <PaginationLink
+                  isActive={index + 1 === currentPage}
+                  href={generateLink(index + 1)}
+                >
                   {index + 1}
                 </PaginationLink>
               </PaginationItem>

@@ -9,10 +9,10 @@ function SearchBarFallback() {
   return <></>;
 }
 
-export default function CategoryDetailed({ category }: any) {
+export default function CategoryDetailed() {
   const searchParams = useSearchParams();
+  const search = searchParams.get('search');
 
-  // Await searchParams to properly access query params
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,40 +20,34 @@ export default function CategoryDetailed({ category }: any) {
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
-      setError(null); // Reset error before fetching new data
+      setError(null);
+
+      const sort = searchParams.get('sort') || '';
+      const min = searchParams.get('min') || '0';
+      const max = searchParams.get('max') || '';
+      const page = searchParams.get('page') || '1';
 
       try {
-        // Await searchParams and get values from query params
-        const sort = searchParams.get('sort') || '';
-        const min = searchParams.get('min') || '0';
-        const max = searchParams.get('max') || '';
-        const page = searchParams.get('page') || '1';
-
-        // Fetch products based on the category and search parameters
-        const fetchedProducts: any[] = await getData(
-          `products?catId=${category.id}&page=${page}&sort=${sort}&min=${min}&max=${max}`,
+        const fetchedProducts = await getData(
+          `products/search?search=${search}&sort=${sort}&min${min}&max=${max}&page=${page}`,
         );
-        setProducts(fetchedProducts); // Save the products in state
+
+        setProducts(fetchedProducts);
       } catch (error) {
-        setError('Failed to fetch products'); // Set error message
+        setError('Failed to fetch products');
         console.error(error);
       } finally {
-        setLoading(false); // Set loading to false after fetch
+        setLoading(false);
       }
     };
 
-    fetchProducts(); // Trigger the async fetch function
-  }, [category.id, searchParams]); // Add the dependencies for category and searchParams
-
-  if (loading) return <div></div>;
-  if (error) return <div>{/* {error} */}</div>;
+    fetchProducts();
+  }, [search]);
 
   return (
     <div>
       <Suspense fallback={<SearchBarFallback />}>
-        {category && products && (
-          <FilterComponent category={category as any} products={products} />
-        )}
+        {products && <FilterComponent products={products} />}
       </Suspense>
     </div>
   );

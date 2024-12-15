@@ -6,24 +6,21 @@ import ProductCard from '../product-card';
 import { cn } from '@/lib/utils';
 
 interface ProductType {
-  id: string; // Replace with the actual structure of your product object.
+  id: string;
   [key: string]: any;
 }
 
 interface FilteredProductsProps {
   products: ProductType[];
   productCount: number;
-  isSearch: boolean;
   className?: string;
 }
 
 export default function FilteredProducts({
   products,
   productCount,
-  isSearch,
   className = 'lg:grid-cols-4',
 }: FilteredProductsProps) {
-  // PAGINATION
   const pageSize = 10;
   const totalPages = Math.ceil(productCount / pageSize);
 
@@ -35,7 +32,7 @@ export default function FilteredProducts({
         ))}
       </div>
       <div className="p-8 mx-auto flex items-center justify-center w-full">
-        <Paginate totalPages={totalPages} isSearch={isSearch} />
+        <Paginate totalPages={totalPages} />
       </div>
     </div>
   );

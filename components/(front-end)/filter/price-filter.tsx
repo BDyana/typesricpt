@@ -10,12 +10,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FieldValues, useForm } from 'react-hook-form';
 
-interface IProps {
-  slug: string;
-  isSearch: boolean;
-}
-
-export default function PriceFilter({ slug, isSearch }: IProps) {
+export default function PriceFilter() {
   const searchParams = useSearchParams();
   const minParam = searchParams.get('min');
   const maxParam = searchParams.get('max');
@@ -36,7 +31,7 @@ export default function PriceFilter({ slug, isSearch }: IProps) {
   const onSubmit = (data: FieldValues) => {
     const { min, max } = data;
     router.push(
-      `/categories/${slug}?page=${page}&sort=${sort}&min=${min}&max=${max}`,
+      `/search?search=${search}&page=${page}&sort=${sort}&min=${min}&max=${max}`,
     );
     reset();
   };
@@ -46,13 +41,7 @@ export default function PriceFilter({ slug, isSearch }: IProps) {
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-2xl font-bold">Filter</CardTitle>
         <Button
-          onClick={() =>
-            router.push(
-              `${
-                isSearch ? `/search?search=${search}` : `/categories/${slug}`
-              }`,
-            )
-          }
+          onClick={() => router.push(`/search?search=${search}`)}
           variant="outline"
           size="sm"
         >
@@ -60,7 +49,6 @@ export default function PriceFilter({ slug, isSearch }: IProps) {
         </Button>
       </CardHeader>
       <CardContent>
-        {/* <h3 className="text-lg font-semibold mb-4">Price</h3> */}
         <div className="space-y-2">
           {priceRanges.map((range, i) => {
             const isActive =
@@ -77,9 +65,7 @@ export default function PriceFilter({ slug, isSearch }: IProps) {
             if (range.min) params.set('min', range.min.toString());
             if (range.max) params.set('max', range.max.toString());
 
-            const linkHref = isSearch
-              ? `/search?${params.toString()}`
-              : `/categories/${slug}?${params.toString()}`;
+            const linkHref = `/search?${params.toString()}`;
 
             return (
               <Link
@@ -102,24 +88,20 @@ export default function PriceFilter({ slug, isSearch }: IProps) {
           })}
         </div>
 
-        {!isSearch && (
-          <>
-            <Separator className="my-6" />
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <Input {...register('min')} type="number" placeholder="Min" />
-                </div>
-                <div>
-                  <Input {...register('max')} type="number" placeholder="Max" />
-                </div>
-              </div>
-              <Button type="submit" className="bg-brandBlack w-full">
-                Apply Filter
-              </Button>
-            </form>
-          </>
-        )}
+        <Separator className="my-6" />
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <Input {...register('min')} type="number" placeholder="Min" />
+            </div>
+            <div>
+              <Input {...register('max')} type="number" placeholder="Max" />
+            </div>
+          </div>
+          <Button type="submit" className="bg-brandBlack w-full">
+            Apply Filter
+          </Button>
+        </form>
 
         {(minParam || maxParam) && (
           <div className="mt-4">

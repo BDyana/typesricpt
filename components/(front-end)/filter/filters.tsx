@@ -1,13 +1,9 @@
 import PriceFilter from './price-filter';
 
-interface IProps {
-  slug: string;
-  isSearch: boolean;
-}
-export default function Filters({ slug, isSearch }: IProps) {
+export default function Filters() {
   return (
     <div className="">
-      <PriceFilter slug={slug} isSearch={isSearch} />
+      <PriceFilter />
     </div>
   );
 }
