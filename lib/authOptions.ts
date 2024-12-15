@@ -3,6 +3,7 @@ import { compare } from 'bcrypt';
 import { NextAuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
 const prismaAdapter = PrismaAdapter(db);
@@ -56,6 +57,21 @@ export const authOptions: NextAuthOptions = {
       },
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
+    }),
+    FacebookProvider({
+      profile(profile) {
+        console.log('Facebook Profile', profile);
+        return {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          role: 'USER',
+          emailVerified: profile.email ? true : false,
+          image: profile.picture?.data?.url || '',
+        };
+      },
+      clientId: process.env.FACEBOOK_CLIENT_ID || '',
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
     }),
     CredentialsProvider({
       name: 'Credentials',
