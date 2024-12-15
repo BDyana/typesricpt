@@ -48,12 +48,12 @@ export default function OrderConfirmation({ order, id }: IProps) {
             <CardContent className="p-6">
               <div className="flex justify-end mb-6">
                 <Button
-                  onClick={() => router.push(`/dashboard/orders/${id}/invoice`)}
+                  onClick={() => router.push(`/dashboard/orders/user/${id}`)}
                   asChild
-                  className="bg-transparent"
+                  className="bg-transparent cursor-pointer  hover:text-brandColor"
                 >
                   <span>
-                    <Eye className="size-4 text-brandBlack" />
+                    <Eye className="size-4 text-brandBlack hover:text-brandColor" />
                     {/* View Invoice */}
                   </span>
                 </Button>
@@ -133,8 +133,8 @@ export default function OrderConfirmation({ order, id }: IProps) {
                       {order?.shippingCost == 50
                         ? '3'
                         : order?.shippingCost == 75
-                        ? '2'
-                        : '1'}{' '}
+                          ? '2'
+                          : '1'}{' '}
                       days
                     </p>
                   </div>

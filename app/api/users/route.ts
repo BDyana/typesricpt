@@ -21,9 +21,9 @@ export async function POST(request: NextRequest) {
     const rawBody = await request.text();
     console.log('Raw Body 🚀:', rawBody);
 
-    const { name, email, password, role, plan } = JSON.parse(rawBody);
+    const { name, email, password, role, plan = role } = JSON.parse(rawBody);
 
-    if (!name || !email || !password || !role || !plan) {
+    if (!rawBody) {
       console.log('Missing fields 🔔:', { name, email, password, role, plan });
       throw new Error('Invalid request body');
     }

@@ -215,3 +215,24 @@ export async function deleteOrder(id: string) {
     };
   }
 }
+
+export async function getOrdersByUserId(userId: string) {
+  try {
+    const orders = await db.order.findMany({
+      where: {
+        userId: userId,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        orderItems: true,
+      },
+    });
+
+    return orders;
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    throw error;
+  }
+}
