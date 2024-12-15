@@ -49,11 +49,12 @@ export default function RegisterForm({ role = 'USER' }) {
         setLoading(false);
 
         if (role === 'USER') {
-          router.push('/');
-        } else {
-          const { data } = responseData;
-          router.push(`/verify-email?userId=${data.id}`);
+          router.push('/login');
         }
+        // else {
+        //   const { data } = responseData;
+        //   router.push(`/verify-email?userId=${data.id}`);
+        // }
       } else {
         setLoading(false);
         if (response.status === 409) {
