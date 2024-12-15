@@ -24,9 +24,9 @@ export default function HeroCarousel({ banners }: IProps) {
       showArrows
       keyboard={false}
       title="Bdyana | Your one stop Shop"
-      // defaultControlsConfig={config}
-      className="overflow-hidden h-[100%] rounded-sm w-[100%]"
-      // wrapAround
+      scrollDistance="screen"
+      className="overflow-hidden h-[100%] rounded-md w-[100%]"
+      wrapMode="wrap"
     >
       {banners?.map((banner: Banner) => (
         <div key={banner.id} className="demo-slide">

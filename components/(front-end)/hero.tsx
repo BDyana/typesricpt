@@ -12,7 +12,7 @@ export default function Hero({ banners }: IProps) {
   return (
     <div className="grid grid-cols-12 gap-4">
       <SidebarMenu />
-      <div className="col-span-full h-full sm:col-span-7 bg-brandColor rounded-sm">
+      <div className="col-span-full h-full sm:col-span-7 rounded-md">
         <HeroCarousel banners={banners} />
       </div>
       <div className="col-span-2 hidden sm:block bg-white rounded-sm p-3">
