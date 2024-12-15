@@ -16,7 +16,8 @@ export default function Layout({
       <Navbar />
       <div className="lg:w-[1185px] min-h-screen mx-auto py-2 lg:py-5 px-2 bg-[#f6f8fa]s">
         {children}
-        {modal}
+
+        <div className="hidden lg:block">{modal}</div>
         {/* {auth} */}
       </div>
       <Footer />
