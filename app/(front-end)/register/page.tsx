@@ -1,10 +1,19 @@
 import RegisterForm from '@/components/forms/register-form';
+import { authOptions } from '@/lib/authOptions';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 import { Suspense } from 'react';
 
 function SearchBarFallback() {
   return <></>;
 }
-export default function Register() {
+export default async function Register() {
+  const session = await getServerSession(authOptions);
+
+  if (session) {
+    redirect('/');
+  }
+
   return (
     <section className=" bg-gradient-to-b from-slate-50 to-white">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
