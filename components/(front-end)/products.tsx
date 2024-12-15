@@ -31,7 +31,7 @@ export default function Products({
       <div
         className={cn(
           className,
-          'grid grid-cols-3 md:grid-cols-4 lg:mt-3 mt-1.5 -mx-1',
+          'grid grid-cols-2 gap-y-2 md:gap-y-0 sm:grid-cols-3 md:grid-cols-4 lg:mt-3 mt-1.5 -mx-1',
         )}
       >
         {products.map((product: Product) => (
