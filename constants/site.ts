@@ -5,10 +5,4 @@ export const siteConfig = {
   description:
     'Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.',
   logo: '/logo.png',
-  // mainNav: [
-  //   {
-  //     title: 'Home',
-  //     href: '/',
-  //   },
-  // ],
 };
