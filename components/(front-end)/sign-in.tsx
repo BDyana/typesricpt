@@ -87,7 +87,7 @@ export default function SignIn() {
           <div className="flex gap-3 w-full">
             <Button
               variant="outline"
-              onClick={() => signIn('facebook', { callbackUrl: '/' })}
+              onClick={() => signIn('facebook')}
               className="flex-1 bg-transparent border-brandBorder hover:text-white hover:bg-brandBorder text-white"
             >
               <Facebook className="mr-2 h-4 w-4 text-blue-500" />
@@ -95,7 +95,7 @@ export default function SignIn() {
             </Button>
             <Button
               variant="outline"
-              onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+              onClick={() => signIn('google')}
               className="flex-1 bg-transparent border-brandBorder hover:bg-brandBorder hover:text-white text-white"
             >
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
