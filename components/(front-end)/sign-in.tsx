@@ -90,7 +90,7 @@ export default function SignIn() {
               onClick={() => signIn('facebook', { callbackUrl: '/' })}
               className="flex-1 bg-transparent border-brandBorder hover:text-white hover:bg-brandBorder text-white"
             >
-              <Facebook className="mr-2 h-4 w-4" />
+              <Facebook className="mr-2 h-4 w-4 text-blue-500" />
               Facebook
             </Button>
             <Button
