@@ -46,36 +46,38 @@ export default async function Home() {
     <div className="min-h-screen">
       <Hero banners={banners} />
 
-      {/* New Products */}
-      <Products
-        title="New Arrivals"
-        description="100+ products added today"
-        products={latestProducts as any}
-      />
-
-      {/* Shop by category */}
-      <CategoryGrid data={categoriesData} />
-
-      {/* <HalfBannerOne/> */}
-      <div className="py-8">
-        <PromotionalBanner
-          title="Summer Sale is Here!"
-          description="Get up to 50% off on all summer essentials. Limited time offer, shop now and save big!!"
-          ctaText="Shop Now"
-          // onCtaClick={() => console.log('CTA clicked')}
+      <div className="px-4 md:px-0">
+        {/* New Products */}
+        <Products
+          title="New Arrivals"
+          description="100+ products added today"
+          products={latestProducts as any}
         />
+
+        {/* Shop by category */}
+        <CategoryGrid data={categoriesData} />
+
+        {/* <HalfBannerOne/> */}
+        <div className="py-8">
+          <PromotionalBanner
+            title="Summer Sale is Here!"
+            description="Get up to 50% off on all summer essentials. Limited time offer, shop now and save big!!"
+            ctaText="Shop Now"
+            // onCtaClick={() => console.log('CTA clicked')}
+          />
+        </div>
+
+        {/* More categories */}
+        {categories?.map((category: Category) => {
+          return (
+            <div className="lg:pb-4 pb-2" key={category.id}>
+              <CategoryList category={category} />
+            </div>
+          );
+        })}
+
+        <TrendingDeals categories={categoriesData} />
       </div>
-
-      {/* More categories */}
-      {categories?.map((category: Category) => {
-        return (
-          <div className="lg:pb-4 pb-2" key={category.id}>
-            <CategoryList category={category} />
-          </div>
-        );
-      })}
-
-      <TrendingDeals categories={categoriesData} />
     </div>
   );
 }

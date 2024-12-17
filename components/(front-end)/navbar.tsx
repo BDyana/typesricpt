@@ -27,17 +27,19 @@ export default function Navbar() {
 
   return (
     <>
-      <Announcement />
+      <div className="hidden md:block">
+        <Announcement />
+      </div>
       <div className="bg-white shadow sticky top-0 z-40 w-full backdrop-blur-md">
         <div className="container flex items-center justify-between lg:pt-3.5 pt-0 lg:px-0 px-2 max-w-6xl gap-6 mx-auto">
           {/* Logo */}
           <Link className="" href="/">
             <Image
-              src={siteConfig.logo}
+              src={siteConfig.logo || '/logo.png'}
               alt="Bdyana Logo | Your one shop stock center"
               width={400}
               height={400}
-              className="w-32 mt-1"
+              className="md:w-32 w-24 mt-1"
             />
           </Link>
 
