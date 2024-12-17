@@ -46,7 +46,7 @@ export default async function Home() {
     <div className="min-h-screen">
       <Hero banners={banners} />
 
-      <div className="px-4 md:px-0">
+      <div className="px-3 md:px-0">
         {/* New Products */}
         <Products
           title="New Arrivals"
