@@ -1,14 +1,17 @@
-export default function page() {
+import { ChartArea } from '@/components/chart-area';
+import { ChartBar } from '@/components/chart-bar';
+import { ChartLine } from '@/components/chart-line';
+import { ChartPie } from '@/components/chart-pie';
+
+export default function Page() {
   return (
-    <>
-      <div className="">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="aspect-video rounded-xl bg-muted/50" />
-          <div className="aspect-video rounded-xl bg-muted/50" />
-          <div className="aspect-video rounded-xl bg-muted/50" />
-        </div>
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+    <div className="flex min-h-svh items-center justify-center p-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-7xl">
+        <ChartLine />
+        <ChartBar />
+        <ChartArea />
+        <ChartPie />
       </div>
-    </>
+    </div>
   );
 }

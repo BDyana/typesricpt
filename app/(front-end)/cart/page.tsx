@@ -1,7 +1,4 @@
-import React from 'react';
-import Link from 'next/link';
 import { getLatestProducts } from '@/actions/products';
-import Products from '@/components/(front-end)/products';
 import ShoppingCart from '@/components/(front-end)/shopping-cart';
 
 export default async function page() {

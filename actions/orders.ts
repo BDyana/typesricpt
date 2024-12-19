@@ -1,6 +1,7 @@
 'use server';
 
 import { db } from '@/lib/db';
+import { OrderStatus } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 // Order Number Generation Function
@@ -234,5 +235,37 @@ export async function getOrdersByUserId(userId: string) {
   } catch (error) {
     console.error('Error fetching orders:', error);
     throw error;
+  }
+}
+
+export async function updateOrderStatus(orderId: string, status: OrderStatus) {
+  try {
+    // find order in the database
+
+    const existingOrder = await getOrderById(orderId);
+
+    if (!existingOrder) {
+      return {
+        status: 404,
+        message: 'There is no order found in the database.',
+        data: null,
+      };
+    }
+
+    const updatedOrder = await db.order.update({
+      where: { id: orderId },
+      data: { orderStatus: status },
+    });
+
+    revalidatePath(`dashboard/orders/update/${orderId}`);
+
+    return {
+      status: 201,
+      message: 'Update Order Succefully',
+      data: updatedOrder,
+    };
+  } catch (error) {
+    console.error('Failed to update order status:', error);
+    throw new Error('Failed to update order status');
   }
 }
