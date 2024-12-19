@@ -13,7 +13,7 @@ export default async function page() {
 
   return (
     <div className="min-h-screen w-full backdrop-blur-md z-50 absolute inset-0 flex items-center justify-center bg-background/80">
-      <SignIn />;
+      <SignIn />
     </div>
   );
 }
