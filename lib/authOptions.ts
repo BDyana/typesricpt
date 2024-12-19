@@ -70,8 +70,8 @@ export const authOptions: NextAuthOptions = {
           image: profile.picture?.data?.url || '',
         };
       },
-      clientId: process.env.FACEBOOK_CLIENT_ID || '',
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET || '',
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
       name: 'Credentials',
