@@ -83,6 +83,9 @@ importers:
       '@uploadthing/react':
         specifier: ^7.1.2
         version: 7.1.2(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(uploadthing@7.4.0(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(tailwindcss@3.4.16))
+      '@vercel/analytics':
+        specifier: ^1.4.1
+        version: 1.4.1(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       base64url:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1186,6 +1189,32 @@ packages:
 
   '@uploadthing/shared@7.1.2':
     resolution: {integrity: sha512-RG26qUpPufDtuR6NQbFXIJAkkOLTgoU2pvF2MoUx3AsdCwM5/RrgwzsXudNBRER7rQQLg9/k8+Oq+jeVv30qhg==}
+
+  '@vercel/analytics@1.4.1':
+    resolution: {integrity: sha512-ekpL4ReX2TH3LnrRZTUKjHHNpNy9S1I7QmS+g/RQXoSUQ8ienzosuX7T9djZ/s8zPhBx1mpHP/Rw5875N+zQIQ==}
+    peerDependencies:
+      '@remix-run/react': ^2
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
@@ -3497,6 +3526,11 @@ snapshots:
       '@uploadthing/mime-types': 0.3.2
       effect: 3.10.15
       sqids: 0.3.0
+
+  '@vercel/analytics@1.4.1(next@15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
+    optionalDependencies:
+      next: 15.0.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react: 18.3.1
 
   abbrev@1.1.1: {}
 

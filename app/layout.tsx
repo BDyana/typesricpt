@@ -5,6 +5,7 @@ import Providers from '@/context/providers';
 import { extractRouterConfig } from 'uploadthing/server';
 import { ourFileRouter } from './api/uploadthing/core';
 import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
+import { Analytics } from '@vercel/analytics/react';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -51,7 +52,10 @@ export default function RootLayout({
            */
           routerConfig={extractRouterConfig(ourFileRouter)}
         />
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Analytics />
+        </Providers>
       </body>
     </html>
   );
