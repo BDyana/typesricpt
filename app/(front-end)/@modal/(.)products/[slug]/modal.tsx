@@ -47,7 +47,7 @@ export default function Modal({ product, category }: ProductModalProps) {
 
   return (
     <Dialog open onOpenChange={() => router.back()}>
-      <DialogContent className="sm:max-w-4xl shadow-lg">
+      <DialogContent className="max-w-sm rounded-lg mx-auto border-none my-8 sm:max-w-4xl shadow-lg p-0 overflow-y-auto max-h-[90vh]">
         <DialogHeader className="sr-only">
           <DialogTitle>{product.title}</DialogTitle>
         </DialogHeader>
