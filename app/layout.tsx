@@ -19,7 +19,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'Bdyana.com | Your Gate Way Shopping',
+  title: 'BDyana.com | Your Gate Way Shopping',
   description: 'crafted and built by  @mosespace.com',
 };
 
