@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <!html lang="en">
       <head>
         // Google Tag Manager //
         <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
