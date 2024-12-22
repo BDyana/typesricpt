@@ -17,6 +17,10 @@ const geistMono = localFont({
   variable: '--font-geist-mono',
   weight: '100 900',
 });
+const SegoeUI = localFont({
+  src: './fonts/SegoeUI.woff',
+  variable: '--font-segoe-ui',
+});
 
 export const metadata: Metadata = {
   title: 'BDyana.com | Your Gate Way Shopping',
