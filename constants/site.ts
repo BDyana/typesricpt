@@ -1,8 +1,8 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: 'Bdyana',
+  name: 'BDyana',
   description:
-    'Beautifully designed components that you can copy and paste into your apps. Accessible. Customizable. Open Source.',
-  logo: '/logo-3.png',
+    'Best Online E-Commerce Website in Bangladesh. You can Buy your Essential Products with Best Price. Happy Shopping...',
+  logo: '/Logo.png',
 };
