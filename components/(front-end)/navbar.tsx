@@ -35,8 +35,8 @@ export default function Navbar() {
           {/* Logo */}
           <Link className="" href="/">
             <Image
-              src={siteConfig.logo || '/logo.png'}
-              alt="Bdyana Logo | Your one shop stock center"
+              src={siteConfig.logo || '/Logo.png'}
+              alt="BDyana Logo | Your one shop stock center"
               width={400}
               height={400}
               className="md:w-32 w-24 mt-1"
