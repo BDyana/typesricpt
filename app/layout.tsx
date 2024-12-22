@@ -23,7 +23,7 @@ const SegoeUI = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'BDyana.com | Your Gate Way Shopping',
+  title: 'BDyana.com | Dream Comes True',
   description: 'crafted and built by  @mosespace.com',
 };
 
