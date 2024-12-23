@@ -158,7 +158,7 @@ export default function ShoppingCart({ products }: IProps) {
               description=""
               products={products as any}
               buttonTitle="View More"
-              className="lg:grid-cols-3 gap-y-2"
+              className="lg:grid-cols-5 gap-y-2"
             />
             {/* </div> */}
           </div>
