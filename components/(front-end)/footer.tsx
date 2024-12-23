@@ -54,6 +54,7 @@ export default function Footer() {
                 <Link
                   href="https://www.facebook.com/BDyana.com.bd"
                   title="Facebook"
+                  target="_blank"
                   className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
                 >
                   <svg
@@ -64,6 +65,38 @@ export default function Footer() {
                   >
                     <path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A22.336 22.336 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z"></path>
                   </svg>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://www.instagram.com/bdyana_shop/"
+                  title="Instagram"
+                  target="_blank"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                >
+                  <svg
+                    className="w-18 h-18"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://www.linkedin.com/in/roshidul-hasan-97a957340/"
+                  title="LinkedIn"
+                  target="_blank"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                 </Link>
               </li>
               {/* Add other social media icons */}
