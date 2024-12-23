@@ -20,11 +20,6 @@ const linkGroups = [
       { label: 'Delivery Details', href: '#' },
       { label: 'Terms & Conditions', href: '#' },
       { label: 'Privacy Policy', href: '#' },
-    ],
-  },
-  {
-    title: 'Pricing',
-    links: [
       { label: 'Farmer Pricing', href: '/farmer-pricing' },
       { label: 'Register Farmer', href: '/register-farmer' },
     ],
@@ -45,9 +40,9 @@ export default function Footer() {
               src={siteConfig.logo}
               alt={siteConfig.description}
             />
-            <p className="lg:text-base text-sm leading-relaxed text-gray-600 my-3 lg:mt-7">
+            <p className="text-sm leading-relaxed text-gray-600 my-3 lg:mt-5">
               Best Online E-Commerce Website in Bangladesh. You can Buy your
-              Essential Products with Best Price. Happy Shopping...
+              Essential Products with Best Price. Happy Shopping...ahaass
             </p>
             <h3>
               <b>Helpline:</b> {CONTACT_INFO.supportNumber}
@@ -81,12 +76,12 @@ export default function Footer() {
               <p className="text-sm font-semibold tracking-widest text-brandBlack uppercase">
                 {group.title}
               </p>
-              <ul className="mt-4 lg:mt-6 lg:space-y-4 space-y-2">
+              <ul className="mt-4 lg:mt-6 space-y-2">
                 {group.links.map((link, i) => (
                   <li key={i}>
                     <Link
                       href={link.href}
-                      className="flex lg:text-base text-sm text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
+                      className="flex text-sm text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
                     >
                       {link.label}
                     </Link>
