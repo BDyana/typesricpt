@@ -2,7 +2,7 @@ import { getLatestProducts } from '@/actions/products';
 import ShoppingCart from '@/components/(front-end)/shopping-cart';
 
 export default async function page() {
-  const latestProducts = await getLatestProducts(6);
+  const latestProducts = await getLatestProducts(5);
   return (
     <>
       <section className="bg-white pb-8 antialiased md:py-16">
@@ -10,7 +10,6 @@ export default async function page() {
           <h2 className="text-xl font-semibold text-brandBlacksm:text-2xl">
             Shopping Cart
           </h2>
-
           <ShoppingCart products={latestProducts} />
         </div>
       </section>
