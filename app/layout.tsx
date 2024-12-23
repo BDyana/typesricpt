@@ -23,7 +23,7 @@ const SegoeUI = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'BDyana.com | Dream Comes True',
+  title: 'BDyana.com | Your Gate Way Shopping',
   description: 'crafted and built by  @mosespace.com',
 };
 
@@ -45,7 +45,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${SegoeUI.variable} antialiased`}
       >
         <NextSSRPlugin
           /**
