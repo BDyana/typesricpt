@@ -6,9 +6,10 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 import * as fbq from '../../lib/fpixel';
 import { useDispatch } from 'react-redux';
-import { ShoppingCart } from 'lucide-react';
-import { addToCart } from '@/redux/slices/cart';
+import { ShoppingCart, Trash2 } from 'lucide-react';
+import { addToCart, removeFromCart } from '@/redux/slices/cart';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
+import { useAppSelector } from '@/redux/hooks/hooks';
 
 interface IProduct {
   imageUrl: string;
@@ -23,15 +24,26 @@ interface IProduct {
   id: string;
   qty: any;
 }
+
 export default function ProductCard({ product }: { product: IProduct }) {
+  const dispatch = useDispatch();
+  const cartItems = useAppSelector((state) => state.cart);
+
+  // Check if product is already in cart
+  const isInCart = cartItems.some((item: any) => item.id === product.id);
+
   const handleClick = () => {
     fbq.event('Purchase', { currency: 'USD', value: 10 });
   };
-  const dispatch = useDispatch();
 
-  // const { addItemToCart } = useCart();
   function handleAddToCart() {
-    // Transforming product to match CartItem interface
+    if (isInCart) {
+      // Remove from cart if already present
+      dispatch(removeFromCart(product.id));
+      toast.success('Product removed from cart');
+      return;
+    }
+
     const cartItem = {
       id: product?.id,
       slug: product?.slug,
@@ -39,14 +51,12 @@ export default function ProductCard({ product }: { product: IProduct }) {
       salePrice: product?.salePrice,
       qty: product?.qty,
       imageUrl: product?.imageUrl,
-      vendorId: product?.userId, // Assuming userId is the equivalent of vendorId
+      vendorId: product?.userId,
     };
 
-    // addItemToCart(cartItem);
     dispatch(addToCart(cartItem as any));
-    toast.success('Product added Successfully');
+    toast.success('Product added successfully');
   }
-  // console.log(progress);
 
   return (
     <div className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow">
@@ -79,7 +89,7 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 </del>
               )}
               {product?.productPrice > product?.salePrice && (
-                <h5 className="bg-[#fef3e9] text-[#f68b1e] p-1 inline ">
+                <h5 className="bg-[#fef3e9] text-[#f68b1e] p-1 inline">
                   -
                   {calculateDiscountPercentage(
                     product?.productPrice,
@@ -93,11 +103,16 @@ export default function ProductCard({ product }: { product: IProduct }) {
               type="button"
               onClick={() => {
                 handleAddToCart();
-                handleClick();
+                if (!isInCart) handleClick(); // Only trigger FB pixel on add, not remove
               }}
-              className="flex items-center hover:bg-brandColor/10 p-2 lg:p-3 rounded-full text-black"
+              className={`flex items-center p-2 lg:p-3 rounded-full transition-colors ${
+                isInCart
+                  ? 'bg-red-100 text-red-600 hover:bg-red-200'
+                  : 'hover:bg-brandColor/10 text-black'
+              }`}
+              title={isInCart ? 'Remove from cart' : 'Add to cart'}
             >
-              <ShoppingCart size={17} />
+              {isInCart ? <Trash2 size={17} /> : <ShoppingCart size={17} />}
             </button>
           </div>
         </div>
