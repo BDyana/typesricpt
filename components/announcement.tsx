@@ -6,7 +6,11 @@ export default function Announcement() {
     <div className="bg-brandColor px-4 py-3 text-white">
       <p className="text-center text-sm font-medium">
         Love our services?
-        <Link href="#" className="inline-block ml-2 underline">
+        <Link
+          href="https://yoreview.mosespace.com/bdyana-site/review"
+          target="_blank"
+          className="inline-block ml-2 underline"
+        >
           take time to give us a review here please 🙏 man!
         </Link>
       </p>
