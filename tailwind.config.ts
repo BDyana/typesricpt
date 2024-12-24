@@ -12,7 +12,7 @@ export default withUt({
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        brandColor: '#ffa500',
+        brandColor: '#14b8a6',
         brandBlack: '#1C1C1F',
         brandBorder: '#2A2A2D',
         card: {
