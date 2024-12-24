@@ -54,7 +54,6 @@ export async function getAllCategories() {
       message: 'Successfully fetched back categories',
     };
   } catch (error) {
-    console.log(error);
     return null;
   }
 }
