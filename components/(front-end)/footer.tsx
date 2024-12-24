@@ -42,7 +42,7 @@ export default function Footer() {
             />
             <p className="text-sm leading-relaxed text-gray-600 my-3 lg:mt-5">
               Best Online E-Commerce Website in Bangladesh. You can Buy your
-              Essential Products with Best Price. Happy Shopping...asdf
+              Essential Products with Best Price. Happy Shopping...Monjur vai
             </p>
             <h3>
               <b>Helpline:</b> {CONTACT_INFO.supportNumber}
