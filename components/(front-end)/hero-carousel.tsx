@@ -35,7 +35,7 @@ export default function HeroCarousel({ banners }: IProps) {
               width={1080}
               height={1080}
               src={banner.imageUrl}
-              className="w-full h-full"
+              className="w-full h-full object-cover"
               alt={banner.title}
               priority
             />
