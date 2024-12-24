@@ -187,6 +187,7 @@ export default function ProductForm({
     data.categoryId = selectedCategory.value;
     data.userId = selectedFarmer.value;
     data.wholesalePrice;
+    data.imageUrl = productImages?.[0];
 
     setLoading(true);
     try {

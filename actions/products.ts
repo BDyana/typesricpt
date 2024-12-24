@@ -44,13 +44,14 @@ export async function createProduct(formData: Product) {
     if (
       !processedData.title ||
       !processedData.slug ||
-      !processedData.categoryId
+      !processedData.categoryId ||
+      !processedData.imageUrl
     ) {
       return {
         success: false,
         status: 400, // Bad Request
         message:
-          'Invalid product data; make sure all required fields are filled!',
+          'Invalid product data; make sure all required fields are filled! (check image is uploaded correctly)',
       };
     }
 
