@@ -38,7 +38,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: 'isActive',
     header: ({ column }) => (
-      <SortableColumn column={column} title="Product Status" />
+      <SortableColumn column={column} title="Status" />
     ),
     cell: ({ row }) => (
       <span className="text-center">
@@ -49,7 +49,7 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: 'productPrice',
     header: ({ column }) => (
-      <SortableColumn column={column} title="Product Price" />
+      <SortableColumn column={column} title="Price" />
     ),
     cell: ({ row }) => (
       <span className="text-center">

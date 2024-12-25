@@ -51,9 +51,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           icon: LifeBuoy,
         },
         {
-          title: 'Feedback',
-          url: '#',
+          title: 'View Site',
+          url: '/',
+          target: "_blank",
           icon: Send,
+          className: "font-bold text-md",
         },
       ],
     };
