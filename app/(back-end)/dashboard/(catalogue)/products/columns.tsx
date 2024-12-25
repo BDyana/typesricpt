@@ -53,7 +53,7 @@ export const columns: ColumnDef<any>[] = [
     ),
     cell: ({ row }) => (
       <span className="text-center">
-        <span className="font-bold">$</span>
+        <span className="font-bold text-xl">৳</span>
         {Number(row.original.productPrice).toLocaleString()}
       </span>
     ),
