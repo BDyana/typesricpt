@@ -64,6 +64,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ...baseConfig,
           navMain: [
             {
+              title: 'Dashboard',
+              url: '/dashboard',
+              icon: SquareTerminal,
+              isActive: true,
+            },
+            {
               title: 'Catalogue',
               url: '#',
               icon: SquareTerminal,
