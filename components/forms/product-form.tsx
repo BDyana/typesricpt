@@ -259,14 +259,14 @@ export default function ProductForm({
         />
         <Card>
           <CardHeader>
-            <CardTitle>
+            {/* <CardTitle>
               {id
                 ? 'This form will be used for updating a product'
                 : 'This form will be used for creating a product'}
             </CardTitle>
             <CardDescription>
               * Enter the details for your product below.
-            </CardDescription>
+            </CardDescription> */}
           </CardHeader>
           <CardContent>
             <Tabs
@@ -275,16 +275,9 @@ export default function ProductForm({
               defaultValue="basic"
               className="space-y-4"
             >
-              <TabsList>
-                <TabsTrigger value="basic">Basic Info</TabsTrigger>
-                <TabsTrigger value="pricing">Pricing</TabsTrigger>
-                <TabsTrigger value="inventory">Inventory</TabsTrigger>
-                <TabsTrigger value="media">Media</TabsTrigger>
-                <TabsTrigger value="description">Description</TabsTrigger>
-              </TabsList>
 
               <TabsContent value="basic" className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-2 md:grid-cols-2">
                   <CustomText
                     className="text-black"
                     label="Product Title"
@@ -292,21 +285,6 @@ export default function ProductForm({
                     register={register}
                     errors={errors}
                   />
-                  <CustomText
-                    className="text-black"
-                    label="Product SKU"
-                    name="sku"
-                    register={register}
-                    errors={errors}
-                  />
-                  <CustomText
-                    className="text-black"
-                    label="Product Barcode"
-                    name="barcode"
-                    register={register}
-                    errors={errors}
-                  />
-                  <div className="space-y-2">
                     <FormSelectInput
                       label="Category"
                       options={categories?.map((category: any) => ({
@@ -317,52 +295,74 @@ export default function ProductForm({
                       setOption={setSelectedCategory}
                       href="/dashboard/categories/new"
                     />
-                  </div>
-                  <div className="space-y-2">
-                    <FormSelectInput
-                      label="Farmer"
-                      options={farmers?.map((farmer: any) => ({
-                        value: farmer.id,
-                        label: farmer.title,
-                      }))}
-                      option={selectedFarmer}
-                      setOption={setSelectedFarmer}
+                    <div className="grid grid-cols-3 gap-2">
+                  <CustomText
+                      className="text-black"
+                      label="Price (Before Discount)"
+                      name="productPrice"
+                      type="number"
+                      register={register}
+                      errors={errors}
                     />
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="pricing" className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <CustomText
-                    className="text-black"
-                    label="Product Price (Before Discount)"
-                    name="productPrice"
-                    type="number"
-                    register={register}
-                    errors={errors}
-                  />
-                  <CustomText
-                    className="text-black"
-                    label="Product Sale Price (Discounted)"
-                    name="salePrice"
-                    register={register}
-                    errors={errors}
-                    type="number"
-                  />
+                    <CustomText
+                      className="text-black"
+                      label="Sale Price (Discounted)"
+                      name="salePrice"
+                      register={register}
+                      errors={errors}
+                      type="number"
+                    />
+                    <CustomText
+                      className="text-black"
+                      label="Product Stock"
+                      name="productStock"
+                      register={register}
+                      errors={errors}
+                      type="number"
+                    />
+                    </div>
+                    <div className="grid grid-cols-3 gap-2">
+                    <CustomText
+                      className="text-black"
+                      label="Unit (e.g., Kilograms)"
+                      name="unit"
+                      register={register}
+                      errors={errors}
+                    />
+                    <CustomText
+                      className="text-black"
+                      label="Product SKU"
+                      name="sku"
+                      register={register}
+                      errors={errors}
+                    />
+                    <CustomText
+                      className="text-black"
+                      label="Product Barcode"
+                      name="barcode"
+                      register={register}
+                      errors={errors}
+                    />
+                    </div>
+                      <FormSelectInput
+                        label="Farmer"
+                        options={farmers?.map((farmer: any) => ({
+                          value: farmer.id,
+                          label: farmer.title,
+                        }))}
+                        option={selectedFarmer}
+                        setOption={setSelectedFarmer}
+                      />
                   <div className="space-y-4">
                     <FormField
                       control={form.control}
                       name="isWholesale"
                       render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border-brandBlack border p-4 bg-transparent">
-                          <div className="space-y-0.5">
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border-brandBlack border p-2 bg-transparent">
+                          <div>
                             <FormLabel className="text-base">
-                              Is Wholsale?
+                              Wholsale Availbale?
                             </FormLabel>
-                            <FormDescription>
-                              Is thsi product availbale for whole sale?
-                            </FormDescription>
                           </div>
                           <FormControl>
                             <Switch
@@ -394,30 +394,6 @@ export default function ProductForm({
                       />
                     </>
                   )}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="inventory" className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <CustomText
-                    className="text-black"
-                    label="Product Stock"
-                    name="productStock"
-                    register={register}
-                    errors={errors}
-                    type="number"
-                  />
-                  <CustomText
-                    className="text-black"
-                    label="Unit of Measurement (e.g., Kilograms)"
-                    name="unit"
-                    register={register}
-                    errors={errors}
-                  />
-                </div>
-              </TabsContent>
-
-              <TabsContent value="media" className="space-y-4">
                 <MultipleImageInput
                   imageUrls={productImages}
                   setImageUrls={setProductImages}
@@ -431,16 +407,12 @@ export default function ProductForm({
                   maxTags={10}
                   maxTagLength={20}
                 />
-              </TabsContent>
-
-              <TabsContent value="description" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="description">Product Description</Label>
+                  {/* <Label htmlFor="description">Product Description</Label>
                   <Textarea
                     id="description"
                     {...register('description')}
                     rows={5}
-                  />
+                  /> */}
                 </div>
                 <QuillEditor
                   label="Product Content"
