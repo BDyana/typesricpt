@@ -46,7 +46,6 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-// title, couponCode, expiryDate
 model Coupon {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   title      String
@@ -124,6 +123,7 @@ model Product {
   qty            Int?
   productLeft    Int?
   tags           String[]
+  comments   Comment[]
   categoryId     String   @db.ObjectId
   category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
@@ -187,7 +187,7 @@ model User {
   updatedAt         DateTime       @updatedAt
   sales             Sale[]
   passwordResetTokens PasswordResetToken[]
-
+  comments   Comment[]
 }
 
 model PasswordResetToken {
@@ -203,7 +203,6 @@ model PasswordResetToken {
   // @@index([token])
 }
 
-// Model for normal user profile
 model UserProfile {
   id            String    @id @default(auto()) @map("_id") @db.ObjectId
   userId        String    @unique @db.ObjectId
@@ -310,3 +309,15 @@ model Sale {
   product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   vendor       User     @relation(fields: [vendorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  productId String   @db.ObjectId
+  userId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+

@@ -9,7 +9,7 @@ export default function Breadcrumb() {
   const pathname = usePathname();
   const pathArr = pathname.split('/');
   pathArr.shift();
-  console.log(pathArr);
+  // console.log(pathArr);
   return (
     <nav className="flex mb-3" aria-label="Breadcrumb">
       <ol className="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">

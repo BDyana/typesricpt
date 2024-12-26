@@ -10,10 +10,6 @@ export default async function page({
   const slug = (await params).slug;
   const product = await getProductBySlug(slug);
 
-  if (!product) {
-    return <div>Product not found</div>;
-  }
-
   const categoryId = product?.categoryId;
 
   const category = await getCategoryById(categoryId);

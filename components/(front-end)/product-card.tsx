@@ -71,13 +71,13 @@ export default function ProductCard({
       className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow"
     >
       <Link prefetch={true} href={`/products/${product.slug}`} passHref>
-        <div className="overflow-hidden h-[185px]">
+        <div className="overflow-hidden h-[160px]">
           <Image
             src={product.imageUrl}
             alt={product.description}
-            width={500}
-            height={500}
-            className="w-full object-contain transition-transform duration-300 hover:scale-110"
+            width={350}
+            height={350}
+            className="w-full object-contain h-full transition-transform duration-300 hover:scale-110"
           />
         </div>
       </Link>

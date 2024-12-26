@@ -4,15 +4,16 @@ import Link from 'next/link';
 import Breadcrumb from './breadcrumb';
 import TrainingHtml from './training-html';
 import AddToCartButton from './add-to-cart';
-import { Category, Product } from '@prisma/client';
+import { Category, Comment, Product } from '@prisma/client';
 import CategoryCarousel from './category-carousel';
 import ProductShareButton from './product-share-button';
 import ProductImageCarousel from './product-image-carousel';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck } from 'lucide-react';
+import ProductComments from '../forms/product-comment';
 
 interface IProps {
-  product: Product;
+  product: Product | any;
   category: (Category & { products: any[] }) | null | undefined;
 }
 
@@ -23,7 +24,6 @@ export default function ProductView({ product, category }: IProps) {
   const products =
     categoryProducts?.filter((product: Product) => product.id !== id) ?? [];
 
-  // console.log('Category', category);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${product?.slug}`;
 
@@ -182,7 +182,11 @@ export default function ProductView({ product, category }: IProps) {
         </div>
       </div>
       <div className="bg-white dark:bg-slate-700 mt-12 rounded-sm py-2">
-        <h2 className="mb-4 text-xl font-semibold dark:text-slate-200 ml-3">
+        <ProductComments
+          productId={product.id}
+          initialComments={product.comments as any}
+        />
+        <h2 className="mb-4 text-xl font-semibold dark:text-slate-200">
           Similar Products
         </h2>
         <CategoryCarousel products={products} />

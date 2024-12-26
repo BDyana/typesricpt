@@ -3,6 +3,7 @@
 import { db } from '@/lib/db';
 import { Product } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { getUserById } from './users';
 
 export async function createProduct(formData: Product) {
   // console.log('FormData;', formData);
@@ -99,12 +100,39 @@ export const getLatestProducts = async (pageSize?: number) => {
 
 export async function getProductBySlug(slug: string) {
   try {
+    // Fetch the product with comments
     const product = await db.product.findUnique({
       where: {
         slug,
       },
+      include: {
+        comments: true,
+      },
     });
-    return product;
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    // Refactor comments to include user data
+    const commentsWithUser = await Promise.all(
+      product.comments.map(async (comment) => {
+        const user = await db.user.findUnique({
+          where: { id: comment.userId },
+          select: { name: true },
+        });
+
+        return {
+          ...comment,
+          user: user ? { name: user.name } : null,
+        };
+      }),
+    );
+
+    return {
+      ...product,
+      comments: commentsWithUser,
+    };
   } catch (error) {
     console.error('Error while fetching product by slug', error);
     throw new Error('Error while fetching product by slug');
