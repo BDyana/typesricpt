@@ -1,8 +1,7 @@
-import { Suspense } from 'react';
-import { getData } from '@/lib/getData';
-import CategoryDetailed from './category-detailed';
-import { getAllCategories } from '@/actions/categories';
+import { getAllCategories, getCategoryBySlug } from '@/actions/categories';
 import TrendingDeals from '@/components/(front-end)/trending-deals';
+import { Suspense } from 'react';
+import CategoryDetailed from './category-detailed';
 
 interface Category {
   id: string;
@@ -29,11 +28,12 @@ export default async function Page({ params }: PageProps) {
   const { slug } = await params;
 
   // Fetch the category data
-  const category: Category = await getData(`categories/filter/${slug}`);
+  const category: any = await getCategoryBySlug(slug);
 
   const categories_res = await getAllCategories();
   const categoriesData = categories_res?.data;
 
+  // console.log('Category:', category);
   return (
     <div>
       <Suspense fallback={<SearchBarFallback />}>

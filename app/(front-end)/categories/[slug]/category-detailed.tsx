@@ -44,7 +44,7 @@ export default function CategoryDetailed({ category }: PageProps) {
 
         // Fetch products based on the category and search parameters
         const fetchedProducts: Product[] = await getData(
-          `products?catId=${category.id}&page=${page}&sort=${sort}&min=${min}&max=${max}`,
+          `products/search?catId=${category.id}&page=${page}&sort=${sort}&min=${min}&max=${max}`,
         );
         setProducts(fetchedProducts); // Save the products in state
       } catch (error) {
@@ -56,10 +56,12 @@ export default function CategoryDetailed({ category }: PageProps) {
     };
 
     fetchProducts(); // Trigger the async fetch function
-  }, [category.id, searchParams]); // Add the dependencies for category and searchParams
+  }, [category, searchParams]); // Add the dependencies for category and searchParams
 
   return (
     <>
+      {loading && <>It's still loading...</>}
+      {/* Hello it's should display */}
       {category && products && (
         <FilterComponent category={category as any} products={products} />
       )}

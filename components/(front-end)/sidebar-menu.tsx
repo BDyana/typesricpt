@@ -26,7 +26,7 @@ export default async function SidebarMenu() {
         <ul className="">
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/industrial-machineries"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Factory className="text-slate-500" size={16} />
@@ -36,7 +36,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="/categories/garments-accessories"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Building2 className="text-slate-500" size={16} />
@@ -54,25 +54,22 @@ export default async function SidebarMenu() {
                 </Link>
               </li>
               <li className="py-0.5">
-                <Link className="hover:text-black transition-all" href="">
+                <Link className="hover:text-black transition-all" href="#">
                   Samarian Thread
                 </Link>
               </li>
               <li className="py-0.5">
-                <Link className="hover:text-black transition-all" href="">
+                <Link className="hover:text-black transition-all" href="#">
                   Malaikot Thread
                 </Link>
               </li>
               <li className="py-0.5">
-                <Link className="hover:text-black transition-all" href="">
+                <Link className="hover:text-black transition-all" href="#">
                   Crochet Thread
                 </Link>
               </li>
               <li className="py-0.5">
-                <Link
-                  className="hover:text-black transition-all"
-                  href="/categories/lacchi-suta"
-                >
+                <Link className="hover:text-black transition-all" href="#">
                   Lacchi Thread
                 </Link>
               </li>
@@ -80,7 +77,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/computer-hardware"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Laptop className="text-slate-500" size={16} />
@@ -89,7 +86,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/gadget-accessories"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Cpu className="text-slate-500" size={16} />
@@ -98,7 +95,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/mens-fashion"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Luggage className="text-slate-500" size={16} />
@@ -107,7 +104,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="/project/womens-girls-fashion"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <BookHeart className="text-slate-500" size={16} />
@@ -116,22 +113,22 @@ export default async function SidebarMenu() {
             <ul className="absolute left-[275px] top-0 z-10 w-full px-3 py-1 bg-white h-[340px] hidden group-hover:block">
               <h3 className="mb-1">Ladies Bag</h3>
               <li className="hover:text-blue-700">
-                <Link className="hover:text-blue-700" href="">
+                <Link className="hover:text-blue-700" href="#">
                   Party Bag
                 </Link>
               </li>
               <li className="hover:text-blue-700">
-                <Link className="hover:text-blue-700" href="">
+                <Link className="hover:text-blue-700" href="#">
                   Canvas Bag
                 </Link>
               </li>
               <li className="hover:text-blue-700">
-                <Link className="hover:text-blue-700" href="">
+                <Link className="hover:text-blue-700" href="#">
                   Hand Bag
                 </Link>
               </li>
               <li className="hover:text-blue-700">
-                <Link className="hover:text-blue-700" href="">
+                <Link className="hover:text-blue-700" href="#">
                   Casual Bag
                 </Link>
               </li>
@@ -139,7 +136,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="/project/mothers-kids"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <PawPrint className="text-slate-500" size={16} />
@@ -149,18 +146,12 @@ export default async function SidebarMenu() {
             <ul className="absolute left-[275px] top-0 z-10 w-full px-3 py-1 bg-white h-[340px] hidden group-hover:block">
               <h3 className="mb-1">Baby Food</h3>
               <li className="py-1 hover:text-blue-700">
-                <Link
-                  className="hover:text-blue-700"
-                  href="/categories/lactogen"
-                >
+                <Link className="hover:text-blue-700" href="#">
                   Lactogen
                 </Link>
               </li>
               <li className="py-1 hover:text-blue-700">
-                <Link
-                  className="hover:text-blue-700"
-                  href="/categories/cerelac"
-                >
+                <Link className="hover:text-blue-700" href="#">
                   Cerelac
                 </Link>
               </li>
@@ -168,7 +159,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/grocery-beverage"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <ShoppingBasket className="text-slate-500" size={16} />
@@ -177,7 +168,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/home-appliance"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Microwave className="text-slate-500" size={16} />
@@ -186,7 +177,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/electronics-device"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Cable className="text-slate-500" size={16} />
@@ -195,7 +186,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/sports-entertainment"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Trophy className="text-slate-500" size={16} />
@@ -205,7 +196,7 @@ export default async function SidebarMenu() {
           <li className="">
             <Link
               href="/categories"
-              target="_blank"
+              prefetch={true}
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all text-slate-800"
             >
               <AlignJustify className="text-slate-500" size={16} />
