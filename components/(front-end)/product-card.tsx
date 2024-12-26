@@ -10,6 +10,7 @@ import { ShoppingCart, Trash2 } from 'lucide-react';
 import { addToCart, removeFromCart } from '@/redux/slices/cart';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { useAppSelector } from '@/redux/hooks/hooks';
+import { cn } from '@/lib/utils';
 
 interface IProduct {
   imageUrl: string;
@@ -25,7 +26,13 @@ interface IProduct {
   qty: any;
 }
 
-export default function ProductCard({ product }: { product: IProduct }) {
+export default function ProductCard({
+  product,
+  className,
+}: {
+  product: IProduct;
+  className?: string;
+}) {
   const dispatch = useDispatch();
   const cartItems = useAppSelector((state) => state.cart);
 
@@ -92,7 +99,12 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 </del>
               )}
               {product?.productPrice > product?.salePrice && (
-                <h5 className="bg-[#fef3e9] text-[#f68b1e] p-1 inline">
+                <h5
+                  className={cn(
+                    'bg-[#fef3e9] text-[#f68b1e] p-1 inline',
+                    className,
+                  )}
+                >
                   -
                   {calculateDiscountPercentage(
                     product?.productPrice,

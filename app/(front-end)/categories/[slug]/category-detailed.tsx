@@ -60,7 +60,7 @@ export default function CategoryDetailed({ category }: PageProps) {
 
   return (
     <>
-      {loading && <>It's still loading...</>}
+      {loading && <></>}
       {/* Hello it's should display */}
       {category && products && (
         <FilterComponent category={category as any} products={products} />

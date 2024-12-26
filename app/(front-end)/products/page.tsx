@@ -2,18 +2,54 @@
 
 import { getLatestProducts } from '@/actions/products';
 import Paginate from '@/components/(front-end)/filter/paginate';
+import FlashSales from '@/components/(front-end)/flash-sales';
 import ProductCard from '@/components/(front-end)/product-card';
+import { ChevronRight, Tag } from 'lucide-react';
+import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
 
+const Timer = () => {
+  const [time, setTime] = useState(3600);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime((prevTime) => (prevTime > 0 ? prevTime - 1 : prevTime + 1));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (time: any) => {
+    const hours = Math.floor(time / 3600);
+    const minutes = Math.floor((time % 3600) / 60);
+    const seconds = time % 60;
+    return `${hours < 10 ? '0' : ''}${hours}h : ${
+      minutes < 10 ? '0' : ''
+    }${minutes}m : ${seconds < 10 ? '0' : ''}${seconds}s`;
+  };
+
+  return (
+    <div className="text-[#ffff] font-bold lg:text-lg text-xs lg:block md:block hidden">
+      Time Left: {formatTime(time)}
+    </div>
+  );
+};
 function SearchBarFallback() {
   return <></>;
 }
 
-export default function AllProducts() {
+export default function AllProducts({
+  isFlashSale,
+  className,
+}: {
+  isFlashSale?: boolean;
+  className?: string;
+}) {
   const [productsList, setProductsList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
-  const pageSize = 10;
+
+  const pageSize = isFlashSale ? 100 : 10;
 
   // Function to fetch the latest products
   const getLatest = async () => {
@@ -59,7 +95,25 @@ export default function AllProducts() {
 
   return (
     <div className="pt-8 pb-4 px-4 rounded-md bg-gradient-to-b from-slate-50 to-white">
-      <h2 className="text-xl font-bold">All Products</h2>
+      <h2 className="text-xl font-bold">
+        {isFlashSale ? (
+          <div className="flex items-center justify-between bg-[#e61601] p-4">
+            <h2 className="text-[#ffff] font-bold lg:tracking-normal lg:text-lg text-sm flex items-center gap-1">
+              <Tag color="#ffba00" />
+              Flash Sales
+            </h2>
+            <Timer />
+            <Link
+              className="text-[#fff] hidden font-bold lg:text-sm text-xs items-center gap-1"
+              href="/flash-sales"
+            >
+              SEE ALL <ChevronRight className="w-5 h-5" />
+            </Link>
+          </div>
+        ) : (
+          'All Products'
+        )}
+      </h2>
       <Suspense fallback={<SearchBarFallback />}>
         <div
           id="products-section"
@@ -67,7 +121,10 @@ export default function AllProducts() {
         >
           {currentProducts.map((product, i) => (
             <div key={i}>
-              <ProductCard product={product} />
+              <ProductCard
+                className={className && 'bg-[#fce7e5] text-[#e61601]'}
+                product={product}
+              />
             </div>
           ))}
         </div>
@@ -81,6 +138,8 @@ export default function AllProducts() {
             />
           </div>
         )}
+
+        {!isFlashSale && <FlashSales products={productsList} />}
       </Suspense>
     </div>
   );
