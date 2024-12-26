@@ -11,6 +11,7 @@ import ProductImageCarousel from './product-image-carousel';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck } from 'lucide-react';
 import ProductComments from '../forms/product-comment';
+import FakeSalesCount from '@/hooks/fake-sale-count';
 
 interface IProps {
   product: Product | any;
@@ -46,10 +47,10 @@ export default function ProductView({ product, category }: IProps) {
             <div className="flex font-bold items-center justify-between mt-3">
               <h1>{product.title}</h1>
             </div>
-            <div className="flex gap-3 mt-2 mb-8">
+            <div className="flex gap-3 mt-2 mb-4">
               <div>
                 <h4>
-                  Cateogory :{' '}
+                  Category:{' '}
                   <Link
                     className="text-brandColor"
                     href={`/categories/${category?.slug}`}
@@ -59,7 +60,8 @@ export default function ProductView({ product, category }: IProps) {
                 </h4>
               </div>
             </div>
-            <div className="border-b border-gray-300">
+            <FakeSalesCount />
+            <div className="border-b border-gray-300 mt-4">
               <h4>
                 <b>SPECIFICATION : </b>
               </h4>
@@ -144,7 +146,7 @@ export default function ProductView({ product, category }: IProps) {
               <div>
                 <h3>Cash on Delivery Available.</h3>
                 <h5>
-                  You can pay to Delivery man after your product ckecking.
+                  You can pay to Delivery man after your product checking.
                 </h5>
               </div>
             </div>

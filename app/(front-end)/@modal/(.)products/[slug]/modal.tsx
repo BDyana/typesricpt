@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
 import { Category, Product } from '@prisma/client';
 import { DialogTitle } from '@radix-ui/react-dialog';
-import { Heart } from 'lucide-react';
+import { Heart, Maximize2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -45,6 +45,11 @@ export default function Modal({ product, category }: ProductModalProps) {
 
   const base_url = process.env.NEXTAUTH_URL as string;
 
+  const handleFullScreenClick = () => {
+    location.reload();
+    // router.push(`/products/${product.slug}`);
+  };
+
   return (
     <Dialog open onOpenChange={() => router.back()}>
       <DialogContent className="max-w-sm rounded-lg mx-auto border-none my-8 sm:max-w-4xl shadow-lg p-0 overflow-y-auto max-h-[90vh]">
@@ -58,18 +63,28 @@ export default function Modal({ product, category }: ProductModalProps) {
               <ProductShareButton
                 urlToShare={`${base_url}/products/${product.slug}`}
               />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="text-white hover:text-white hover:bg-white/20"
-              >
-                <Heart className="h-6 w-6" />
-              </Button>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                  onClick={handleFullScreenClick}
+                >
+                  <Maximize2 className="h-6 w-6" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                >
+                  <Heart className="h-6 w-6" />
+                </Button>
+              </div>
             </div>
             <div className="flex-1 relative">
               <Image
                 src={product.imageUrl as string}
-                alt={`Bdyana | ${product.title}`}
+                alt={`BDyana | ${product.title}`}
                 width={400}
                 height={400}
                 className="object-contain w-full h-full"
@@ -107,7 +122,7 @@ export default function Modal({ product, category }: ProductModalProps) {
               <span className="text-gray-500  ml-3 text-sm">
                 from:
                 <Link
-                  className="fotn-bold ml-1 text-black underline"
+                  className="font-bold ml-1 text-black underline"
                   rel="stylesheet"
                   href={`${base_url}/${category.slug}`}
                 >
@@ -146,15 +161,13 @@ export default function Modal({ product, category }: ProductModalProps) {
 
             <div className="mt-8">
               <h3 className="text-sm text-gray-500 uppercase tracking-wide">
-                Benefits
+                Description
               </h3>
               <ul className="mt-2 space-y-2">
-                {benefits.map((benefit, index) => (
-                  <li key={index} className="flex items-center text-gray-700">
-                    <span className="w-1.5 h-1.5 bg-gray-700 rounded-full mr-2" />
-                    {benefit}
-                  </li>
-                ))}
+                <li className="flex items-center text-gray-700">
+                  <span className="w-1.5 h-1.5 bg-gray-700 rounded-full mr-2" />
+                  {product.description}
+                </li>
               </ul>
             </div>
 
