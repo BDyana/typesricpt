@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import CustomText from '../re-usable-inputs/text-reusable';
+import { useLocalStorage } from '@/hooks/use-local-storage';
 
 interface SignInFormData {
   email: string;
@@ -20,6 +21,7 @@ interface SignInFormData {
 
 export default function SignIn() {
   const [loggingIn, setLoggingIn] = useState(false);
+  const [onBoarded, setOnBoarded] = useLocalStorage('onBoarded', false);
 
   const {
     register,
@@ -44,6 +46,12 @@ export default function SignIn() {
         toast.error('Sign-in error: Check your credentials');
       } else {
         // Sign-in was successful
+        if (onBoarded) {
+          router.push('/');
+        } else {
+          router.push('/on-boarding');
+        }
+
         toast.success('Login Successful');
         reset();
         router.push('/');

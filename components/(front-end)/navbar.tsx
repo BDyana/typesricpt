@@ -11,15 +11,15 @@ import { siteConfig } from '@/constants/site';
 import { PhoneCall, User } from 'lucide-react';
 import { CONTACT_INFO } from '@/constants/contacts';
 import { useSession } from 'next-auth/react';
-
-interface NavBarProps {
-  // session: Session | null;
-  session?: any;
-  status?: any;
-}
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
+
+  if (pathname === '/on-boarding') {
+    return null;
+  }
 
   if (status === 'loading') {
     return <Loader />;

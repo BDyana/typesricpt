@@ -220,7 +220,7 @@ model UserProfile {
   district      String?
   dateOfBirth   DateTime?
   profileImage  String?
-
+  isOnBoarded   Boolean    @default(false)
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

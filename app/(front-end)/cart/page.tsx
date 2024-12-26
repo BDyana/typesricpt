@@ -1,8 +1,19 @@
 import { getLatestProducts } from '@/actions/products';
+import { getUserProfile } from '@/actions/update-profile';
 import ShoppingCart from '@/components/(front-end)/shopping-cart';
+import { authOptions } from '@/lib/authOptions';
+import { getServerSession } from 'next-auth';
 
 export default async function page() {
   const latestProducts = await getLatestProducts(6);
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
+  const userId = user?.id;
+
+  const userProfile = await getUserProfile(userId);
+  // console.log('User Profile:', userProfile?.data);
+  // console.log('User Profile:', session?.user);
+
   return (
     <>
       <section className="bg-white pb-8 antialiased md:py-16">
@@ -11,7 +22,11 @@ export default async function page() {
             Shopping Cart
           </h2>
 
-          <ShoppingCart products={latestProducts} />
+          <ShoppingCart
+            userProfile={userProfile?.data}
+            products={latestProducts}
+            user={user}
+          />
         </div>
       </section>
     </>
