@@ -1,88 +1,96 @@
-'use client';
-
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from '@/components/ui/pagination';
-import { useSearchParams } from 'next/navigation';
-
 interface PaginateProps {
   totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
-export default function Paginate({ totalPages }: PaginateProps) {
-  const searchParams = useSearchParams();
-  const sort = searchParams.get('sort') || 'asc';
-  const min = searchParams.get('min') || '0';
-  const max = searchParams.get('max') || '';
-  const search = searchParams.get('search') || '';
-  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+export default function Paginate({
+  totalPages,
+  currentPage,
+  onPageChange,
+}: PaginateProps) {
+  // Function to generate page numbers with ellipsis
+  const getPageNumbers = () => {
+    const pages = [];
 
-  const generateLink = (page: number): string => {
-    const params = {
-      page: page.toString(),
-      sort,
-      min,
-      max,
-      search,
-    };
-    return `?${new URLSearchParams(params)}`;
+    if (totalPages <= 7) {
+      // If total pages is 7 or less, show all pages
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // Always show first page
+      pages.push(1);
+
+      if (currentPage > 3) {
+        pages.push('...');
+      }
+
+      // Show pages around current page
+      for (
+        let i = Math.max(2, currentPage - 1);
+        i <= Math.min(currentPage + 1, totalPages - 1);
+        i++
+      ) {
+        pages.push(i);
+      }
+
+      if (currentPage < totalPages - 2) {
+        pages.push('...');
+      }
+
+      // Always show last page
+      pages.push(totalPages);
+    }
+
+    return pages;
   };
 
   return (
-    <Pagination>
-      <PaginationContent>
-        {/* Previous Page */}
-        <PaginationItem>
-          <PaginationPrevious
-            href={generateLink(currentPage === 1 ? 1 : currentPage - 1)}
-          />
-        </PaginationItem>
+    <div className="flex items-center gap-2">
+      <button
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`px-3 py-1 rounded ${
+          currentPage === 1
+            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+            : 'bg-brandBlack text-white hover:bg-gray-300 text-sm'
+        }`}
+      >
+        Previous
+      </button>
 
-        {/* Page Links */}
-        {totalPages <= 3 ? (
-          Array.from({ length: totalPages }, (_, index) => (
-            <PaginationItem key={index}>
-              <PaginationLink
-                isActive={index + 1 === currentPage}
-                href={generateLink(index + 1)}
-              >
-                {index + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))
+      {getPageNumbers().map((page, index) =>
+        page === '...' ? (
+          <span key={`ellipsis-${index}`} className="px-2">
+            ...
+          </span>
         ) : (
-          <>
-            {Array.from({ length: 3 }, (_, index) => (
-              <PaginationItem key={index}>
-                <PaginationLink
-                  isActive={index + 1 === currentPage}
-                  href={generateLink(index + 1)}
-                >
-                  {index + 1}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          </>
-        )}
+          <button
+            key={`page-${page}`}
+            onClick={() => onPageChange(Number(page))}
+            className={`px-3 py-1 rounded ${
+              currentPage === page
+                ? 'bg-brandColor text-white'
+                : 'bg-transparent hover:bg-gray-300'
+            }`}
+          >
+            {page}
+          </button>
+        ),
+      )}
 
-        {/* Next Page */}
-        <PaginationItem>
-          <PaginationNext
-            href={generateLink(
-              currentPage === totalPages ? totalPages : currentPage + 1,
-            )}
-          />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
+      <button
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`px-3 py-1 rounded ${
+          currentPage === totalPages
+            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+            : 'bg-brandBlack text-white text-sm hover:bg-gray-300'
+        }`}
+      >
+        Next
+      </button>
+    </div>
   );
 }
