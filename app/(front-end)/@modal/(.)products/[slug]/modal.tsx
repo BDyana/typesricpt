@@ -2,6 +2,7 @@
 
 import AddToCartButton from '@/components/(front-end)/add-to-cart';
 import ProductShareButton from '@/components/(front-end)/product-share-button';
+import TrainingHtml from '@/components/(front-end)/training-html';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
 import { Category, Product } from '@prisma/client';
@@ -166,7 +167,7 @@ export default function Modal({ product, category }: ProductModalProps) {
               <ul className="mt-2 space-y-2">
                 <li className="flex items-center text-gray-700">
                   <span className="w-1.5 h-1.5 bg-gray-700 rounded-full mr-2" />
-                  {product.content}
+                  <TrainingHtml content={product.content} />
                 </li>
               </ul>
             </div>
