@@ -10,6 +10,7 @@ export async function getAllReviewsByProductId(productId: string) {
   }
 
   const reviews = await db.review.findMany({
+    where: { productId },
     include: {
       user: {
         select: {

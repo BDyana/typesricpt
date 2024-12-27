@@ -13,6 +13,7 @@ import {
   updateReview,
 } from '@/actions/reviews';
 import { Card, CardContent } from '../ui/card';
+import { toast } from 'sonner';
 
 interface Review {
   id: string;
@@ -67,9 +68,14 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
     try {
       setThumbsLoading(true);
       if (!session) {
-        alert('You must be logged in to submit a review');
+        toast('You must be logged in to submit a review');
         return;
       }
+
+      if (newReview.rating === 0) {
+        toast.error('You must at least choose a rating a swell');
+      }
+
       const response = await createReview(productId, newReview);
 
       if (response.status === 201) {

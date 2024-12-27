@@ -26,20 +26,12 @@ export default function OnboardingForm({ userProfile }: any) {
   const router = useRouter();
 
   useEffect(() => {
-    if (!session) {
-      router.push('/login');
-      return;
+    if (userProfile?.isOnBoarded) {
+      setOnBoarded(true); // Update local storage
+      router.push('/'); // Redirect to home
+      // router.refresh();
     }
-
-    if (userProfile?.isOnBoarded || onBoarded) {
-      // console.log('Redirecting due to:', {
-      //   isOnBoarded: userProfile?.isOnBoarded,
-      //   onBoarded,
-      // });
-      setOnBoarded(true);
-      router.push('/');
-    }
-  }, [session, userProfile, onBoarded, router, setOnBoarded]);
+  }, [userProfile?.isOnBoarded, router, setOnBoarded]);
 
   const {
     register,

@@ -1,22 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { OrderSummary } from './order-summary';
-import CartItemList from './cart-item-list';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
-import { Product, UserProfile } from '@prisma/client';
-import RecommendedProducts from './recommended-products';
-import DeliveryOption from './delivery-option';
-import { toast } from 'sonner';
-import { splitFullName } from '@/lib/splitNames';
-import {
-  decrementQty,
-  incrementQty,
-  removeFromCart,
-} from '@/redux/slices/cart';
-import { useLocalStorage } from '@/hooks/use-local-storage';
-import { EmptyCart } from './empty-cart';
 import {
   Card,
   CardContent,
@@ -24,11 +7,24 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { LocationManager } from '../location-manager';
 import { Label } from '@/components/ui/label';
-import { PaymentMethodSelector } from '../payment-method-selector';
+import { useLocalStorage } from '@/hooks/use-local-storage';
+import { splitFullName } from '@/lib/splitNames';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
+import { removeFromCart } from '@/redux/slices/cart';
+import { Product, UserProfile } from '@prisma/client';
 import { Loader2Icon } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { LocationManager } from '../location-manager';
+import { PaymentMethodSelector } from '../payment-method-selector';
+import CartItemList from './cart-item-list';
+import DeliveryOption from './delivery-option';
+import { EmptyCart } from './empty-cart';
+import { OrderSummary } from './order-summary';
+import RecommendedProducts from './recommended-products';
 
 interface ShoppingCartProps {
   products: Product[] | null | undefined;
@@ -41,6 +37,19 @@ export default function ShoppingCart({
   user,
   userProfile,
 }: ShoppingCartProps) {
+  const userProfileDefaultLocation = userProfile
+    ? [
+        {
+          isDefault: true,
+          phone: userProfile.phone || '',
+          streetAddress: userProfile.streetAddress || '',
+          city: userProfile.city || '',
+          country: userProfile.country || '',
+          district: userProfile.district || '',
+        },
+      ]
+    : [];
+
   const [loading, setLoading] = useState(false);
   const [selectedDelivery, setSelectedDelivery] = useState<{
     id: string;
@@ -65,19 +74,11 @@ export default function ShoppingCart({
       }, 0)
       .toFixed(2) ?? 0;
 
-  function handleRemoveFromCart(cartId: string) {
-    dispatch(removeFromCart(cartId));
-    toast.success('Product removed Successfully');
-  }
+  const [locations] = useLocalStorage<any[]>(
+    'locations',
+    userProfileDefaultLocation,
+  );
 
-  function handleQtyIncrement(cartId: string) {
-    dispatch(incrementQty(cartId));
-  }
-  function handleQtyDecrement(cartId: string) {
-    dispatch(decrementQty(cartId));
-  }
-
-  const [locations, setLocations] = useLocalStorage<any[]>('locations', []);
   const sortedLocation = locations.find(
     (location) => location.isDefault === true,
   );

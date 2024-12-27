@@ -16,7 +16,7 @@ export default async function page() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-secondary/5 to-background flex items-center justify-center p-8">
       <div className="w-full m-8 max-w-4xl">
-        <OnboardingForm userProfile={userProfile?.data} />
+        <OnboardingForm userProfile={userProfile?.data as any} />
       </div>
     </div>
   );
