@@ -7,7 +7,7 @@ import Link from 'next/link';
 export default async function CategoriesPage() {
   const flashSaleProducts = await getFlashSaleProducts();
 
-  if (flashSaleProducts.length === 0) {
+  if (flashSaleProducts.length >= 4) {
     return (
       <div className="flex w-full mx-auto h-full flex-col items-center justify-center space-y-4 py-12">
         <FireExtinguisher className="animate-pulse h-16 w-16 text-gray-400" />
