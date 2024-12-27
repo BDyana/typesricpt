@@ -17,7 +17,9 @@ import { updateUserProfile } from '@/actions/update-profile';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useSession } from 'next-auth/react';
 
-export default function OnboardingForm(userProfile: any) {
+export default function OnboardingForm({ userProfile }: any) {
+  // console.log('OnboardingForm userProfile:', userProfile);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [onBoarded, setOnBoarded] = useLocalStorage('onBoarded', false);
   const { data: session } = useSession();
@@ -30,10 +32,14 @@ export default function OnboardingForm(userProfile: any) {
     }
 
     if (userProfile?.isOnBoarded || onBoarded) {
+      // console.log('Redirecting due to:', {
+      //   isOnBoarded: userProfile?.isOnBoarded,
+      //   onBoarded,
+      // });
       setOnBoarded(true);
       router.push('/');
     }
-  }, [session, userProfile, onBoarded, router]);
+  }, [session, userProfile, onBoarded, router, setOnBoarded]);
 
   const {
     register,
@@ -74,7 +80,7 @@ export default function OnboardingForm(userProfile: any) {
   if (!session) return null;
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-lg">
+    <Card className="w-full p-8 max-w-2xl mx-auto shadow-lg">
       <CardHeader className="space-y-1">
         <CardTitle className="text-3xl font-bold">
           Complete Your Profile

@@ -108,7 +108,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
 
   return (
     <Card className="my-4 shadow-sm rounded-sm">
-      <CardContent className="py-3">
+      <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Customer Reviews</h2>
 
         <div className="flex flex-col md:flex-row gap-8 mb-8">
