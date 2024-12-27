@@ -40,7 +40,7 @@ export function CategoriesModal({ categories }: CategoriesDisplayProps) {
               className="opacity-0 translate-y-4 animate-[fade-in-up_0.3s_ease-out_forwards]"
               style={{ animationDelay: `${index * 50}ms` }}
             >
-              <Link href={`/categories/${category.slug}`}>
+              <Link prefetch={true} href={`/categories/${category.slug}`}>
                 <Card className="group h-full overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105">
                   <CardContent className="p-4 flex flex-col items-center justify-center text-center h-full">
                     <Image

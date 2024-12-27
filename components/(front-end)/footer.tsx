@@ -1,8 +1,11 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { CONTACT_INFO } from '@/constants/contacts';
 import { siteConfig } from '@/constants/site';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const linkGroups = [
   {
@@ -27,6 +30,12 @@ const linkGroups = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname === '/on-boarding') {
+    return null;
+  }
+
   return (
     <section className="pt-8 lg:pt-18 pb-4 lg:pb-5 bg-gray-50">
       <div className="px-4 mx-auto sm:px-6 lg:px-0 max-w-6xl">

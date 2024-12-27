@@ -1,18 +1,21 @@
 'use client';
 
-import Link from 'next/link';
-import Breadcrumb from './breadcrumb';
-import TrainingHtml from './training-html';
-import AddToCartButton from './add-to-cart';
-import { Category, Product } from '@prisma/client';
-import CategoryCarousel from './category-carousel';
-import ProductShareButton from './product-share-button';
-import ProductImageCarousel from './product-image-carousel';
+import FakeSalesCount from '@/hooks/fake-sale-count';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
+import { useAppSelector } from '@/redux/hooks/hooks';
+import { Category, Product } from '@prisma/client';
 import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck } from 'lucide-react';
+import Link from 'next/link';
+import AddToCartButton from './add-to-cart';
+import Breadcrumb from './breadcrumb';
+import CategoryCarousel from './category-carousel';
+import ProductImageCarousel from './product-image-carousel';
+import ProductReviews from './product-review';
+import ProductShareButton from './product-share-button';
+import TrainingHtml from './training-html';
 
 interface IProps {
-  product: Product;
+  product: Product | any;
   category: (Category & { products: any[] }) | null | undefined;
 }
 
@@ -23,9 +26,13 @@ export default function ProductView({ product, category }: IProps) {
   const products =
     categoryProducts?.filter((product: Product) => product.id !== id) ?? [];
 
-  // console.log('Category', category);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${product?.slug}`;
+
+  const cartItems = useAppSelector((state) => state.cart);
+
+  // Check if product is already in cart
+  const isInCart = cartItems.some((item: any) => item.id === product.id);
 
   return (
     <>
@@ -46,10 +53,10 @@ export default function ProductView({ product, category }: IProps) {
             <div className="flex font-bold items-center justify-between mt-3">
               <h1>{product.title}</h1>
             </div>
-            <div className="flex gap-3 mt-2 mb-8">
+            <div className="flex gap-3 mt-2 mb-4">
               <div>
                 <h4>
-                  Cateogory :{' '}
+                  Category:{' '}
                   <Link
                     className="text-brandColor"
                     href={`/categories/${category?.slug}`}
@@ -59,7 +66,8 @@ export default function ProductView({ product, category }: IProps) {
                 </h4>
               </div>
             </div>
-            <div className="border-b border-gray-300">
+            <FakeSalesCount />
+            <div className="border-b border-gray-300 mt-4">
               <h4>
                 <b>SPECIFICATION : </b>
               </h4>
@@ -96,7 +104,7 @@ export default function ProductView({ product, category }: IProps) {
               </div>
             </div>
             <div className="flex justify-between items-center py-6">
-              <AddToCartButton product={product} />
+              <AddToCartButton isInCart={isInCart} product={product} />
               <div className="flex gap-3">
                 <div>
                   <PhoneCall className="mt-3" />
@@ -144,7 +152,7 @@ export default function ProductView({ product, category }: IProps) {
               <div>
                 <h3>Cash on Delivery Available.</h3>
                 <h5>
-                  You can pay to Delivery man after your product ckecking.
+                  You can pay to Delivery man after your product checking.
                 </h5>
               </div>
             </div>
@@ -181,8 +189,13 @@ export default function ProductView({ product, category }: IProps) {
           </div>
         </div>
       </div>
+      <ProductReviews productId={product.id} />
       <div className="bg-white dark:bg-slate-700 mt-12 rounded-sm py-2">
-        <h2 className="mb-4 text-xl font-semibold dark:text-slate-200 ml-3">
+        {/* <ProductComments
+          productId={product.id}
+          initialComments={product.comments as any}
+        /> */}
+        <h2 className="mb-4 text-xl font-semibold dark:text-slate-200">
           Similar Products
         </h2>
         <CategoryCarousel products={products} />

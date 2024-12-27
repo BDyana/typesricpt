@@ -10,6 +10,7 @@ import { ShoppingCart, Trash2 } from 'lucide-react';
 import { addToCart, removeFromCart } from '@/redux/slices/cart';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { useAppSelector } from '@/redux/hooks/hooks';
+import { cn } from '@/lib/utils';
 
 interface IProduct {
   imageUrl: string;
@@ -25,12 +26,18 @@ interface IProduct {
   qty: any;
 }
 
-export default function ProductCard({ product }: { product: IProduct }) {
+export default function ProductCard({
+  product,
+  className,
+}: {
+  product: IProduct;
+  className?: string;
+}) {
   const dispatch = useDispatch();
   const cartItems = useAppSelector((state) => state.cart);
 
   // Check if product is already in cart
-  const isInCart = cartItems.some((item: any) => item.id === product.id);
+  const isInCart = cartItems?.some((item: any) => item.id === product.id);
 
   const handleClick = () => {
     fbq.event('Purchase', { currency: 'USD', value: 10 });
@@ -64,13 +71,13 @@ export default function ProductCard({ product }: { product: IProduct }) {
       className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow"
     >
       <Link prefetch={true} href={`/products/${product.slug}`} passHref>
-        <div className="overflow-hidden h-[185px]">
+        <div className="overflow-hidden h-[160px]">
           <Image
             src={product.imageUrl}
             alt={product.description}
-            width={500}
-            height={500}
-            className="w-full object-contain transition-transform duration-300 hover:scale-110"
+            width={350}
+            height={350}
+            className="w-full object-contain h-full transition-transform duration-300 hover:scale-110"
           />
         </div>
       </Link>
@@ -92,7 +99,12 @@ export default function ProductCard({ product }: { product: IProduct }) {
                 </del>
               )}
               {product?.productPrice > product?.salePrice && (
-                <h5 className="bg-[#fef3e9] text-[#f68b1e] p-1 inline">
+                <h5
+                  className={cn(
+                    'bg-[#fef3e9] text-[#f68b1e] p-1 inline',
+                    className,
+                  )}
+                >
                   -
                   {calculateDiscountPercentage(
                     product?.productPrice,

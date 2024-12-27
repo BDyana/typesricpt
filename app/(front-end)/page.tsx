@@ -12,6 +12,7 @@ import CategoryList from '@/components/(front-end)/category-list';
 import CategoryGrid from '@/components/(front-end)/category-grid';
 import TrendingDeals from '@/components/(front-end)/trending-deals';
 import { PromotionalBanner } from '@/components/(front-end)/promotional-banner';
+import FlashSales from '@/components/(front-end)/flash-sales';
 
 export default async function Home() {
   const handleClick = () => {
@@ -19,6 +20,7 @@ export default async function Home() {
   };
   const categories_res = await getAllCategories();
   const latestProducts = await getLatestProducts(12);
+  const allProducts = await getLatestProducts();
   const categoriesData = categories_res?.data;
 
   const categories = categoriesData?.filter((category: Category) => {
@@ -53,6 +55,8 @@ export default async function Home() {
           description="100+ products added today"
           products={latestProducts as any}
         />
+
+        <FlashSales products={allProducts} />
 
         {/* Shop by category */}
         <CategoryGrid data={categoriesData} />

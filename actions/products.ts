@@ -3,6 +3,7 @@
 import { db } from '@/lib/db';
 import { Product } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { getUserById } from './users';
 
 export async function createProduct(formData: Product) {
   // console.log('FormData;', formData);
@@ -99,12 +100,39 @@ export const getLatestProducts = async (pageSize?: number) => {
 
 export async function getProductBySlug(slug: string) {
   try {
+    // Fetch the product with comments
     const product = await db.product.findUnique({
       where: {
         slug,
       },
+      include: {
+        comments: true,
+      },
     });
-    return product;
+
+    if (!product) {
+      throw new Error('Product not found');
+    }
+
+    // Refactor comments to include user data
+    const commentsWithUser = await Promise.all(
+      product.comments.map(async (comment) => {
+        const user = await db.user.findUnique({
+          where: { id: comment.userId },
+          select: { name: true },
+        });
+
+        return {
+          ...comment,
+          user: user ? { name: user.name } : null,
+        };
+      }),
+    );
+
+    return {
+      ...product,
+      comments: commentsWithUser,
+    };
   } catch (error) {
     console.error('Error while fetching product by slug', error);
     throw new Error('Error while fetching product by slug');
@@ -213,35 +241,161 @@ export async function updateProduct(id: string, formData: Partial<Product>) {
 
 export async function deleteProduct(id: string) {
   try {
+    // First check if product exists and get its relations
     const existingProduct = await db.product.findUnique({
-      where: {
-        id,
+      where: { id },
+      include: {
+        _count: {
+          select: {
+            orderItems: true,
+            sales: true,
+          },
+        },
       },
     });
+
     if (!existingProduct) {
       return {
         success: false,
-        status: 404, // Not Found
+        status: 404,
         message: `Product with id (${id}) not found`,
       };
     }
+
+    // Perform the delete operation - this will cascade to related records
     const deletedProduct = await db.product.delete({
-      where: {
-        id,
+      where: { id },
+      include: {
+        _count: {
+          select: {
+            orderItems: true,
+            sales: true,
+          },
+        },
       },
     });
+
     revalidatePath('/dashboard/products');
 
     return {
-      ok: true,
-      data: deletedProduct,
+      success: true,
+      status: 200,
+      message: `Successfully deleted product and its related records`,
+      data: {
+        deletedProduct,
+        deletedRelations: {
+          orderItems: existingProduct._count.orderItems,
+          sales: existingProduct._count.sales,
+        },
+      },
     };
   } catch (error) {
-    console.log(error);
+    console.error('Error deleting product:', error);
     return {
       success: false,
-      status: 500, // Not Found
-      message: `failed to delete product`,
+      status: 500,
+      message: `Failed to delete product: ${error instanceof Error ? error.message : 'Unknown error'}`,
+    };
+  }
+}
+
+export async function findProblematicProducts() {
+  try {
+    // First get all products
+    const allProducts = await db.product.findMany({
+      select: {
+        id: true,
+        title: true,
+        userId: true,
+      },
+    });
+
+    // Then verify each product's user exists
+    const problematicProducts = [];
+
+    for (const product of allProducts) {
+      try {
+        const userExists = await db.user.findUnique({
+          where: {
+            id: product.userId,
+          },
+        });
+
+        if (!userExists) {
+          problematicProducts.push(product);
+        }
+      } catch (error) {
+        // If there's an error checking the user, assume the product is problematic
+        problematicProducts.push(product);
+      }
+    }
+
+    if (problematicProducts.length === 0) {
+      return {
+        success: true,
+        message: 'No problematic products found',
+        count: 0,
+        products: [],
+      };
+    }
+
+    // Update the problematic products with the new userId
+    const fixedProducts = [];
+    for (const product of problematicProducts) {
+      try {
+        const updated = await db.product.update({
+          where: {
+            id: product.id,
+          },
+          data: {
+            // kiskayemoses"gmail.com
+            userId: '67522330490c70bbe22c63df',
+          },
+        });
+        fixedProducts.push(updated);
+      } catch (error) {
+        console.error(`Failed to update product ${product.id}:`, error);
+      }
+    }
+
+    return {
+      success: true,
+      message: `Found ${problematicProducts.length} problematic products and fixed {fixedProducts.length}`,
+      count: problematicProducts.length,
+      fixedCount: fixedProducts.length,
+      problematicProducts,
+      fixedProducts,
+    };
+  } catch (error) {
+    console.error('Error finding problematic products:', error);
+    return {
+      success: false,
+      message:
+        error instanceof Error ? error.message : 'An unknown error occurred',
+      count: 0,
+      products: [],
+    };
+  }
+}
+
+// Optional: Function to verify if user exists
+export async function verifyDefaultUser() {
+  try {
+    const defaultUser = await db.user.findUnique({
+      where: {
+        id: '67522330490c70bbe22c63df',
+      },
+    });
+
+    return {
+      exists: !!defaultUser,
+      message: defaultUser ? 'Default user exists' : 'Default user not found',
+    };
+  } catch (error) {
+    return {
+      exists: false,
+      message: 'Error verifying default user',
+      error: error instanceof Error ? error.message : 'Unknown error',
     };
   }
 }
