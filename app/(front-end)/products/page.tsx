@@ -41,9 +41,11 @@ function SearchBarFallback() {
 export default function AllProducts({
   isFlashSale,
   className,
+  products,
 }: {
   isFlashSale?: boolean;
   className?: string;
+  products?: [];
 }) {
   const [productsList, setProductsList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,7 +58,11 @@ export default function AllProducts({
     try {
       setIsLoading(true);
       const latestProducts: any = await getLatestProducts(); // Fetch the latest 30 products
-      setProductsList(latestProducts);
+      if (products) {
+        setProductsList(products);
+      } else {
+        setProductsList(latestProducts);
+      }
     } catch (error) {
       console.error('Error fetching latest products:', error);
     } finally {

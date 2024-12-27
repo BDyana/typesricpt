@@ -122,6 +122,7 @@ model Product {
   productStock   Int?
   qty            Int?
   productLeft    Int?
+  isFlashSale    Boolean        @default(false)
   tags           String[]
   comments   Comment[]
   reviews   Review[]
