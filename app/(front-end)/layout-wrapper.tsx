@@ -64,7 +64,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       }
     }
     setIsLoading(false);
-  }, [onBoarded, router, pathname, session]);
+  }, [onBoarded, router, pathname, session, isLoading]);
 
   // Show loading state
   if (isLoading) {
