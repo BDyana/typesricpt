@@ -41,7 +41,7 @@ export default async function OrdersPage() {
 
   // Default view for admin and other roles
   return (
-    <div className="p-4">
+    <div>
       <h2 className="text-2xl font-bold mb-4">All Orders</h2>
       <DataTable data={orders as any} columns={columns} />
     </div>

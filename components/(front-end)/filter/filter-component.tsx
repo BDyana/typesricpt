@@ -19,15 +19,15 @@ export default function FilterComponent({ products }: any) {
       </Card>
 
       <div className="flex flex-col md:flex-row gap-6">
-        <Card className="md:w-[40%] flex-shrink-0 h-fit">
-          <CardContent className="py-6">
+        <Card className="md:w-[20%] flex-shrink-0 h-fit">
+          <CardContent className="p-2">
             <Filters />
           </CardContent>
         </Card>
 
         <div className="flex-grow">
           <FilteredProducts
-            className="lg:grid-cols- gap-y-3"
+            className="lg:grid-cols-4 gap-y-3"
             productCount={productCount}
             products={products}
           />
