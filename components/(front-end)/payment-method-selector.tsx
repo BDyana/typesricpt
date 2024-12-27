@@ -41,8 +41,11 @@ export function PaymentMethodSelector() {
   };
 
   return (
-    <div className="space-y-4">
-      <h3 className="text-lg font-semibold">Select Payment Method</h3>
+    <div className="space-y-4 mt-4">
+      <Label>
+        Select Payment Method
+        <span className="text-red-500">*</span>
+      </Label>{' '}
       <div className="flex items-center space-x-2">
         <Checkbox
           id="card"

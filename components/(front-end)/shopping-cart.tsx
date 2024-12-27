@@ -24,6 +24,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { splitFullName } from '@/lib/splitNames';
+import { Label } from '../ui/label';
+import DeliveryChargeSelector from './shopping-cart/delivery-option';
 
 interface IProps {
   products: Product[] | null | undefined;
@@ -32,6 +34,17 @@ interface IProps {
 }
 export default function ShoppingCart({ products, user, userProfile }: IProps) {
   const [loading, setLoading] = useState(false);
+  const [selectedDelivery, setSelectedDelivery] = useState<{
+    id: string;
+    label: string;
+    basePrice: number;
+    additionalPricePerKg?: number;
+    isOil?: boolean;
+  } | null>(null);
+  const [errors, setErrors] = useState({
+    location: false,
+    delivery: false,
+  });
   const router = useRouter();
 
   const cartItems = useAppSelector((state) => state.cart);
@@ -75,10 +88,24 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
     firstName,
     lastName: secondName,
     paymentMethod: 'Cash On Delivery',
-    shippingCost: 90,
+    shippingCost: selectedDelivery?.basePrice ?? 90,
   };
 
+  // Calculate total weight of cart items
+
   async function handleSubmit() {
+    // Validate required fields
+    const newErrors = {
+      location: !sortedLocation,
+      delivery: !selectedDelivery,
+    };
+    setErrors(newErrors);
+
+    if (newErrors.location || newErrors.delivery) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
     const data = {
       checkoutFormData,
       orderItems: cartItems,
@@ -276,11 +303,21 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
             </div>
 
             <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
-              <dt className="text-base font-bold text-brandBlack">Total</dt>
+              <dt className="text-base font-bold text-brandBlack">Subtotal</dt>
               <dd className="text-base font-bold text-brandBlack">
                 ৳{subTotal}
               </dd>
             </dl>
+            {selectedDelivery && (
+              <div className="flex items-center justify-between gap-4">
+                <dt className="text-base font-normal text-gray-500">
+                  Delivery Charge
+                </dt>
+                <dd className="text-base font-medium text-brandBlack">
+                  ৳{selectedDelivery.basePrice}
+                </dd>
+              </div>
+            )}
           </div>
 
           <form className="space-y-4">
@@ -309,43 +346,51 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
           </form>
         </div>
 
-        {/* <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm   sm:p-6">
-            <form className="space-y-4">
-              <div>
-                <label
-                  htmlFor="voucher"
-                  className="mb-2 block text-sm font-medium text-brandBlack"
-                >
-                  {' '}
-                  Do you have Link voucher or gift card?{' '}
-                </label>
-                <input
-                  type="text"
-                  id="voucher"
-                  className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-brandBlackfocus:border-primary-500 focus:ring-primary-500 dark:bg-gray-700  dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                  placeholder=""
-                  required
-                />
-              </div>
-              <button
-                type="submit"
-                className="flex bg-brandBlack w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Apply Code
-              </button>
-            </form>
-          </div> */}
-
         <Card>
           <CardHeader>
             <CardTitle>Delivery Location</CardTitle>
             <CardDescription>Manage your delivery locations</CardDescription>
           </CardHeader>
           <CardContent>
-            <LocationManager userProfile={userProfile} />
+            <div className={`${errors.location ? 'border-red-500' : ''}`}>
+              <LocationManager userProfile={userProfile} />
+              {errors.location && (
+                <p className="text-sm text-red-500 mt-1">
+                  Please select a delivery location
+                </p>
+              )}
+            </div>
 
-            <div className="mt-6">
+            <div className="mt-4">
+              <Label>
+                Delivery Option
+                <span className="text-red-500">*</span>
+              </Label>
+              <div className="mt-2">
+                <DeliveryChargeSelector
+                  onSelect={setSelectedDelivery}
+                  selectedOptionId={selectedDelivery?.id}
+                  required
+                  error={errors.delivery}
+                />
+                {errors.delivery && (
+                  <p className="text-sm text-red-500 mt-1">
+                    Please select a delivery option
+                  </p>
+                )}
+              </div>
+
               <PaymentMethodSelector />
+            </div>
+
+            <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
+              <dt className="text-base font-bold text-brandBlack">Total</dt>
+              <dd className="text-base font-bold text-brandBlack">
+                ৳
+                {(
+                  parseFloat(subTotal) + (selectedDelivery?.basePrice ?? 0)
+                ).toFixed(2)}
+              </dd>
             </div>
 
             <div className="my-4">

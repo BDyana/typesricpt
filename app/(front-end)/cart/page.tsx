@@ -1,6 +1,6 @@
 import { getLatestProducts } from '@/actions/products';
 import { getUserProfile } from '@/actions/update-profile';
-import ShoppingCart from '@/components/(front-end)/shopping-cart';
+import ShoppingCart from '@/components/(front-end)/shopping-cart/shopping-cart';
 import { authOptions } from '@/lib/authOptions';
 import { getServerSession } from 'next-auth';
 
@@ -11,14 +11,12 @@ export default async function page() {
   const userId = user?.id;
 
   const userProfile = await getUserProfile(userId);
-  // console.log('User Profile:', userProfile?.data);
-  // console.log('User Profile:', session?.user);
 
   return (
     <>
       <section className="bg-white pb-8 antialiased md:py-16">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-          <h2 className="text-xl font-semibold text-brandBlacksm:text-2xl">
+          <h2 className="text-xl font-semibold text-brandBlack sm:text-2xl">
             Shopping Cart
           </h2>
 

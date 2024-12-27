@@ -1,18 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-import Breadcrumb from './breadcrumb';
-import TrainingHtml from './training-html';
-import AddToCartButton from './add-to-cart';
-import { Category, Comment, Product } from '@prisma/client';
-import CategoryCarousel from './category-carousel';
-import ProductShareButton from './product-share-button';
-import ProductImageCarousel from './product-image-carousel';
-import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
-import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck } from 'lucide-react';
-import ProductComments from '../forms/product-comment';
 import FakeSalesCount from '@/hooks/fake-sale-count';
+import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
+import { useAppSelector } from '@/redux/hooks/hooks';
+import { Category, Product } from '@prisma/client';
+import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck } from 'lucide-react';
+import Link from 'next/link';
+import AddToCartButton from './add-to-cart';
+import Breadcrumb from './breadcrumb';
+import CategoryCarousel from './category-carousel';
+import ProductImageCarousel from './product-image-carousel';
 import ProductReviews from './product-review';
+import ProductShareButton from './product-share-button';
+import TrainingHtml from './training-html';
 
 interface IProps {
   product: Product | any;
@@ -28,6 +28,11 @@ export default function ProductView({ product, category }: IProps) {
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${product?.slug}`;
+
+  const cartItems = useAppSelector((state) => state.cart);
+
+  // Check if product is already in cart
+  const isInCart = cartItems.some((item: any) => item.id === product.id);
 
   return (
     <>
@@ -99,7 +104,7 @@ export default function ProductView({ product, category }: IProps) {
               </div>
             </div>
             <div className="flex justify-between items-center py-6">
-              <AddToCartButton product={product} />
+              <AddToCartButton isInCart={isInCart} product={product} />
               <div className="flex gap-3">
                 <div>
                   <PhoneCall className="mt-3" />

@@ -37,7 +37,7 @@ export default function ProductCard({
   const cartItems = useAppSelector((state) => state.cart);
 
   // Check if product is already in cart
-  const isInCart = cartItems.some((item: any) => item.id === product.id);
+  const isInCart = cartItems?.some((item: any) => item.id === product.id);
 
   const handleClick = () => {
     fbq.event('Purchase', { currency: 'USD', value: 10 });
