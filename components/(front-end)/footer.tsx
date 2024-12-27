@@ -23,11 +23,6 @@ const linkGroups = [
       { label: 'Delivery Details', href: '#' },
       { label: 'Terms & Conditions', href: '#' },
       { label: 'Privacy Policy', href: '#' },
-    ],
-  },
-  {
-    title: 'Pricing',
-    links: [
       { label: 'Farmer Pricing', href: '/farmer-pricing' },
       { label: 'Register Farmer', href: '/register-farmer' },
     ],
@@ -54,7 +49,7 @@ export default function Footer() {
               src={siteConfig.logo}
               alt={siteConfig.description}
             />
-            <p className="lg:text-base text-sm leading-relaxed text-gray-600 my-3 lg:mt-7">
+            <p className="text-sm leading-relaxed text-gray-600 my-3 lg:mt-5">
               Best Online E-Commerce Website in Bangladesh. You can Buy your
               Essential Products with Best Price. Happy Shopping...
             </p>
@@ -68,6 +63,7 @@ export default function Footer() {
                 <Link
                   href="https://www.facebook.com/BDyana.com.bd"
                   title="Facebook"
+                  target="_blank"
                   className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
                 >
                   <svg
@@ -80,6 +76,38 @@ export default function Footer() {
                   </svg>
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="https://www.instagram.com/bdyana_shop/"
+                  title="Instagram"
+                  target="_blank"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                >
+                  <svg
+                    className="w-18 h-18"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="https://www.linkedin.com/in/roshidul-hasan-97a957340/"
+                  title="LinkedIn"
+                  target="_blank"
+                  className="flex items-center justify-center text-white transition-all duration-200 bg-brandBlack rounded-full w-7 h-7 hover:bg-blue-600 focus:bg-blue-600"
+                >
+                  <svg
+                    className="w-4 h-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </Link>
+              </li>
               {/* Add other social media icons */}
             </ul>
           </div>
@@ -90,12 +118,12 @@ export default function Footer() {
               <p className="text-sm font-semibold tracking-widest text-brandBlack uppercase">
                 {group.title}
               </p>
-              <ul className="mt-4 lg:mt-6 lg:space-y-4 space-y-2">
+              <ul className="mt-4 lg:mt-6 space-y-2">
                 {group.links.map((link, i) => (
                   <li key={i}>
                     <Link
                       href={link.href}
-                      className="flex lg:text-base text-sm text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
+                      className="flex text-sm text-black transition-all duration-200 hover:text-blue-600 focus:text-blue-600"
                     >
                       {link.label}
                     </Link>

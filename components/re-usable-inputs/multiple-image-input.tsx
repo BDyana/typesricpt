@@ -21,13 +21,13 @@ export default function MultipleImageInput({
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-2">
+        <div className="flex gap-2">
           <Image
             alt={title}
-            className="h-40 w-full rounded-md object-cover"
-            height="300"
+            className="h-30 rounded-md object-cover"
+            height="80"
             src={imageUrls[0]}
-            width="300"
+            width="160"
           />
           <div className="grid grid-cols-3 gap-2">
             {imageUrls.map((imageUrl: string, i: number) => {
@@ -35,10 +35,10 @@ export default function MultipleImageInput({
                 <div key={i}>
                   <Image
                     alt="Product image"
-                    className="aspect-square w-full rounded-md object-cover"
-                    height="84"
+                    className="h-30 aspect-square rounded-md object-cover"
+                    height="80"
                     src={imageUrl}
-                    width="84"
+                    width="80"
                   />
                 </div>
               );

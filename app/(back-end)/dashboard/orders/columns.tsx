@@ -1,10 +1,8 @@
 'use client';
 
 import { Checkbox } from '@/components/ui/checkbox';
-
 import ActionColumn from '@/components/data-table/data-table-columns/action-column';
 import DateColumn from '@/components/data-table/data-table-columns/date-column';
-import ImageColumn from '@/components/data-table/data-table-columns/image-column';
 import SortableColumn from '@/components/data-table/data-table-columns/sortable-column';
 import { ColumnDef } from '@tanstack/react-table';
 export const columns: ColumnDef<any>[] = [
@@ -33,23 +31,35 @@ export const columns: ColumnDef<any>[] = [
   {
     accessorKey: 'orderNumber',
     header: ({ column }) => (
-      <SortableColumn column={column} title="Order Number" />
+      <SortableColumn column={column} title="Order No." />
     ),
   },
+  // {
+  //   accessorKey: 'paymentMethod',
+  //   header: ({ column }) => (
+  //     <SortableColumn column={column} title="Payment Method" />
+  //   ),
+  // },
   {
-    accessorKey: 'paymentMethod',
-    header: ({ column }) => (
-      <SortableColumn column={column} title="Payment Method" />
-    ),
+    accessorKey: 'firstName',
+    header: ({ column }) => <SortableColumn column={column} title="Name" />,
+  },
+  // {
+  //   accessorKey: '{streetAddress}, {city}',
+  //   header: ({ column }) => <SortableColumn column={column} title="Address" />,
+  // },
+  {
+    accessorKey: 'city',
+    header: ({ column }) => <SortableColumn column={column} title="City" />,
   },
   {
     accessorKey: 'phone',
     header: ({ column }) => <SortableColumn column={column} title="Phone" />,
   },
-  // {
-  //   accessorKey: 'email',
-  //   header: ({ column }) => <SortableColumn column={column} title="Email" />,
-  // },
+  {
+    accessorKey: 'email',
+    header: ({ column }) => <SortableColumn column={column} title="Email" />,
+  },
   {
     accessorKey: 'orderStatus',
     header: ({ column }) => <SortableColumn column={column} title="Status" />,
@@ -59,7 +69,7 @@ export const columns: ColumnDef<any>[] = [
   },
   {
     accessorKey: 'createdAt',
-    header: 'Date Created',
+    header: 'Date',
     cell: ({ row }) => <DateColumn row={row} accessorKey="createdAt" />,
   },
   {
