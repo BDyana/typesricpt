@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -18,30 +17,38 @@ import { updateUserProfile } from '@/actions/update-profile';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { useSession } from 'next-auth/react';
 
-export default function OnboardingForm() {
+export default function OnboardingForm(userProfile: any) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [onBoarded, setOnBoarded] = useLocalStorage('onBoarded', false);
   const { data: session } = useSession();
   const router = useRouter();
 
-  // Redirect if no session
-  if (!session) {
-    router.push('/login');
-    return null;
-  }
-
   useEffect(() => {
-    if (onBoarded) {
+    if (!session) {
+      router.push('/login');
+      return;
+    }
+
+    if (userProfile?.isOnBoarded || onBoarded) {
+      setOnBoarded(true);
       router.push('/');
     }
-  }, [onBoarded, router]);
+  }, [session, userProfile, onBoarded, router]);
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      city: userProfile?.city || '',
+      country: userProfile?.country || '',
+      phone: userProfile?.phone || '',
+      district: userProfile?.district || '',
+      streetAddress: userProfile?.streetAddress || '',
+    },
+  });
 
   async function onSubmit(data: any) {
     try {
@@ -58,10 +65,13 @@ export default function OnboardingForm() {
       }
     } catch (error) {
       console.log('Error:', error);
+      toast.error('Failed to update profile');
     } finally {
       setIsSubmitting(false);
     }
   }
+
+  if (!session) return null;
 
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-lg">
