@@ -166,7 +166,7 @@ export default function Modal({ product, category }: ProductModalProps) {
               <ul className="mt-2 space-y-2">
                 <li className="flex items-center text-gray-700">
                   <span className="w-1.5 h-1.5 bg-gray-700 rounded-full mr-2" />
-                  {product.description}
+                  {product.content}
                 </li>
               </ul>
             </div>

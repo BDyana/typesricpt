@@ -12,6 +12,7 @@ import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck } from 'lucide-react';
 import ProductComments from '../forms/product-comment';
 import FakeSalesCount from '@/hooks/fake-sale-count';
+import ProductReviews from './product-review';
 
 interface IProps {
   product: Product | any;
@@ -183,11 +184,12 @@ export default function ProductView({ product, category }: IProps) {
           </div>
         </div>
       </div>
+      <ProductReviews productId={product.id} />
       <div className="bg-white dark:bg-slate-700 mt-12 rounded-sm py-2">
-        <ProductComments
+        {/* <ProductComments
           productId={product.id}
           initialComments={product.comments as any}
-        />
+        /> */}
         <h2 className="mb-4 text-xl font-semibold dark:text-slate-200">
           Similar Products
         </h2>

@@ -124,6 +124,7 @@ model Product {
   productLeft    Int?
   tags           String[]
   comments   Comment[]
+  reviews   Review[]
   categoryId     String   @db.ObjectId
   category       Category @relation(fields: [categoryId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
@@ -188,6 +189,7 @@ model User {
   sales             Sale[]
   passwordResetTokens PasswordResetToken[]
   comments   Comment[]
+  reviews   Review[]
 }
 
 model PasswordResetToken {
@@ -317,6 +319,20 @@ model Comment {
   userId    String   @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  productId String   @db.ObjectId
+  userId    String   @db.ObjectId
+  rating    Int
+  comment   String
+  helpfulCount Int   @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
