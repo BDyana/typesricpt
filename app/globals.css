@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif, Segoe UI;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif,
+    Segoe UI;
 }
 
 @layer base {
@@ -90,55 +94,36 @@ body {
 /* ----------------------------------------------loader------------------------------------ */
 .loader {
   position: relative;
-  width: 33px;
-  height: 33px;
-  perspective: 67px;
+  width: 64px;
+  height: 64px;
 }
 
 .loader div {
-  width: 100%;
-  height: 100%;
-  background: #2f3545;
   position: absolute;
-  left: 50%;
-  transform-origin: left;
-  animation: loader 2s infinite;
-}
-
-.loader div:nth-child(1) {
-  animation-delay: 0.15s;
+  border: 4px solid #14b8a6;
+  border-radius: 50%;
+  animation: loader8435 1s ease-out infinite;
 }
 
 .loader div:nth-child(2) {
-  animation-delay: 0.3s;
+  animation-delay: -0.5s;
 }
 
-.loader div:nth-child(3) {
-  animation-delay: 0.45s;
-}
-
-.loader div:nth-child(4) {
-  animation-delay: 0.6s;
-}
-
-.loader div:nth-child(5) {
-  animation-delay: 0.75s;
-}
-
-@keyframes loader {
+@keyframes loader8435 {
   0% {
-    transform: rotateY(0deg);
+    top: 40px;
+    left: 35px;
+    width: 0;
+    height: 0;
+    opacity: 1;
   }
 
-  50%,
-  80% {
-    transform: rotateY(-180deg);
-  }
-
-  90%,
   100% {
+    top: 0;
+    left: 0;
+    width: 74px;
+    height: 74px;
     opacity: 0;
-    transform: rotateY(-180deg);
   }
 }
 
