@@ -5,7 +5,7 @@ import { getBanners } from '@/actions/banners';
 import { authOptions } from '@/lib/authOptions';
 import Hero from '@/components/(front-end)/hero';
 import { getTrainings } from '@/actions/trainings';
-import { getLatestProducts } from '@/actions/products';
+import { getFlashSaleProducts, getLatestProducts } from '@/actions/products';
 import { getAllCategories } from '@/actions/categories';
 import Products from '@/components/(front-end)/products';
 import CategoryList from '@/components/(front-end)/category-list';
@@ -40,6 +40,7 @@ export default async function Home() {
   const trainingsData = trainings_res?.data;
 
   const bannersData = await getBanners();
+  const flashSales = await getFlashSaleProducts();
   const banners = bannersData?.data;
 
   const session = await getServerSession(authOptions);
@@ -55,8 +56,7 @@ export default async function Home() {
           description="100+ products added today"
           products={latestProducts as any}
         />
-
-        <FlashSales products={allProducts} />
+        {flashSales.length >= 4 && <FlashSales products={flashSales} />}
 
         {/* Shop by category */}
         <CategoryGrid data={categoriesData} />

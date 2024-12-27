@@ -70,6 +70,7 @@ export default function ProductForm({
     // resolver: zodResolver(ProductSchema),
     defaultValues: {
       isActive: false,
+      isFlashSale: false,
       isWholesale: false,
       // ...updateData,
       ...initialData,
@@ -87,7 +88,6 @@ export default function ProductForm({
 
   // Watch all form fields
   const watchAllFields = watch();
-  const isActive = watch('isActive');
   const isWholesale = watch('isWholesale');
 
   // Validation function to check form completeness
@@ -275,7 +275,6 @@ export default function ProductForm({
               defaultValue="basic"
               className="space-y-4"
             >
-
               <TabsContent value="basic" className="space-y-4">
                 <div className="grid gap-2 md:grid-cols-2">
                   <CustomText
@@ -285,18 +284,18 @@ export default function ProductForm({
                     register={register}
                     errors={errors}
                   />
-                    <FormSelectInput
-                      label="Category"
-                      options={categories?.map((category: any) => ({
-                        value: category.id,
-                        label: category.title,
-                      }))}
-                      option={selectedCategory}
-                      setOption={setSelectedCategory}
-                      href="/dashboard/categories/new"
-                    />
-                    <div className="grid grid-cols-3 gap-2">
-                  <CustomText
+                  <FormSelectInput
+                    label="Category"
+                    options={categories?.map((category: any) => ({
+                      value: category.id,
+                      label: category.title,
+                    }))}
+                    option={selectedCategory}
+                    setOption={setSelectedCategory}
+                    href="/dashboard/categories/new"
+                  />
+                  <div className="grid grid-cols-3 gap-2">
+                    <CustomText
                       className="text-black"
                       label="Price (Before Discount)"
                       name="productPrice"
@@ -320,8 +319,8 @@ export default function ProductForm({
                       errors={errors}
                       type="number"
                     />
-                    </div>
-                    <div className="grid grid-cols-3 gap-2">
+                  </div>
+                  <div className="grid grid-cols-3 gap-2">
                     <CustomText
                       className="text-black"
                       label="Unit (e.g., Kilograms)"
@@ -343,16 +342,16 @@ export default function ProductForm({
                       register={register}
                       errors={errors}
                     />
-                    </div>
-                      <FormSelectInput
-                        label="Farmer"
-                        options={farmers?.map((farmer: any) => ({
-                          value: farmer.id,
-                          label: farmer.title,
-                        }))}
-                        option={selectedFarmer}
-                        setOption={setSelectedFarmer}
-                      />
+                  </div>
+                  <FormSelectInput
+                    label="Farmer"
+                    options={farmers?.map((farmer: any) => ({
+                      value: farmer.id,
+                      label: farmer.title,
+                    }))}
+                    option={selectedFarmer}
+                    setOption={setSelectedFarmer}
+                  />
                   <div className="space-y-4">
                     <FormField
                       control={form.control}
@@ -394,25 +393,19 @@ export default function ProductForm({
                       />
                     </>
                   )}
-                <MultipleImageInput
-                  imageUrls={productImages}
-                  setImageUrls={setProductImages}
-                  endpoint="multipleProductsUploader"
-                  title="Product Images"
-                />
-                <TagInput
-                  initialValue={tags}
-                  onChange={setTags}
-                  placeholder="Add product tags..."
-                  maxTags={10}
-                  maxTagLength={20}
-                />
-                  {/* <Label htmlFor="description">Product Description</Label>
-                  <Textarea
-                    id="description"
-                    {...register('description')}
-                    rows={5}
-                  /> */}
+                  <MultipleImageInput
+                    imageUrls={productImages}
+                    setImageUrls={setProductImages}
+                    endpoint="multipleProductsUploader"
+                    title="Product Images"
+                  />
+                  <TagInput
+                    initialValue={tags}
+                    onChange={setTags}
+                    placeholder="Add product tags..."
+                    maxTags={10}
+                    maxTagLength={20}
+                  />
                 </div>
                 <QuillEditor
                   label="Product Content"
@@ -435,6 +428,24 @@ export default function ProductForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-row justify-center rounded-lg border-none bg-transparent gap-3 items-center">
                       <Label htmlFor="isActive">Publish your product</Label>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="isFlashSale"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row justify-center rounded-lg border-none bg-transparent gap-3 items-center">
+                      <Label htmlFor="isFlashSale">
+                        Is this product Flash Sale?
+                      </Label>
                       <FormControl>
                         <Switch
                           checked={field.value}

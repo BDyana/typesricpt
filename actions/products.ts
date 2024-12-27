@@ -98,6 +98,25 @@ export const getLatestProducts = async (pageSize?: number) => {
   }
 };
 
+export async function getFlashSaleProducts() {
+  try {
+    // Fetch the product with comments
+    const products = await db.product.findMany({
+      where: {
+        isFlashSale: true,
+      },
+      include: {
+        comments: true,
+      },
+    });
+
+    return products;
+  } catch (error) {
+    console.error('Error while fetching product by slug', error);
+    throw new Error('Error while fetching product by slug');
+  }
+}
+
 export async function getProductBySlug(slug: string) {
   try {
     // Fetch the product with comments
@@ -377,7 +396,6 @@ export async function findProblematicProducts() {
     };
   }
 }
-
 // Optional: Function to verify if user exists
 export async function verifyDefaultUser() {
   try {
