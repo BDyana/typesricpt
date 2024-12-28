@@ -67,7 +67,7 @@ export default function ProductCard({
 
   return (
     <div
-      style={{ height: '290px' }} // Fixed height for the card
+      style={{ height: '265px' }} // Fixed height for the card
       className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow"
     >
       <Link prefetch={true} href={`/products/${product.slug}`} passHref>
