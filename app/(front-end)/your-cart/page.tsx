@@ -6,19 +6,17 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
 export default async function page() {
-  const latestProducts = await getLatestProducts(6);
   const session = await getServerSession(authOptions);
   const user = session?.user;
-  const userId = user?.id;
 
-  const userProfile = await getUserProfile(userId);
-
-  if (!session) {
+  if (!user) {
     redirect('/login');
   }
-  if (!session) {
-    return;
-  }
+
+  // Only fetch these after confirming session exists
+  const latestProducts = await getLatestProducts(6);
+  const userId = session?.user?.id;
+  const userProfile = await getUserProfile(userId);
 
   return (
     <>
