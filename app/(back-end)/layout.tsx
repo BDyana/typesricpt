@@ -25,7 +25,7 @@ export default async function Layout({
     redirect('/login');
   }
 
-  if (!userRole || sessionRole) {
+  if (!sessionRole) {
     return notFound();
   }
   return (
