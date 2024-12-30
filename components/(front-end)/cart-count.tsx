@@ -22,9 +22,9 @@ export default function CartCount() {
     >
       <ShoppingCart className="text-slate-700 dark:text-lime-500" />
       <span className="sr-only">Cart</span>
-      <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-brandColor shadow-md rounded-full -top-1 right-0 dark:border-gray-900">
+      <span className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-brandColor shadow-md rounded-full -top-1 right-0 dark:border-gray-900">
         {cartCount}
-      </div>
+      </span>
     </Link>
   );
 }
