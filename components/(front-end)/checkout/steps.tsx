@@ -34,7 +34,7 @@ export function Steps({ steps }: { steps: Step[] }) {
                   : 'hover:bg-brandColor/20'
               }`}
           >
-            <Link href="/cart" className="flex">
+            <Link href="/your-cart" className="flex">
               <ShoppingCart className="w-4 h-4 mr-2" />
               <span>Cart</span>
               <Badge variant="secondary" className="ml-2">

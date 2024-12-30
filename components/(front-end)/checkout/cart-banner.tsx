@@ -42,7 +42,7 @@ export default function CartBanner() {
 
           <div className="mt-4 sm:mt-0">
             <Link
-              href="/cart"
+              href="/your-cart"
               className="inline-flex px-4 py-2 text-sm font-bold  text-gray-600 transition-all duration-200 border border-gray-300 rounded-md  bg-gray-50  hover:bg-white hover:text-gray-900 focus:outline-none focus:ring-2 focus:text-gray-900 focus:ring-offset-2 focus:ring-gray-500 items-center"
             >
               Edit cart

@@ -13,8 +13,11 @@ export default async function page() {
 
   const userProfile = await getUserProfile(userId);
 
-  if (session) {
-    redirect('/');
+  if (!session) {
+    redirect('/login');
+  }
+  if (!session) {
+    return;
   }
 
   return (

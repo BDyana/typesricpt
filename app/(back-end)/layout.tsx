@@ -1,12 +1,4 @@
 import { AppSidebar } from '@/components/(back-end)/app-sidebar';
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import {
   SidebarInset,
@@ -33,7 +25,7 @@ export default async function Layout({
     redirect('/login');
   }
 
-  if (!userRole === sessionRole) {
+  if (!sessionRole) {
     return notFound();
   }
   return (
