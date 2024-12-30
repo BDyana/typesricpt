@@ -8,6 +8,8 @@ export default async function page() {
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
+  console.log('User', user);
+
   if (!user) {
     redirect('/login');
   }
