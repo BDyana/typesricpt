@@ -9,9 +9,9 @@ export default async function page() {
   const session = await getServerSession(authOptions);
   const user = session?.user;
 
-  // if (!user) {
-  //   redirect('/login');
-  // }
+  if (!user) {
+    redirect('/login');
+  }
 
   // Only fetch these after confirming session exists
   const latestProducts = await getLatestProducts(6);
