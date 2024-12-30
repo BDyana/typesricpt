@@ -23,7 +23,7 @@ export default async function page() {
           <ShoppingCart
             userProfile={userProfile?.data}
             products={latestProducts}
-            user={user}
+            user={user ? user : {}}
           />
         </div>
       </section>

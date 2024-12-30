@@ -82,9 +82,9 @@ export default function ShoppingCart({
   const sortedLocation = locations.find(
     (location) => location.isDefault === true,
   );
-  const fullName = user.name;
-  const email = user.email;
-  const userId = user.id;
+  const fullName = user?.name;
+  const email = user?.email;
+  const userId = user?.id;
 
   const { firstName, secondName } = splitFullName(fullName);
   const { isDefault, phone, ...location } = sortedLocation;

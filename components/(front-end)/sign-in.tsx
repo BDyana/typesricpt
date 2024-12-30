@@ -73,7 +73,7 @@ export default function SignIn() {
             <Link href="/" prefetch={true}>
               <Image
                 src={siteConfig.logo}
-                alt={siteConfig.name}
+                alt={siteConfig.name || 'Bdyana'}
                 width={200}
                 height={200}
                 className="w-24 h-6 invert text-white"
