@@ -1,5 +1,6 @@
 import { getLatestProducts } from '@/actions/products';
 import { getUserProfile } from '@/actions/update-profile';
+import ShoppingCart from '@/components/(front-end)/shopping-cart/shopping-cart';
 import { authOptions } from '@/lib/authOptions';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
@@ -7,8 +8,6 @@ import { redirect } from 'next/navigation';
 export default async function page() {
   const session = await getServerSession(authOptions);
   const user = session?.user;
-
-  console.log('User', user);
 
   // if (!user) {
   //   redirect('/login');
@@ -27,11 +26,11 @@ export default async function page() {
             Shopping Cart
           </h2>
 
-          {/* <ShoppingCart
+          <ShoppingCart
             userProfile={userProfile?.data}
             products={latestProducts}
             user={user ? user : {}}
-          /> */}
+          />
         </div>
       </section>
     </>
