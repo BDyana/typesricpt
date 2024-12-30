@@ -10,13 +10,13 @@ export default async function page() {
 
   console.log('User', user);
 
-  if (!user) {
-    redirect('/login');
-  }
+  // if (!user) {
+  //   redirect('/login');
+  // }
 
   // Only fetch these after confirming session exists
   const latestProducts = await getLatestProducts(6);
-  const userId = session.user?.id;
+  const userId = session?.user?.id;
   const userProfile = await getUserProfile(userId);
 
   return (

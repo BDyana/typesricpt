@@ -35,7 +35,7 @@ const PROTECTED_ROUTES = {
 };
 
 // Helper function to check if a path requires authentication but not a specific role
-const COMMON_ROUTES = ['/your-cart', '/checkout', '/profile'];
+const COMMON_ROUTES = ['/your-cart', '/checkout'];
 
 // Helper function to check if a path is protected
 const isProtectedPath = (pathname: string) => {
