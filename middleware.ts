@@ -39,9 +39,15 @@ const COMMON_ROUTES = ['/cart', '/checkout', '/profile'];
 
 // Helper function to check if a path is protected
 const isProtectedPath = (pathname: string) => {
-  // Check if the path matches any protected route
   return Object.values(PROTECTED_ROUTES).some(({ paths }) =>
     paths.some((path) => pathname === path || pathname.startsWith(`${path}/`)),
+  );
+};
+
+// Helper function to check if path is in common routes
+const isCommonProtectedPath = (pathname: string) => {
+  return COMMON_ROUTES.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`),
   );
 };
 
@@ -50,16 +56,12 @@ export default withAuth(
     const { pathname } = req.nextUrl;
     const token = req.nextauth.token;
 
-    const matchesPath = (path: string) => {
-      return pathname === path || pathname.startsWith(`${path}/`);
-    };
-
-    // If the path is not protected, allow access without authentication
-    if (!isProtectedPath(pathname) && !COMMON_ROUTES.some(matchesPath)) {
+    // If the path is not protected and not in common routes, allow access
+    if (!isProtectedPath(pathname) && !isCommonProtectedPath(pathname)) {
       return NextResponse.next();
     }
 
-    // From here on, we know it's a protected path, so check for authentication
+    // Check for authentication
     if (!token) {
       return NextResponse.redirect(new URL('/login', req.url));
     }
@@ -69,11 +71,18 @@ export default withAuth(
       return NextResponse.redirect(new URL('/not-found', req.url));
     }
 
-    // Check each type of protected route
-    for (const [key, { paths, role: requiredRole }] of Object.entries(
+    // For common protected routes, any authenticated user can access
+    if (isCommonProtectedPath(pathname)) {
+      return NextResponse.next();
+    }
+
+    // Check role-specific routes
+    for (const { paths, role: requiredRole } of Object.values(
       PROTECTED_ROUTES,
     )) {
-      const isProtectedRoute = paths.some(matchesPath);
+      const isProtectedRoute = paths.some(
+        (path) => pathname === path || pathname.startsWith(`${path}/`),
+      );
       if (isProtectedRoute && role !== requiredRole) {
         return NextResponse.redirect(new URL('/not-found', req.url));
       }
@@ -84,20 +93,30 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ token, req }) => {
-        // Only check authorization for protected routes
-        const isProtectedPath = Object.values(PROTECTED_ROUTES)
-          .flatMap((route) => route.paths)
-          .concat(COMMON_ROUTES)
-          .some((path) => req.nextUrl.pathname.startsWith(path));
+        const pathname = req.nextUrl.pathname;
 
-        // If it's not a protected path, always return true
-        if (!isProtectedPath) {
+        // For non-protected paths, always authorize
+        if (!isProtectedPath(pathname) && !isCommonProtectedPath(pathname)) {
           return true;
         }
 
-        // Otherwise, check for valid token and role
-        return !!token && (token.role === 'ADMIN' || token.role === 'USER');
+        // For protected paths, require proper authentication
+        if (isCommonProtectedPath(pathname)) {
+          return !!token; // Any authenticated user can access common routes
+        }
+
+        // For role-specific routes, check both token and role
+        return (
+          !!token &&
+          (token.role === 'ADMIN' ||
+            token.role === 'USER' ||
+            token.role === 'FARMER' ||
+            token.role === 'MODERATOR')
+        );
       },
+    },
+    pages: {
+      signIn: '/login',
     },
   },
 );
