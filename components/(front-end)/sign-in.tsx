@@ -7,7 +7,7 @@ import { Facebook, Loader2 } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -31,38 +31,50 @@ export default function SignIn() {
   } = useForm<SignInFormData>({});
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
 
   async function onSubmit(data: SignInFormData) {
-    console.log(data);
     try {
       setLoggingIn(true);
-      console.log('Attempting to sign in with credentials:', data);
       const loginData = await signIn('credentials', {
         ...data,
         redirect: false,
       });
-      console.log('SignIn response:', loginData);
+
       if (loginData?.error) {
         toast.error('Sign-in error: Check your credentials');
       } else {
-        // Sign-in was successful
-        if (onBoarded) {
-          router.push('/');
-        } else {
-          router.push('/on-boarding');
-        }
-
         toast.success('Login Successful');
         reset();
-        router.push('/');
+
+        // Handle redirection after successful login
+        if (callbackUrl) {
+          // If there's a callback URL, use it
+          router.push(decodeURIComponent(callbackUrl));
+        } else {
+          // Otherwise, check onboarding status
+          if (onBoarded) {
+            router.push('/');
+          } else {
+            router.push('/on-boarding');
+          }
+        }
       }
     } catch (error) {
       console.error('Network Error:', error);
-      toast.error('Its seems something is wrong with your Network');
+      toast.error('It seems something is wrong with your Network');
     } finally {
       setLoggingIn(false);
     }
   }
+
+  // Modify social sign-in handlers
+  const handleSocialSignIn = (provider: string) => {
+    signIn(provider, {
+      callbackUrl: callbackUrl || (onBoarded ? '/' : '/on-boarding'),
+    });
+  };
 
   return (
     <Card className="w-full max-w-[450px] bg-brandBlack border-brandBorder">
