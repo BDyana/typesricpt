@@ -16,7 +16,7 @@ export default function CartCount() {
 
   return (
     <Link
-      href="/cart"
+      href="/your-cart"
       prefetch={true}
       className="relative inline-flex items-center mt-2 pb-1 p-3 text-sm font-medium text-center text-white bg-transparent rounded-lg"
     >

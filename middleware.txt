@@ -35,7 +35,7 @@ const PROTECTED_ROUTES = {
 };
 
 // Helper function to check if a path requires authentication but not a specific role
-const COMMON_ROUTES = ['/cart', '/checkout', '/profile'];
+const COMMON_ROUTES = ['/your-cart', '/checkout', '/profile'];
 
 // Helper function to check if a path is protected
 const isProtectedPath = (pathname: string) => {
@@ -124,7 +124,7 @@ export default withAuth(
 export const config = {
   matcher: [
     '/dashboard/:path*',
-    '/cart',
+    '/your-cart',
     '/checkout/:path*',
     '/((?!api|_next/static|_next/image|favicon.ico|public|.*\\.|register|login).*)',
   ],
