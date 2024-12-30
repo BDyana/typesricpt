@@ -141,9 +141,6 @@ export const authOptions: NextAuthOptions = {
       // console.log('SignIn callback:', { user, account, profile });
       return true;
     },
-    redirect: async ({ url, baseUrl }) => {
-      return url.startsWith(baseUrl) ? url : baseUrl;
-    },
     async jwt({ token, user, account }) {
       // console.log('JWT callback:', { token, user, account });
       if (user) {
