@@ -25,7 +25,7 @@ const PROTECTED_ROUTES = {
     role: 'FARMER',
   },
   user: {
-    paths: ['/dashboard/orders', '/cart', '/checkout', '/profile'],
+    paths: ['/dashboard/orders', '/checkout', '/profile'],
     role: 'USER',
   },
   moderator: {
