@@ -256,28 +256,8 @@ export default function ShoppingCart({
               </div>
             </div>
           </CardContent>
-        </Card>{' '}
+        </Card>
       </div>
-
-      {/* <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
-          <dt className="text-base font-bold text-brandBlack">Total</dt>
-          <dd className="text-base font-bold text-brandBlack">
-            ৳
-            {(
-              parseFloat(subTotal) + (selectedDelivery?.basePrice ?? 0)
-            ).toFixed(2)}
-          </dd>
-        </div>
-        <div className="my-4">
-          <button
-            disabled={loading}
-            onClick={handleSubmit}
-            className="flex bg-brandColor w-full items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium text-white"
-          >
-            {loading ? 'Submitting...' : 'Submit Order'}
-          </button>
-        </div> */}
     </div>
-    // </div>
   );
 }
