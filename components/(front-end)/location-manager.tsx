@@ -13,7 +13,7 @@ import {
 import { Label } from '@/components/ui/label';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { Pencil, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomText from '../re-usable-inputs/text-reusable';
 
@@ -23,6 +23,7 @@ export function LocationManager({ userProfile }: any) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingLocation, setEditingLocation] = useState<any>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const {
     register,
@@ -32,9 +33,11 @@ export function LocationManager({ userProfile }: any) {
     formState: { errors },
   } = useForm();
 
+  // Initialize locations with user profile data
   useEffect(() => {
-    if (userProfile && locations.length === 0) {
+    if (userProfile && locations.length === 0 && !isInitialized) {
       const defaultLocation = {
+        id: Date.now().toString(), // Add unique ID
         city: userProfile.city || '',
         country: userProfile.country || '',
         streetAddress: userProfile.streetAddress || '',
@@ -43,51 +46,62 @@ export function LocationManager({ userProfile }: any) {
         isDefault: true,
       };
       setLocations([defaultLocation]);
+      setIsInitialized(true);
     }
-  }, [userProfile, locations, setLocations]);
+  }, [userProfile, locations.length, setLocations, isInitialized]);
 
-  async function onSubmit(data: any) {
-    setIsSubmitting(true);
-    try {
-      if (editingLocation) {
-        const updatedLocations = locations.map((loc) =>
-          loc.id === editingLocation.id ? { ...loc, ...data } : loc,
-        );
-        setLocations(updatedLocations);
-        setEditingLocation(null);
-        setIsEditDialogOpen(false);
-      } else {
-        const newLoc = {
-          ...data,
-          id: Date.now().toString(),
-          isDefault: locations.length === 0,
-        };
-        setLocations([...locations, newLoc]);
-        setIsDialogOpen(false);
+  const onSubmit = useCallback(
+    async (data: any) => {
+      setIsSubmitting(true);
+      try {
+        if (editingLocation) {
+          const updatedLocations = locations.map((loc) =>
+            loc.id === editingLocation.id ? { ...loc, ...data } : loc,
+          );
+          setLocations(updatedLocations);
+          setEditingLocation(null);
+          setIsEditDialogOpen(false);
+        } else {
+          const newLoc = {
+            ...data,
+            id: Date.now().toString(),
+            isDefault: locations.length === 0,
+          };
+          setLocations([...locations, newLoc]);
+          setIsDialogOpen(false);
+        }
+        reset();
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setIsSubmitting(false);
       }
-      reset();
-    } catch (error) {
-      console.log('Error:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
+    },
+    [editingLocation, locations, setLocations, reset],
+  );
 
-  const handleEditLocation = (location: any) => {
-    setEditingLocation(location);
-    Object.keys(location).forEach((key) => {
-      setValue(key, location[key]);
-    });
-    setIsEditDialogOpen(true);
-  };
+  const handleEditLocation = useCallback(
+    (location: any) => {
+      setEditingLocation(location);
+      Object.keys(location).forEach((key) => {
+        setValue(key, location[key]);
+      });
+      setIsEditDialogOpen(true);
+    },
+    [setValue],
+  );
 
-  const handleSetDefault = (locationId: string) => {
-    const updatedLocations = locations.map((loc) => ({
-      ...loc,
-      isDefault: loc.id === locationId,
-    }));
-    setLocations(updatedLocations);
-  };
+  const handleSetDefault = useCallback(
+    (locationId: string) => {
+      setLocations(
+        locations.map((loc) => ({
+          ...loc,
+          isDefault: loc.id === locationId,
+        })),
+      );
+    },
+    [locations, setLocations],
+  );
 
   return (
     <div className="space-y-4">
@@ -137,11 +151,11 @@ export function LocationManager({ userProfile }: any) {
             className="flex items-center space-x-2 border p-2 rounded"
           >
             <Checkbox
-              id={location.id}
+              id={`checkbox-${location.id}`}
               checked={location.isDefault}
               onCheckedChange={() => handleSetDefault(location.id)}
             />
-            <Label htmlFor={location.id} className="flex-grow">
+            <Label htmlFor={`checkbox-${location.id}`} className="flex-grow">
               <div className="flex justify-between items-center">
                 <div>
                   <p className="font-medium">

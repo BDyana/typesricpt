@@ -32,7 +32,7 @@ export default function page() {
           <DialogTitle>{siteConfig.name}</DialogTitle>
         </DialogHeader>
 
-        <SignIn />
+        {/* <SignIn /> */}
       </DialogContent>
     </Dialog>
   );
