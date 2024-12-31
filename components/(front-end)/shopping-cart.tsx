@@ -261,7 +261,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
             description=""
             products={products as any}
             buttonTitle="View More"
-            className="lg:grid-cols-3 gap-y-2"
+            className="lg:grid-cols-5 gap-y-2"
           />
           {/* </div> */}
         </div>
@@ -281,8 +281,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
                   ৳{subTotal}
                 </dd>
               </dl>
-
-              <dl className="flex items-center justify-between gap-4">
+              {/* <dl className="flex items-center justify-between gap-4">
                 <dt className="text-base font-normal text-gray-500">Savings</dt>
                 <dd className="text-base font-medium text-green-600">
                   -৳299.00
@@ -299,7 +298,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
               <dl className="flex items-center justify-between gap-4">
                 <dt className="text-base font-normal text-gray-500">Tax</dt>
                 <dd className="text-base font-medium text-brandBlack">৳0</dd>
-              </dl>
+              </dl> */}
             </div>
 
             <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
@@ -319,7 +318,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
               </div>
             )}
           </div>
-
+{/* 
           <form className="space-y-4">
             <div>
               <label
@@ -343,7 +342,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
             >
               Apply Code
             </button>
-          </form>
+          </form> */}
         </div>
 
         <Card>
@@ -379,8 +378,11 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
                   </p>
                 )}
               </div>
-
-              <PaymentMethodSelector />
+              <Label>
+                Payment Method : Cash on Delivery.  
+                <span className="text-red-500">*</span>
+              </Label>
+              {/* <PaymentMethodSelector /> */}
             </div>
 
             <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
