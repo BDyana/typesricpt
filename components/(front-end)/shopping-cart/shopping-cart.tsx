@@ -169,7 +169,7 @@ export default function ShoppingCart({
             <CardTitle>Delivery Location</CardTitle>
             <CardDescription>Manage your delivery locations</CardDescription>
           </CardHeader>
-          <CardContent className="m-4">
+          <CardContent className="m-2">
             <div className={`${errors.location ? 'border-red-500' : ''}`}>
               <LocationManager userProfile={userProfile} />
               {errors.location && (

@@ -8,7 +8,7 @@ export function OrderSummary({
   selectedDelivery,
 }: OrderSummaryProps) {
   return (
-    <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+    <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-3 shadow-sm sm:p-6">
       <p className="text-xl font-semibold text-brandBlack">Order summary</p>
       <div className="space-y-4">
         <div className="space-y-2">
@@ -21,7 +21,7 @@ export function OrderSummary({
             </dd>
           </dl>
 
-          <dl className="flex items-center justify-between gap-4">
+          {/* <dl className="flex items-center justify-between gap-4">
             <dt className="text-base font-normal text-gray-500">Savings</dt>
             <dd className="text-base font-medium text-green-600">-৳299.00</dd>
           </dl>
@@ -36,7 +36,7 @@ export function OrderSummary({
           <dl className="flex items-center justify-between gap-4">
             <dt className="text-base font-normal text-gray-500">Tax</dt>
             <dd className="text-base font-medium text-brandBlack">৳0</dd>
-          </dl>
+          </dl> */}
         </div>
 
         <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
@@ -54,7 +54,7 @@ export function OrderSummary({
           </div>
         )}
       </div>
-
+{/* 
       <form className="space-y-4">
         <div>
           <label
@@ -78,7 +78,7 @@ export function OrderSummary({
         >
           Apply Code
         </button>
-      </form>
+      </form> */}
     </div>
   );
 }

@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { Pencil, Plus } from 'lucide-react';
+import { Pencil, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomText from '../re-usable-inputs/text-reusable';
@@ -148,37 +148,51 @@ export function LocationManager({ userProfile }: any) {
         {locations.map((location) => (
           <div
             key={location.id}
-            className="flex items-center space-x-2 border p-2 rounded"
+            className="items-center border p-2 rounded"
           >
-            <Checkbox
+            {/* <Checkbox
               id={`checkbox-${location.id}`}
               checked={location.isDefault}
               onCheckedChange={() => handleSetDefault(location.id)}
-            />
-            <Label htmlFor={`checkbox-${location.id}`} className="flex-grow">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="font-medium">
-                    {location.city}, {location.country} - {location.district}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    {location.streetAddress}
-                  </p>
-                </div>
+            /> */}
+            <div className="flex justify-between">
+              <div>
                 {location.isDefault && (
-                  <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                  <span className="text-xs bg-green-100 text-green-800 px-2 py-1 mb-2 rounded-full">
                     Default
                   </span>
                 )}
+                <p className="font-medium">
+                  {location.name}
+                </p>
+                <p className="font-medium">
+                  {location.phone}
+                </p>
+              </div>
+              <div>
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  onClick={() => handleEditLocation(location)}
+                >
+                  <Pencil className="h-1 w-1" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="xs"
+                  onClick={() => handleEditLocation(location)}
+                >
+                  <Trash2 className="h-1 w-1 text-red-500" />
+                </Button>
+              </div>
+            </div>
+            <Label htmlFor={`checkbox-${location.id}`} className="flex-grow">
+              <div className="flex items-center">
+                  <h5>
+                  {location.streetAddress}, {location.city}, {location.district}
+                  </h5>
               </div>
             </Label>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => handleEditLocation(location)}
-            >
-              <Pencil className="h-4 w-4" />
-            </Button>
           </div>
         ))}
       </div>
@@ -191,6 +205,35 @@ function LocationForm({ onSubmit, register, errors, isSubmitting }: any) {
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <CustomText
+          label="Full Name"
+          name="name"
+          register={register}
+          errors={errors}
+          type="text"
+          className="mb-4"
+          placeholder="Your Name"
+        />
+        <CustomText
+          label="Phone"
+          name="phone"
+          register={register}
+          errors={errors}
+          type="tel"
+          className="mb-4"
+          placeholder="01711-123123"
+        />
+      </div>
+        <CustomText
+          label="Street Address"
+          name="streetAddress"
+          register={register}
+          errors={errors}
+          type="text"
+          className="mb-4"
+          placeholder="House No, Road No, Thana, Upazila/City.."
+        />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <CustomText
           label="City"
           name="city"
           register={register}
@@ -200,28 +243,6 @@ function LocationForm({ onSubmit, register, errors, isSubmitting }: any) {
           placeholder="New York"
         />
         <CustomText
-          label="Country"
-          name="country"
-          register={register}
-          errors={errors}
-          type="text"
-          className="mb-4"
-          placeholder="United States"
-        />
-      </div>
-
-      <CustomText
-        label="Phone"
-        name="phone"
-        register={register}
-        errors={errors}
-        type="tel"
-        className="mb-4"
-        placeholder="+12345678"
-      />
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <CustomText
           label="District"
           name="district"
           register={register}
@@ -229,15 +250,6 @@ function LocationForm({ onSubmit, register, errors, isSubmitting }: any) {
           type="text"
           className="mb-4"
           placeholder="Manhattan"
-        />
-        <CustomText
-          label="Street Address"
-          name="streetAddress"
-          register={register}
-          errors={errors}
-          type="text"
-          className="mb-4"
-          placeholder="123 Main St"
         />
       </div>
       <Button
