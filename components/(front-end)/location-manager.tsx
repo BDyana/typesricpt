@@ -148,49 +148,51 @@ export function LocationManager({ userProfile }: any) {
         {locations.map((location) => (
           <div
             key={location.id}
-            className="items-center border p-2 rounded"
+            className="flex items-center space-x-2 border rounded pb-2"
           >
-            {/* <Checkbox
+            <Checkbox
               id={`checkbox-${location.id}`}
+            className="hidden"
               checked={location.isDefault}
               onCheckedChange={() => handleSetDefault(location.id)}
-            /> */}
-            <div className="flex justify-between">
-              <div>
-                {location.isDefault && (
-                  <span className="text-xs bg-green-100 text-green-800 px-2 py-1 mb-2 rounded-full">
-                    Default
-                  </span>
-                )}
-                <p className="font-medium">
-                  {location.name}
-                </p>
-                <p className="font-medium">
-                  {location.phone}
-                </p>
-              </div>
-              <div>
-                <Button
-                  variant="ghost"
-                  size="xs"
-                  onClick={() => handleEditLocation(location)}
-                >
-                  <Pencil className="h-1 w-1" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="xs"
-                  onClick={() => handleEditLocation(location)}
-                >
-                  <Trash2 className="h-1 w-1 text-red-500" />
-                </Button>
-              </div>
-            </div>
+            />
             <Label htmlFor={`checkbox-${location.id}`} className="flex-grow">
-              <div className="flex items-center">
-                  <h5>
-                  {location.streetAddress}, {location.city}, {location.district}
-                  </h5>
+              <div>
+                <div>
+                  <div className="flex justify-between">
+                    <div>
+                        {location.isDefault && (
+                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 inline-flex rounded-full mt-2">
+                            Default
+                          </span>
+                        )}
+                        <p className="font-medium my-1">
+                        {location.name} 
+                        </p>
+                        <p className="font-medium">
+                        {location.phone} 
+                        </p>
+                    </div>
+                    <div>
+                    <Button
+                      variant="ghost"
+                      size="xs"
+                      onClick={() => handleEditLocation(location)}
+                    >
+                      <Pencil className="h-1 w-1" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="xs"
+                    >
+                      <Trash2 className="h-1 w-1 text-red-700" />
+                    </Button>
+                    </div>
+                  </div>
+                  <p className="text-sm font-normal text-gray-500">
+                    {location.streetAddress}, {location.city}, {location.district}.
+                  </p>
+                </div>
               </div>
             </Label>
           </div>

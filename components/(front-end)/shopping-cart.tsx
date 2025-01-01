@@ -347,7 +347,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle>Delivery Location</CardTitle>
+          <p className="text-xl font-semibold text-brandBlack">Delivery Location</p>
             <CardDescription>Manage your delivery locations</CardDescription>
           </CardHeader>
           <CardContent>
