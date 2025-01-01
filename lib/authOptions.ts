@@ -45,7 +45,7 @@ export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       profile(profile) {
-        console.log('Profile', profile);
+        // console.log('Profile', profile);
         return {
           id: profile.sub,
           name: `${profile.given_name} ${profile.family_name}`,
@@ -60,7 +60,7 @@ export const authOptions: NextAuthOptions = {
     }),
     FacebookProvider({
       profile(profile) {
-        console.log('Facebook Profile', profile);
+        // console.log('Facebook Profile', profile);
         return {
           id: profile.id,
           name: profile.name,
@@ -81,10 +81,10 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          console.log(
-            'Authorize function called with credentials:',
-            credentials,
-          );
+          // console.log(
+          //   'Authorize function called with credentials:',
+          //   credentials,
+          // );
           // Check if user credentials are Correct
           if (!credentials?.email || !credentials?.password) {
             throw { error: 'No Inputs Found', status: 401 };
@@ -96,12 +96,12 @@ export const authOptions: NextAuthOptions = {
           });
 
           if (!existingUser) {
-            console.log('No user found');
+            // console.log('No user found');
             throw { error: 'No user found', status: 401 };
           }
 
           // console.log('Pass 2 Checked ✅');
-          console.log(existingUser);
+          // console.log(existingUser);
           let passwordMatch: boolean = false;
           //Check if Password is correct
           if (existingUser && existingUser.password) {
@@ -112,7 +112,7 @@ export const authOptions: NextAuthOptions = {
             );
           }
           if (!passwordMatch) {
-            console.log('Password incorrect');
+            // console.log('Password incorrect');
             throw { error: 'Password Incorrect', status: 401 };
           }
           // console.log('Pass 3 Checked  ✅');
@@ -126,10 +126,10 @@ export const authOptions: NextAuthOptions = {
           };
           //
           // console.log('User Compiled ✅');
-          console.log(user);
+          // console.log(user);
           return user;
         } catch (error) {
-          console.log('ALL failed from authOptions');
+          // console.log('ALL failed from authOptions');
           console.log(error);
           throw { error: 'Something went wrong', status: 401 };
         }
