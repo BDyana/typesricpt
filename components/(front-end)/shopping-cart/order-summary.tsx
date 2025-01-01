@@ -9,7 +9,7 @@ export function OrderSummary({
 }: OrderSummaryProps) {
   return (
     <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
-      <p className="text-xl font-semibold text-brandBlack">Order summary</p>
+      <p className="text-xl font-semibold text-brandBlack">Order summary.</p>
       <div className="space-y-4">
         <div className="space-y-2">
           <dl className="flex items-center justify-between gap-4">
