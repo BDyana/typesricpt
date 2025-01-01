@@ -269,7 +269,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
 
       <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
         <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm   sm:p-6">
-          <p className="text-xl font-semibold text-brandBlack">Order summary......</p>
+          <p className="text-xl font-semibold text-brandBlack">Order summaryddd</p>
 
           <div className="space-y-4">
             <div className="space-y-2">

@@ -14,13 +14,13 @@ export default async function page() {
   }
 
   // Only fetch these after confirming session exists
-  const latestProducts = await getLatestProducts(6);
+  const latestProducts = await getLatestProducts(5);
   const userId = session?.user?.id;
   const userProfile = await getUserProfile(userId);
 
   return (
     <>
-      <section className="bg-white pb-8 antialiased md:py-16">
+      <section className="bg-white pb-8 antialiased md:py-8">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <h2 className="text-xl font-semibold text-brandBlack sm:text-2xl">
             Shopping Cart

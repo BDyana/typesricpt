@@ -21,7 +21,7 @@ export default function FilteredProducts({
   productCount,
   className = 'lg:grid-cols-4',
 }: FilteredProductsProps) {
-  const pageSize = 10;
+  const pageSize = 50;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate pagination values

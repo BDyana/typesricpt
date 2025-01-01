@@ -61,8 +61,10 @@ export default function CategoryGrid({ data }: IProps) {
               className="lg:w-14 w-11 lg:h-14 h-11 rounded-lg object-cover m-auto"
               src={category.imageUrl as string}
               alt={category.title}
-            />
-            <p className="mt-2.5 line-clamp-1">{category.title}</p>
+            />          
+            <h4 className="lg:text-sm text-xs dark:text-slate-200 text-slate-900 mt-2.5 line-clamp-1">
+            {category.title}
+          </h4>
           </Link>
         ))}
       </div>
