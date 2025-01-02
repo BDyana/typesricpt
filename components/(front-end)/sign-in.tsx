@@ -41,7 +41,7 @@ export default function SignIn() {
         ...data,
         redirect: false,
       });
-      console.log('SignIn response:', loginData);
+      // console.log('SignIn response:', loginData);
       if (loginData?.error) {
         toast.error('Sign-in error: Check your credentials');
       } else {
