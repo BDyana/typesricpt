@@ -2,6 +2,7 @@
 
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { siteConfig } from '@/constants/site';
 import { ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -48,7 +49,7 @@ export function CategoriesModal({ categories }: CategoriesDisplayProps) {
                       height={300}
                       src={category.imageUrl}
                       className="w-14 h-14 mb-3 text-primary group-hover:text-brandColor transition-colors duration-300"
-                      alt={category.title}
+                      alt={category.title || siteConfig.name}
                     />
                     <h3 className="font-semibold text-sm mb-2 group-hover:text-brandColor transition-colors duration-300">
                       {category.title}

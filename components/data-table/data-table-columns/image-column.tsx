@@ -1,3 +1,4 @@
+import { siteConfig } from '@/constants/site';
 import Image from 'next/image';
 import React from 'react';
 
@@ -14,7 +15,7 @@ export default function ImageColumn({
   return (
     <div className="shrink-0">
       <Image
-        alt={`${accessorKey}`}
+        alt={`${accessorKey}` || siteConfig.name}
         className="aspect-square w-8 h-8 rounded-md object-cover"
         height={200}
         src={imageUrl ?? ''}

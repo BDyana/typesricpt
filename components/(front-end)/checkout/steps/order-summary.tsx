@@ -1,3 +1,4 @@
+import { siteConfig } from '@/constants/site';
 import { useAppSelector } from '@/redux/hooks/hooks';
 import { removeFromCart } from '@/redux/slices/cart';
 import { setCurrentStep } from '@/redux/slices/checkout';
@@ -80,7 +81,7 @@ export default function OrderSummary() {
               src={cartItem.imageUrl}
               width={249}
               height={249}
-              alt={cartItem.title}
+              alt={cartItem.title || siteConfig.name}
               className="rounded-xl w-14 h-14"
             />
             <div className="flex flex-col">
@@ -108,8 +109,8 @@ export default function OrderSummary() {
             {checkoutFormData.shippingCost == '50'
               ? '3'
               : checkoutFormData.shippingCost == '75'
-              ? '2'
-              : '1'}{' '}
+                ? '2'
+                : '1'}{' '}
             days{' '}
           </span>
           <span>৳{checkoutFormData.shippingCost}</span>

@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { siteConfig } from '@/constants/site';
 import { UploadButton } from '@/lib/uploadthing';
 import Image from 'next/image';
 import React from 'react';
@@ -23,7 +24,7 @@ export default function MultipleImageInput({
       <CardContent>
         <div className="flex gap-2">
           <Image
-            alt={title}
+            alt={title || siteConfig.name}
             className="h-30 rounded-md object-cover"
             height="80"
             src={imageUrls[0]}

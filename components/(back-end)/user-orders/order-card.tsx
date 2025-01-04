@@ -10,6 +10,7 @@ import { convertIsoDateToNormal } from '@/lib/convertDateToNormal';
 import { OrderItem } from '@prisma/client';
 import { useRouter } from 'next/navigation';
 import { OrderStatus } from './order-status';
+import { siteConfig } from '@/constants/site';
 
 export default function OrderCard({ data }: any) {
   const order = data;
@@ -46,7 +47,7 @@ export default function OrderCard({ data }: any) {
               <div className="relative w-24 h-24">
                 <Image
                   src={item.imageUrl as string}
-                  alt={item.title as string}
+                  alt={(item.title as string) || siteConfig.name}
                   fill
                   className="object-cover rounded-md"
                 />

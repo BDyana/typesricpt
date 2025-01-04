@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { convertIsoDateToNormal } from '@/lib/convertDateToNormal';
 import { generateInitials } from '@/lib/generateInitials';
+import { siteConfig } from '@/constants/site';
 
 export default function OrderDetail({ order, user }: any) {
   const formattedDate = convertIsoDateToNormal(order.createdAt);
@@ -43,7 +44,7 @@ export default function OrderDetail({ order, user }: any) {
                     <div className="relative w-24 h-32">
                       <Image
                         src={item.imageUrl as string}
-                        alt={item.title as string}
+                        alt={(item.title as string) || siteConfig.name}
                         fill
                         className="object-cover rounded-md"
                       />

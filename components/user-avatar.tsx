@@ -13,11 +13,14 @@ import { LayoutDashboard, LogOut, Settings } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import FavoritesCount from './(front-end)/favorites-count';
+import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function UserAvatar({ user }: any) {
   const name = user?.name;
   const image = user?.image;
-
+  const router = useRouter();
   // console.log('image,', image);
   const initials = generateInitials(name ? (name as string) : 'Uncle Moses');
   const role = user?.role;
@@ -64,6 +67,16 @@ export default function UserAvatar({ user }: any) {
             <Settings className="mr-2 h-4 w-4" />
             <span>Edit Profile</span>
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Button
+            // asChild
+            className="flex text-black hover:bg-transparent bg-transparent items-center w-full"
+            onClick={() => router.push('/my-favorites')}
+          >
+            Favorites
+            <FavoritesCount />
+          </Button>
         </DropdownMenuItem>
         {role === 'USER' && (
           <DropdownMenuItem>

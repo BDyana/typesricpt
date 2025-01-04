@@ -26,6 +26,7 @@ import { useLocalStorage } from '@/hooks/use-local-storage';
 import { splitFullName } from '@/lib/splitNames';
 import { Label } from '../ui/label';
 import DeliveryChargeSelector from './shopping-cart/delivery-option';
+import { siteConfig } from '@/constants/site';
 
 interface IProps {
   products: Product[] | null | undefined;
@@ -161,7 +162,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
                   <img
                     className="h-20 w-20"
                     src={item.imageUrl as string}
-                    alt={item.title}
+                    alt={item.title || siteConfig.name}
                   />
                 </Link>
 
@@ -269,7 +270,9 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
 
       <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
         <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm   sm:p-6">
-          <p className="text-xl font-semibold text-brandBlack">Order summaryddd</p>
+          <p className="text-xl font-semibold text-brandBlack">
+            Order summaryddd
+          </p>
 
           <div className="space-y-4">
             <div className="space-y-2">
@@ -318,7 +321,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
               </div>
             )}
           </div>
-{/* 
+          {/* 
           <form className="space-y-4">
             <div>
               <label
@@ -347,7 +350,9 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
 
         <Card>
           <CardHeader>
-          <p className="text-xl font-semibold text-brandBlack">Delivery Location</p>
+            <p className="text-xl font-semibold text-brandBlack">
+              Delivery Location
+            </p>
             <CardDescription>Manage your delivery locations</CardDescription>
           </CardHeader>
           <CardContent>
@@ -379,7 +384,7 @@ export default function ShoppingCart({ products, user, userProfile }: IProps) {
                 )}
               </div>
               <Label>
-                Payment Method : Cash on Delivery.  
+                Payment Method : Cash on Delivery.
                 <span className="text-red-500">*</span>
               </Label>
               {/* <PaymentMethodSelector /> */}

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 @layer base {
@@ -96,7 +96,7 @@ body {
 
 .loader div {
   position: absolute;
-  border: 4px solid #14b8a6;
+  border: 4px solid #fbab32;
   border-radius: 50%;
   animation: loader8435 1s ease-out infinite;
 }
