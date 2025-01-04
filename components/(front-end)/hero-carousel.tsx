@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Banner } from '@prisma/client';
 import { Carousel } from 'nuka-carousel';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { siteConfig } from '@/constants/site';
 
 interface IProps {
   banners: Banner[] | null | undefined;
@@ -36,7 +37,7 @@ export default function HeroCarousel({ banners }: IProps) {
               height={1080}
               src={banner.imageUrl}
               className="w-full h-full object-cover"
-              alt={banner.title}
+              alt={banner.title || siteConfig.description}
               priority
             />
           </Link>
