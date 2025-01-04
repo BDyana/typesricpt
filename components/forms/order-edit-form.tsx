@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button';
 import { updateOrderStatus } from '@/actions/orders';
 import { toast } from 'sonner';
 import { Loader } from 'lucide-react';
+import { siteConfig } from '@/constants/site';
 
 type OrderWithItems = Order & {
   orderItems: (OrderItem & {
@@ -148,7 +149,7 @@ export default function OrderEditForm({ order }: { order: OrderWithItems }) {
                 <div className="flex-shrink-0">
                   <Image
                     src={item.imageUrl || '/placeholder.svg'}
-                    alt={item.title as string}
+                    alt={(item.title as string) || siteConfig.name}
                     width={80}
                     height={80}
                     className="rounded-md object-cover"

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { MoveRight } from 'lucide-react';
 import { Category } from '@prisma/client';
 import React, { useState, useEffect } from 'react';
+import { siteConfig } from '@/constants/site';
 
 interface IProps {
   data: (Category & { products: any[] })[] | null | undefined;
@@ -60,11 +61,11 @@ export default function CategoryGrid({ data }: IProps) {
               height={500}
               className="lg:w-14 w-11 lg:h-14 h-11 rounded-lg object-cover m-auto"
               src={category.imageUrl as string}
-              alt={category.title}
-            />          
+              alt={category.title || siteConfig.name}
+            />
             <h4 className="lg:text-sm text-xs dark:text-slate-200 text-slate-900 mt-2.5 line-clamp-1">
-            {category.title}
-          </h4>
+              {category.title}
+            </h4>
           </Link>
         ))}
       </div>

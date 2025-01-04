@@ -14,6 +14,7 @@ import {
 } from '@/actions/reviews';
 import { Card, CardContent } from '../ui/card';
 import { toast } from 'sonner';
+import { siteConfig } from '@/constants/site';
 
 interface Review {
   id: string;
@@ -169,7 +170,7 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
                 <Avatar className="w-10 h-10 mr-3">
                   <AvatarImage
                     src={review?.user?.image}
-                    alt={review?.user?.name}
+                    alt={review?.user?.name || siteConfig.name}
                   />
                   <AvatarFallback>
                     {review?.user?.name?.charAt(0)}

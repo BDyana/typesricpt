@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Category } from '@prisma/client';
 import { cn } from '@/lib/utils';
+import { siteConfig } from '@/constants/site';
 
 interface IProps {
   categories: (Category & { products: any[] })[] | null | undefined;
@@ -32,7 +33,7 @@ export default function TrendingDeals({
                 <div className="aspect-[3/4] relative w-full">
                   <Image
                     src={category.imageUrl as string}
-                    alt={category.title}
+                    alt={category.title || siteConfig.name}
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-110"
                     sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 16vw"

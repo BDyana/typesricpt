@@ -11,6 +11,7 @@ import { addToCart, removeFromCart } from '@/redux/slices/cart';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { useAppSelector } from '@/redux/hooks/hooks';
 import { cn } from '@/lib/utils';
+import { siteConfig } from '@/constants/site';
 
 interface IProduct {
   imageUrl: string;
@@ -74,7 +75,7 @@ export default function ProductCard({
         <div className="overflow-hidden h-[160px]">
           <Image
             src={product.imageUrl}
-            alt={product.description}
+            alt={product.description || siteConfig.name}
             width={350}
             height={350}
             className="w-full object-contain h-full transition-transform duration-300 hover:scale-110"

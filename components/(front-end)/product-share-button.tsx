@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { siteConfig } from '@/constants/site';
 
 interface ShareOption {
   name: string;
@@ -90,7 +91,7 @@ export default function ProductShareButton({
               >
                 <img
                   src={option.icon}
-                  alt={option.name}
+                  alt={option.name || siteConfig.name}
                   className="w-6 h-6 mb-2"
                 />
                 <span className="text-sm">{option.name}</span>

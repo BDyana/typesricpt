@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { siteConfig } from '@/constants/site';
 import { UploadButton } from '@/lib/uploadthing';
 import Image from 'next/image';
 
@@ -23,7 +24,7 @@ export default function ImageInput({
       <CardContent>
         <div className="grid gap-2">
           <Image
-            alt={title}
+            alt={title || siteConfig.name}
             className={`h-40 w-full rounded-md object-cover ${imageUrl === '/placeholder.svg' ? 'invert' : ''}`}
             height="300"
             src={imageUrl}

@@ -36,7 +36,7 @@ export default function Navbar() {
           <Link className="" href="/">
             <Image
               src={siteConfig.logo || '/Logo.png'}
-              alt={siteConfig.description}
+              alt={siteConfig.description || siteConfig.name}
               width={400}
               height={400}
               className="md:w-32 w-24 mt-1"

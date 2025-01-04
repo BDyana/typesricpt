@@ -9,6 +9,7 @@ import {
   removeFromCart,
 } from '@/redux/slices/cart';
 import { toast } from 'sonner';
+import { siteConfig } from '@/constants/site';
 
 interface CartItemListProps {
   cartItems: any[];
@@ -46,7 +47,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
                 <img
                   className="h-20 w-20"
                   src={item.imageUrl as string}
-                  alt={item.title}
+                  alt={item.title || siteConfig.name}
                 />
               </Link>
 

@@ -15,6 +15,7 @@ import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Separator } from '../ui/separator';
 import { useRouter } from 'next/navigation';
+import { siteConfig } from '@/constants/site';
 
 interface IProps {
   id: string;
@@ -103,7 +104,7 @@ export default function OrderConfirmation({ order, id }: IProps) {
                       height={80}
                       className="rounded-md object-cover"
                       src={item.imageUrl}
-                      alt={item.title}
+                      alt={item.title || siteConfig.name}
                     />
                     <div className="flex-1">
                       <h3 className="font-semibold w-[65%]">{item.title}</h3>
