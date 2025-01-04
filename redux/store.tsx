@@ -4,11 +4,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import cartSlice from './slices/cart';
 import checkoutSlice from './slices/checkout';
 import onboardingSlice from './slices/onboarding';
+import favoriteSlice from './slices/favorites';
 
 const store = configureStore({
   reducer: {
     // Slices go here
     cart: cartSlice,
+    favorite: favoriteSlice,
     checkout: checkoutSlice,
     onboarding: onboardingSlice,
   },

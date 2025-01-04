@@ -1,4 +1,5 @@
 'use client';
+
 import Link from 'next/link';
 import { ChevronRight, Tag } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
@@ -48,15 +49,16 @@ export default function FlashSales({ products }: any) {
         </Link>
       </div>
       <div className="grid md:grid-cols-4 grid-cols-2 lg:grid-cols-5 gap-4 px-3 lg:pb-6 pb-4">
-        {products
-          ?.splice(0, 10)
-          .map((product: any) => (
+        {products?.splice(0, 10).map((product: any) => {
+          // console.log('Product ✅: ', product);
+          return (
             <ProductCard
               className="bg-[#fce7e5] text-[#e61601]"
               key={product.id}
               product={product}
             />
-          ))}
+          );
+        })}
       </div>
     </div>
   );

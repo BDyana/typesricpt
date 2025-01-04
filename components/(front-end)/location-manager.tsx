@@ -145,14 +145,14 @@ export function LocationManager({ userProfile }: any) {
       </Dialog>
 
       <div className="space-y-2">
-        {locations.map((location) => (
+        {locations.map((location, i) => (
           <div
-            key={location.id}
+            key={i}
             className="flex items-center space-x-2 border rounded pb-2"
           >
             <Checkbox
               id={`checkbox-${location.id}`}
-            className="hidden"
+              className="hidden"
               checked={location.isDefault}
               onCheckedChange={() => handleSetDefault(location.id)}
             />
@@ -161,36 +161,30 @@ export function LocationManager({ userProfile }: any) {
                 <div>
                   <div className="flex justify-between">
                     <div>
-                        {location.isDefault && (
-                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 inline-flex rounded-full mt-2">
-                            Default
-                          </span>
-                        )}
-                        <p className="font-medium my-1">
-                        {location.name} 
-                        </p>
-                        <p className="font-medium">
-                        {location.phone} 
-                        </p>
+                      {location.isDefault && (
+                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 inline-flex rounded-full mt-2">
+                          Default
+                        </span>
+                      )}
+                      <p className="font-medium my-1">{location.name}</p>
+                      <p className="font-medium">{location.phone}</p>
                     </div>
                     <div>
-                    <Button
-                      variant="ghost"
-                      size="xs"
-                      onClick={() => handleEditLocation(location)}
-                    >
-                      <Pencil className="h-1 w-1" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="xs"
-                    >
-                      <Trash2 className="h-1 w-1 text-red-700" />
-                    </Button>
+                      <Button
+                        variant="ghost"
+                        size="xs"
+                        onClick={() => handleEditLocation(location)}
+                      >
+                        <Pencil className="h-1 w-1" />
+                      </Button>
+                      <Button variant="ghost" size="xs">
+                        <Trash2 className="h-1 w-1 text-red-700" />
+                      </Button>
                     </div>
                   </div>
                   <p className="text-sm font-normal text-gray-500">
-                    {location.streetAddress}, {location.city}, {location.district}.
+                    {location.streetAddress}, {location.city},{' '}
+                    {location.district}.
                   </p>
                 </div>
               </div>
@@ -225,15 +219,15 @@ function LocationForm({ onSubmit, register, errors, isSubmitting }: any) {
           placeholder="01711-123123"
         />
       </div>
-        <CustomText
-          label="Street Address"
-          name="streetAddress"
-          register={register}
-          errors={errors}
-          type="text"
-          className="mb-4"
-          placeholder="House No, Road No, Thana, Upazila/City.."
-        />
+      <CustomText
+        label="Street Address"
+        name="streetAddress"
+        register={register}
+        errors={errors}
+        type="text"
+        className="mb-4"
+        placeholder="House No, Road No, Thana, Upazila/City.."
+      />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <CustomText
           label="City"

@@ -1,17 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { toast } from 'sonner';
 import * as fbq from '../../lib/fpixel';
 import { useDispatch } from 'react-redux';
-import { ShoppingCart, Trash2 } from 'lucide-react';
+import { ShoppingCart, Trash2, Heart } from 'lucide-react';
 import { addToCart, removeFromCart } from '@/redux/slices/cart';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { useAppSelector } from '@/redux/hooks/hooks';
 import { cn } from '@/lib/utils';
 import { siteConfig } from '@/constants/site';
+import { addToFavorite, removeFromFavorite } from '@/redux/slices/favorites';
 
 interface IProduct {
   imageUrl: string;
@@ -36,9 +37,17 @@ export default function ProductCard({
 }) {
   const dispatch = useDispatch();
   const cartItems = useAppSelector((state) => state.cart);
+  const favoriteItems = useAppSelector((state) => state.favorite);
 
   // Check if product is already in cart
   const isInCart = cartItems?.some((item: any) => item.id === product.id);
+
+  // Check if product is in favorites
+  const [isInFavorite, setIsInFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsInFavorite(favoriteItems?.some((item: any) => item.id === product.id));
+  }, [favoriteItems, product.id]);
 
   const handleClick = () => {
     fbq.event('Purchase', { currency: 'USD', value: 10 });
@@ -66,11 +75,42 @@ export default function ProductCard({
     toast.success('Product added successfully');
   }
 
+  function handleToggleFavorite() {
+    if (isInFavorite) {
+      dispatch(removeFromFavorite(product.id));
+      toast.success('Product removed from favorites');
+    } else {
+      const favoriteItem = {
+        id: product?.id,
+        slug: product?.slug,
+        title: product?.title,
+        salePrice: product?.salePrice,
+        qty: 1,
+        imageUrl: product?.imageUrl,
+        description: product?.description,
+        vendorId: product?.userId,
+      };
+      dispatch(addToFavorite(favoriteItem));
+      toast.success('Product added to favorites');
+    }
+  }
+
   return (
     <div
       style={{ height: '265px' }} // Fixed height for the card
-      className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow"
+      className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow relative"
     >
+      <button
+        onClick={handleToggleFavorite}
+        className={`absolute top-3 right-2 z-10 p-2 rounded-full transition-colors ${
+          isInFavorite
+            ? 'bg-red-100 text-red-600 hover:bg-red-200'
+            : 'bg-white text-gray-600 hover:bg-gray-100'
+        }`}
+        title={isInFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      >
+        <Heart size={20} fill={isInFavorite ? 'currentColor' : 'none'} />
+      </button>
       <Link prefetch={true} href={`/products/${product.slug}`} passHref>
         <div className="overflow-hidden h-[160px]">
           <Image

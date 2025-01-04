@@ -1,26 +1,19 @@
-import * as fbq from '../../lib/fpixel';
-import { Category } from '@prisma/client';
-import { getServerSession } from 'next-auth';
 import { getBanners } from '@/actions/banners';
-import { authOptions } from '@/lib/authOptions';
-import Hero from '@/components/(front-end)/hero';
-import { getTrainings } from '@/actions/trainings';
-import { getFlashSaleProducts, getLatestProducts } from '@/actions/products';
 import { getAllCategories } from '@/actions/categories';
-import Products from '@/components/(front-end)/products';
-import CategoryList from '@/components/(front-end)/category-list';
+import { getFlashSaleProducts, getLatestProducts } from '@/actions/products';
 import CategoryGrid from '@/components/(front-end)/category-grid';
-import TrendingDeals from '@/components/(front-end)/trending-deals';
-import { PromotionalBanner } from '@/components/(front-end)/promotional-banner';
+import CategoryList from '@/components/(front-end)/category-list';
 import FlashSales from '@/components/(front-end)/flash-sales';
+import Hero from '@/components/(front-end)/hero';
+import Products from '@/components/(front-end)/products';
+import { PromotionalBanner } from '@/components/(front-end)/promotional-banner';
+import TrendingDeals from '@/components/(front-end)/trending-deals';
+import { Category } from '@prisma/client';
 
 export default async function Home() {
-  const handleClick = () => {
-    fbq.event('Purchase', { currency: 'USD', value: 10 });
-  };
   const categories_res = await getAllCategories();
   const latestProducts = await getLatestProducts(12);
-  const allProducts = await getLatestProducts();
+
   const categoriesData = categories_res?.data;
 
   const categories = categoriesData?.filter((category: Category) => {
@@ -36,14 +29,11 @@ export default async function Home() {
     );
   });
 
-  const trainings_res = await getTrainings();
-  const trainingsData = trainings_res?.data;
-
   const bannersData = await getBanners();
   const flashSales = await getFlashSaleProducts();
   const banners = bannersData?.data;
 
-  const session = await getServerSession(authOptions);
+  // console.log('Flash Sales Count ✅: ', flashSales.length);
 
   return (
     <div className="min-h-screen">
@@ -56,7 +46,9 @@ export default async function Home() {
           description="100+ products added today"
           products={latestProducts as any}
         />
-        {flashSales.length >= 4 && <FlashSales products={flashSales} />}
+
+        {/* flash sale */}
+        {flashSales.length >= 6 && <FlashSales products={flashSales} />}
 
         {/* Shop by category */}
         <CategoryGrid data={categoriesData} />

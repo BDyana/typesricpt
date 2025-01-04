@@ -1,17 +1,17 @@
 'use client';
 
-import Link from 'next/link';
-import Image from 'next/image';
-import Loader from '../loader';
-import CartCount from './cart-count';
-import UserAvatar from '../user-avatar';
-import Announcement from '../announcement';
-import SearchForm from '../forms/search-from';
+import { CONTACT_INFO } from '@/constants/contacts';
 import { siteConfig } from '@/constants/site';
 import { PhoneCall, User } from 'lucide-react';
-import { CONTACT_INFO } from '@/constants/contacts';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Announcement from '../announcement';
+import SearchForm from '../forms/search-from';
+import Loader from '../loader';
+import UserAvatar from '../user-avatar';
+import CartCount from './cart-count';
 
 export default function Navbar() {
   const { data: session, status } = useSession();
