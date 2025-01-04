@@ -1,5 +1,5 @@
 import { FireExtinguisher } from 'lucide-react';
-import AllProducts from '../products/page';
+import AllProducts from '../products/all-products';
 import { getFlashSaleProducts } from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
