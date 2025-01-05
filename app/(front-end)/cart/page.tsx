@@ -3,6 +3,7 @@ import { getUserProfile } from '@/actions/update-profile';
 import ShoppingCart from '@/components/(front-end)/shopping-cart/shopping-cart';
 import { authOptions } from '@/lib/authOptions';
 import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
 export default async function page() {
   const session = await getServerSession(authOptions);
@@ -10,6 +11,7 @@ export default async function page() {
 
   if (!user) {
     location.reload();
+    redirect('/login');
   }
 
   // Only fetch these after confirming session exists
