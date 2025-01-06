@@ -27,7 +27,7 @@ export default function TrendingDeals({
             .map((category) => (
               <Link
                 key={category.title}
-                href={`${category.slug}`}
+                href={`/categories/${category.slug}`}
                 className="group relative overflow-hidden rounded-lg"
               >
                 <div className="aspect-[3/4] relative w-full">
