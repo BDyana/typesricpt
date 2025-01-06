@@ -10,7 +10,7 @@ export default async function page() {
   const user = session?.user;
 
   if (!user) {
-    location.reload();
+    // location.reload();
     redirect('/login');
   }
 

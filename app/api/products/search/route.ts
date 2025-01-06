@@ -8,6 +8,7 @@ export async function GET(request: NextRequest) {
     const sortBy = request.nextUrl.searchParams.get('sort') || 'desc';
     const min = request.nextUrl.searchParams.get('min');
     const max = request.nextUrl.searchParams.get('max');
+    const categoryId = request.nextUrl.searchParams.get('categoryId');
     const page = parseInt(request.nextUrl.searchParams.get('page') || '1', 10);
     const pageSize = 10;
 
@@ -19,33 +20,64 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Construct the `where` condition dynamically
+    // Construct the base where condition
     const where: any = {
-      OR: [
-        { title: { contains: searchTerm, mode: 'insensitive' } },
-        { category: { title: { contains: searchTerm, mode: 'insensitive' } } },
-        { description: { contains: searchTerm, mode: 'insensitive' } },
+      AND: [
+        // Search conditions
+        {
+          OR: [
+            { title: { contains: searchTerm, mode: 'insensitive' } },
+            { description: { contains: searchTerm, mode: 'insensitive' } },
+          ],
+        },
+        // Category filter
+        ...(categoryId ? [{ categoryId }] : []),
       ],
     };
 
     // Add price filtering if applicable
     if (min || max) {
-      where.salePrice = {
-        ...(min ? { gte: parseFloat(min) } : {}),
-        ...(max ? { lte: parseFloat(max) } : {}),
-      };
+      where.AND.push({
+        salePrice: {
+          ...(min ? { gte: parseFloat(min) } : {}),
+          ...(max ? { lte: parseFloat(max) } : {}),
+        },
+      });
     }
 
-    // Fetch products with pagination and sorting
-    const products = await db.product.findMany({
-      where,
-      skip: (page - 1) * pageSize,
-      take: pageSize,
-      orderBy: { salePrice: sortBy === 'asc' ? 'asc' : 'desc' },
-    });
+    // Fetch products with pagination, sorting, and category filtering
+    const [products, totalCount] = await Promise.all([
+      db.product.findMany({
+        where,
+        skip: (page - 1) * pageSize,
+        take: pageSize,
+        orderBy: { salePrice: sortBy === 'asc' ? 'asc' : 'desc' },
+        include: {
+          category: {
+            select: {
+              id: true,
+              title: true,
+              slug: true,
+            },
+          },
+        },
+      }),
+      db.product.count({ where }), // Get total count for pagination
+    ]);
 
-    // Return the response
-    return NextResponse.json(products, { status: 200 });
+    // Return the response with pagination metadata
+    return NextResponse.json(
+      {
+        products,
+        pagination: {
+          currentPage: page,
+          totalPages: Math.ceil(totalCount / pageSize),
+          totalItems: totalCount,
+          hasMore: page * pageSize < totalCount,
+        },
+      },
+      { status: 200 },
+    );
   } catch (error) {
     console.error('Error fetching products:', error);
 
