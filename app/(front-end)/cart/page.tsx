@@ -29,7 +29,7 @@ export default async function CartPage() {
         </h2>
 
         <ShoppingCart
-          userProfile={userProfile?.data}
+          userProfile={userProfile?.data as any}
           products={latestProducts}
           user={session.user}
         />
