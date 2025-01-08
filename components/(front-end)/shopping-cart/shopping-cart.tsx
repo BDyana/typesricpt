@@ -222,9 +222,6 @@ export default function ShoppingCart({
                   </p>
                 )}
               </div>
-<<<<<<< HEAD
-=======
-
               <PaymentMethodSelector />
             </div>
 
@@ -281,7 +278,6 @@ export default function ShoppingCart({
                   </svg>
                 </Link>
               </div>
->>>>>>> c5e3f0202d0601da21c41f3d8047a502413bbaf4
             </div>
             <Label>
               Payment Method : Cash on Delivery
