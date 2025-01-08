@@ -2,8 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('./fonts/SegoeUI.woff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
   font-family: 'Segoe UI', sans-serif;
+  color: #484848;
+}
+
+h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+h4 {
+  font-size: 14px;
+  font-weight: 400;
+}
+h5 {
+  font-size: 12px;
+  font-weight: 400;
+}
+p {
+  font-size: 14px;
+  font-weight: 400;
 }
 
 @layer base {

@@ -131,7 +131,7 @@ export default function ProductCard({
         <div className="items-center gap-2 pb-1 dark:text-slate-200 text-slate-800">
           <div className="justify-between flex">
             <div>
-              <p className="leading-none font-medium">
+              <p className="leading-none font-bold">
                 BDT {product?.salePrice}
               </p>
               {product?.productPrice > product?.salePrice && (
@@ -140,7 +140,7 @@ export default function ProductCard({
                 </del>
               )}
               {product?.productPrice > product?.salePrice && (
-                <h5
+                <h4
                   className={cn(
                     'bg-[#fef3e9] text-[#f68b1e] p-1 inline',
                     className,
@@ -152,7 +152,7 @@ export default function ProductCard({
                     product?.salePrice,
                   )}
                   %
-                </h5>
+                </h4>
               )}
             </div>
             <button

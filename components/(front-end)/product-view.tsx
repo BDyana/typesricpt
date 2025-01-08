@@ -131,7 +131,7 @@ export default function ProductView({ product, category }: IProps) {
               </div>
               <div>
                 <h3>Delivery Fees</h3>
-                <h5>
+                <h5 >
                   Inside Dhaka TK 50,
                   <br />
                   Sub Area Dhaka BDT 90.

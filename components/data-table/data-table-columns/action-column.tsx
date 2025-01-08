@@ -76,7 +76,7 @@ export default function ActionColumn({
         toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
       } else if (model === 'order') {
         const res = await deleteOrder(id);
-        if (res?.ok) {
+        if (res.status === 201 || 200) {
           window.location.reload();
         }
         toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);

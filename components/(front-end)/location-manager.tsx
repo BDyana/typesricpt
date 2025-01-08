@@ -219,7 +219,7 @@ function LocationForm({ onSubmit, register, errors, isSubmitting }: any) {
           errors={errors}
           type="tel"
           className="mb-4"
-          placeholder="01711-123123"
+          placeholder="01711-123456"
         />
       </div>
       <CustomText
@@ -239,7 +239,7 @@ function LocationForm({ onSubmit, register, errors, isSubmitting }: any) {
           errors={errors}
           type="text"
           className="mb-4"
-          placeholder="New York"
+          placeholder="Dhaka City"
         />
         <CustomText
           label="District"
@@ -248,7 +248,7 @@ function LocationForm({ onSubmit, register, errors, isSubmitting }: any) {
           errors={errors}
           type="text"
           className="mb-4"
-          placeholder="Manhattan"
+          placeholder="Dhaka"
         />
       </div>
       <Button
