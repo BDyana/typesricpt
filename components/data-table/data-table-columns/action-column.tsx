@@ -3,6 +3,7 @@
 import { deleteBanner } from '@/actions/banners';
 import { deleteCategory } from '@/actions/categories';
 import { deleteCoupon } from '@/actions/coupons';
+import { deleteOrder } from '@/actions/orders';
 import { deleteProduct } from '@/actions/products';
 import {
   AlertDialog,
@@ -69,6 +70,12 @@ export default function ActionColumn({
         toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
       } else if (model === 'banner') {
         const res = await deleteBanner(id);
+        if (res?.ok) {
+          window.location.reload();
+        }
+        toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
+      } else if (model === 'order') {
+        const res = await deleteOrder(id);
         if (res?.ok) {
           window.location.reload();
         }
