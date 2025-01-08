@@ -12,7 +12,7 @@ import { useLocalStorage } from '@/hooks/use-local-storage';
 import { splitFullName } from '@/lib/splitNames';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { removeFromCart } from '@/redux/slices/cart';
-import { Product, UserProfile } from '@prisma/client';
+import { type Product, type UserProfile } from '@prisma/client';
 import { Loader2Icon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -26,10 +26,31 @@ import { EmptyCart } from './empty-cart';
 import { OrderSummary } from './order-summary';
 import RecommendedProducts from './recommended-products';
 
+interface DeliveryOption {
+  id: string;
+  label: string;
+  basePrice: number;
+  additionalPricePerKg?: number;
+  isOil?: boolean;
+}
+
+interface Location {
+  isDefault: boolean;
+  phone: string;
+  streetAddress: string;
+  city: string;
+  country: string;
+  district: string;
+}
+
 interface ShoppingCartProps {
   products: Product[] | null | undefined;
-  userProfile: UserProfile | any;
-  user: any;
+  userProfile: UserProfile | null;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  } | null;
 }
 
 export default function ShoppingCart({
@@ -37,7 +58,8 @@ export default function ShoppingCart({
   user,
   userProfile,
 }: ShoppingCartProps) {
-  const userProfileDefaultLocation = userProfile
+  // Initialize default location only if userProfile exists
+  const userProfileDefaultLocation: Location[] = userProfile
     ? [
         {
           isDefault: true,
@@ -51,30 +73,25 @@ export default function ShoppingCart({
     : [];
 
   const [loading, setLoading] = useState(false);
-  const [selectedDelivery, setSelectedDelivery] = useState<{
-    id: string;
-    label: string;
-    basePrice: number;
-    additionalPricePerKg?: number;
-    isOil?: boolean;
-  } | null>(null);
+  const [selectedDelivery, setSelectedDelivery] =
+    useState<DeliveryOption | null>(null);
   const [errors, setErrors] = useState({
     location: false,
     delivery: false,
   });
-  const router = useRouter();
 
+  const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
 
-  const subTotal =
-    cartItems
-      .reduce((acc, currentItem) => {
-        return acc + currentItem.salePrice * currentItem.qty;
-      }, 0)
-      .toFixed(2) ?? 0;
+  const subTotal = cartItems
+    .reduce(
+      (acc, currentItem) => acc + currentItem.salePrice * currentItem.qty,
+      0,
+    )
+    .toFixed(2);
 
-  const [locations] = useLocalStorage<any[]>(
+  const [locations] = useLocalStorage<Location[]>(
     'locations',
     userProfileDefaultLocation,
   );
@@ -82,26 +99,33 @@ export default function ShoppingCart({
   const sortedLocation = locations.find(
     (location) => location.isDefault === true,
   );
-  const fullName = user?.name;
-  const email = user?.email;
-  const userId = user?.id;
+
+  // Handle case where user or user properties might be undefined
+  const fullName = user?.name ?? '';
+  const email = user?.email ?? '';
+  const userId = user?.id ?? '';
 
   const { firstName, secondName } = splitFullName(fullName);
-  const { isDefault, phone, ...location } = sortedLocation;
 
-  const checkoutFormData = {
-    ...location,
-    email,
-    userId,
-    tel: sortedLocation.phone,
-    firstName,
-    lastName: secondName,
-    paymentMethod: 'Cash On Delivery',
-    shippingCost: selectedDelivery?.basePrice ?? 90,
-  };
+  const checkoutFormData = sortedLocation
+    ? {
+        ...sortedLocation,
+        email,
+        userId,
+        tel: sortedLocation.phone,
+        firstName,
+        lastName: secondName,
+        paymentMethod: 'Cash On Delivery',
+        shippingCost: selectedDelivery?.basePrice ?? 90,
+      }
+    : null;
 
   async function handleSubmit() {
-    // Validate required fields
+    if (!checkoutFormData) {
+      toast.error('Missing required form data');
+      return;
+    }
+
     const newErrors = {
       location: !sortedLocation,
       delivery: !selectedDelivery,
@@ -118,10 +142,12 @@ export default function ShoppingCart({
       orderItems: cartItems,
     };
 
-    // console.log('Location:', data);
     try {
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      if (!baseUrl) {
+        throw new Error('Base URL not configured');
+      }
 
       const response = await fetch(`${baseUrl}/api/orders`, {
         method: 'POST',
@@ -131,21 +157,20 @@ export default function ShoppingCart({
         body: JSON.stringify(data),
       });
 
-      const responseData = await response.json();
-      if (response.ok) {
-        setLoading(false);
-        toast.success('Order Created Successfully');
-
-        // Clear all items from the cart
-        cartItems.forEach((item) => dispatch(removeFromCart(item.id)));
-
-        router.push(`/order-confirmation/${responseData.id}`);
-      } else {
-        setLoading(false);
-        toast.error('Something Went wrong, Please Try Again');
+      if (!response.ok) {
+        throw new Error('Failed to create order');
       }
+
+      const responseData = await response.json();
+
+      // Clear cart items
+      cartItems.forEach((item) => dispatch(removeFromCart(item.id)));
+
+      toast.success('Order Created Successfully');
+      router.push(`/order-confirmation/${responseData.id}`);
     } catch (error) {
-      console.log('Error:', error);
+      console.error('Error creating order:', error);
+      toast.error('Something went wrong, please try again');
     } finally {
       setLoading(false);
     }
@@ -159,7 +184,7 @@ export default function ShoppingCart({
     <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
       <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-3xl">
         <CartItemList cartItems={cartItems} />
-        <RecommendedProducts products={products} />
+        {products && <RecommendedProducts products={products} />}
       </div>
 
       <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
@@ -170,7 +195,7 @@ export default function ShoppingCart({
             <CardDescription>Manage your delivery locations</CardDescription>
           </CardHeader> */}
           <CardContent className="m-2">
-            <div className={`${errors.location ? 'border-red-500' : ''}`}>
+            <div className={errors.location ? 'border-red-500' : ''}>
               <LocationManager userProfile={userProfile} />
               {errors.location && (
                 <p className="text-sm text-red-500 mt-1">
@@ -197,6 +222,66 @@ export default function ShoppingCart({
                   </p>
                 )}
               </div>
+<<<<<<< HEAD
+=======
+
+              <PaymentMethodSelector />
+            </div>
+
+            <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2">
+              <dt className="text-base font-bold text-brandBlack">Total</dt>
+              <dd className="text-base font-bold text-brandBlack">
+                ৳
+                {(
+                  parseFloat(subTotal) + (selectedDelivery?.basePrice ?? 0)
+                ).toFixed(2)}
+              </dd>
+            </div>
+
+            <div className="my-4">
+              <button
+                disabled={loading}
+                onClick={handleSubmit}
+                title="Proceed to checkout"
+                className="flex w-full items-center justify-center rounded-lg bg-brandColor px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-brandBlack dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                {loading ? (
+                  <span className="flex gap-2">
+                    <Loader2Icon className="size-4 animate-spin" />
+                    Submitting...
+                  </span>
+                ) : (
+                  'Submit Order'
+                )}
+              </button>
+
+              <div className="flex items-center mt-2 justify-center gap-2">
+                <span className="text-sm font-normal text-gray-500">or</span>
+                <Link
+                  href="/"
+                  prefetch={true}
+                  title="Continue Shopping"
+                  className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
+                >
+                  Continue Shopping
+                  <svg
+                    className="h-5 w-5"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M19 12H5m14 0-4 4m4-4-4-4"
+                    />
+                  </svg>
+                </Link>
+              </div>
+>>>>>>> c5e3f0202d0601da21c41f3d8047a502413bbaf4
             </div>
             <Label>
               Payment Method : Cash on Delivery
