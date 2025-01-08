@@ -1,6 +1,6 @@
 'use client';
-
 import { Button } from '@/components/ui/button';
+import {CardHeader} from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
@@ -106,12 +106,15 @@ export function LocationManager({ userProfile }: any) {
   return (
     <div className="space-y-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <Button className="w-full" variant="outline" size="sm">
-            <Plus className="mr-2 h-4 w-4" /> Add Location
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[525px]">
+        <div className="flex justify-between">
+            <p className="text-xl font-semibold text-brandBlack">Shipping Address</p>
+            <DialogTrigger asChild>
+            <Button variant="outline" size="sm">
+                <Plus className="mr-2 h-4 w-4" />New
+            </Button>
+            </DialogTrigger>
+        </div>
+        <DialogContent className="">
           <DialogHeader>
             <DialogTitle>Add New Location</DialogTitle>
             <DialogDescription>

@@ -8,13 +8,13 @@ export function OrderSummary({
   selectedDelivery,
 }: OrderSummaryProps) {
   return (
-    <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
-      <p className="text-xl font-semibold text-brandBlack">Order summary.</p>
-      <div className="space-y-4">
+    <div className="space-y-2">
+      <p className="text-xl font-semibold text-brandBlack">Order summary</p>
+      <div className="space-y-1">
         <div className="space-y-2">
           <dl className="flex items-center justify-between gap-4">
             <dt className="text-base font-normal text-gray-500">
-              Original price
+              Product price
             </dt>
             <dd className="text-base font-medium text-brandBlack">
               ৳{subTotal}
@@ -39,10 +39,10 @@ export function OrderSummary({
           </dl> */}
         </div>
 
-        <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
+        {/* <dl className="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
           <dt className="text-base font-bold text-brandBlack">Subtotal</dt>
           <dd className="text-base font-bold text-brandBlack">৳{subTotal}</dd>
-        </dl>
+        </dl> */}
         {selectedDelivery && (
           <div className="flex items-center justify-between gap-4">
             <dt className="text-base font-normal text-gray-500">
@@ -54,7 +54,7 @@ export function OrderSummary({
           </div>
         )}
       </div>
-{/* 
+      {/* 
       <form className="space-y-4">
         <div>
           <label

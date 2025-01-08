@@ -104,7 +104,7 @@ export default function DeliveryOption({
           ) : (
             <span className="flex items-center gap-2">
               <Truck className="h-4 w-4" />
-              Select Delivery Option
+              Select Delivery Area
               {required && <span className="text-red-500">*</span>}
             </span>
           )}
