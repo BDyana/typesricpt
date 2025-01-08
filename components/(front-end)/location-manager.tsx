@@ -106,11 +106,11 @@ export function LocationManager({ userProfile }: any) {
   return (
     <div className="space-y-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <div className="flex justify-between">
-            <p className="text-xl font-semibold text-brandBlack">Shipping Address</p>
+        <div className="flex justify-between items-center">
+            <p className="text-lg font-semibold text-brandBlack">Shipping Address</p>
             <DialogTrigger asChild>
-            <Button variant="outline" size="sm">
-                <Plus className="mr-2 h-4 w-4" />New
+            <Button variant="outline" size="sm" className="text-sm font-normal px-2 h-8">
+                <Plus className="mr-1 h-4 w-4" />New
             </Button>
             </DialogTrigger>
         </div>

@@ -178,7 +178,7 @@ export default function ShoppingCart({
   }
 
   return (
-    <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+    <div className="mt-4 md:gap-6 lg:flex lg:items-start xl:gap-8">
       <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-3xl">
         <CartItemList cartItems={cartItems} />
         {products && <RecommendedProducts products={products} />}
@@ -186,11 +186,6 @@ export default function ShoppingCart({
 
       <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
         <Card>
-          {/* <CardHeader>
-             <p className="text-xl font-semibold text-brandBlack">Delivery Location</p>
-           <CardTitle>Delivery Location</CardTitle>
-            <CardDescription>Manage your delivery locations</CardDescription>
-          </CardHeader> */}
           <CardContent className="m-2">
             <div className={errors.location ? 'border-red-500' : ''}>
               <LocationManager userProfile={userProfile} />
@@ -206,7 +201,7 @@ export default function ShoppingCart({
                 Delivery Charge
                 <span className="text-red-500">*</span>
               </Label>
-              <div className="mt-2">
+              <div className="my-2">
                 <DeliveryOption
                   onSelect={setSelectedDelivery}
                   selectedOptionId={selectedDelivery?.id}

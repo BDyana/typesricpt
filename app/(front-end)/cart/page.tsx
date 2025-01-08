@@ -22,7 +22,7 @@ export default async function CartPage() {
   ]);
 
   return (
-    <section className="bg-white pb-8 antialiased md:py-8">
+    <section className="bg-white pb-8 antialiased">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <h2 className="text-xl font-semibold text-brandBlack sm:text-2xl">
           Shopping Cart
