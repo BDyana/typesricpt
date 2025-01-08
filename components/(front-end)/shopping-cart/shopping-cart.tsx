@@ -3,9 +3,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useLocalStorage } from '@/hooks/use-local-storage';
@@ -222,73 +219,17 @@ export default function ShoppingCart({
                   </p>
                 )}
               </div>
-              <PaymentMethodSelector />
-            </div>
-
-            <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2">
-              <dt className="text-base font-bold text-brandBlack">Total</dt>
-              <dd className="text-base font-bold text-brandBlack">
-                ৳
-                {(
-                  parseFloat(subTotal) + (selectedDelivery?.basePrice ?? 0)
-                ).toFixed(2)}
-              </dd>
-            </div>
-
-            <div className="my-4">
-              <button
-                disabled={loading}
-                onClick={handleSubmit}
-                title="Proceed to checkout"
-                className="flex w-full items-center justify-center rounded-lg bg-brandColor px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-brandBlack dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                {loading ? (
-                  <span className="flex gap-2">
-                    <Loader2Icon className="size-4 animate-spin" />
-                    Submitting...
-                  </span>
-                ) : (
-                  'Submit Order'
-                )}
-              </button>
-
-              <div className="flex items-center mt-2 justify-center gap-2">
-                <span className="text-sm font-normal text-gray-500">or</span>
-                <Link
-                  href="/"
-                  prefetch={true}
-                  title="Continue Shopping"
-                  className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
-                >
-                  Continue Shopping
-                  <svg
-                    className="h-5 w-5"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 12H5m14 0-4 4m4-4-4-4"
-                    />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-            <Label>
-              Payment Method : Cash on Delivery
-              <span className="text-red-500">*</span>
-            </Label>
+              <Label>
+                Payment Method : Cash on Delivery
+                <span className="text-red-500">*</span>
+              </Label>
               {/* <PaymentMethodSelector /> */}
+              </div>
           </CardContent>
         </Card>
         <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
           <OrderSummary subTotal={subTotal} selectedDelivery={selectedDelivery} />
-        <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
+          <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
             <dt className="text-base font-bold text-brandBlack">Total</dt>
             <dd className="text-base font-bold text-brandBlack">
               ৳
@@ -341,8 +282,8 @@ export default function ShoppingCart({
               </Link>
             </div> */}
           </div>
-          </div>
         </div>
+      </div>
     </div>
   );
 }
