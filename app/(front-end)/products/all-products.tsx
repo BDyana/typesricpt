@@ -51,7 +51,7 @@ export default function AllProducts({
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
-  const pageSize = isFlashSale ? 100 : 10;
+  const pageSize = isFlashSale ? 100 : 12;
 
   // Function to fetch the latest products
   const getLatest = async () => {
@@ -123,7 +123,7 @@ export default function AllProducts({
       <Suspense fallback={<SearchBarFallback />}>
         <div
           id="products-section"
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:grid-cols-4 mt-4"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 md:grid-cols-4 mt-4"
         >
           {currentProducts.map((product, i) => (
             <div key={i}>

@@ -294,119 +294,123 @@ export default function ProductForm({
                     setOption={setSelectedCategory}
                     href="/dashboard/categories/new"
                   />
-                  <div className="grid grid-cols-3 gap-2">
-                    <CustomText
-                      className="text-black"
-                      label="Price (Before Discount)"
-                      name="productPrice"
-                      type="number"
-                      register={register}
-                      errors={errors}
-                    />
-                    <CustomText
-                      className="text-black"
-                      label="Sale Price (Discounted)"
-                      name="salePrice"
-                      register={register}
-                      errors={errors}
-                      type="number"
-                    />
-                    <CustomText
-                      className="text-black"
-                      label="Product Stock"
-                      name="productStock"
-                      register={register}
-                      errors={errors}
-                      type="number"
-                    />
-                  </div>
-                  <div className="grid grid-cols-3 gap-2">
-                    <CustomText
-                      className="text-black"
-                      label="Unit (e.g., Kilograms)"
-                      name="unit"
-                      register={register}
-                      errors={errors}
-                    />
-                    <CustomText
-                      className="text-black"
-                      label="Product SKU"
-                      name="sku"
-                      register={register}
-                      errors={errors}
-                    />
-                    <CustomText
-                      className="text-black"
-                      label="Product Barcode"
-                      name="barcode"
-                      register={register}
-                      errors={errors}
-                    />
-                  </div>
-                  <FormSelectInput
-                    label="Farmer"
-                    options={farmers?.map((farmer: any) => ({
-                      value: farmer.id,
-                      label: farmer.title,
-                    }))}
-                    option={selectedFarmer}
-                    setOption={setSelectedFarmer}
-                  />
-                  <div className="space-y-4">
-                    <FormField
-                      control={form.control}
-                      name="isWholesale"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border-brandBlack border p-2 bg-transparent">
-                          <div>
-                            <FormLabel className="text-base">
-                              Wholsale Availbale?
-                            </FormLabel>
-                          </div>
-                          <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  {isWholesale && (
-                    <>
-                      <CustomText
-                        className="text-black"
-                        label="Wholesale Price"
-                        name="wholesalePrice"
-                        register={register}
-                        errors={errors}
-                        type="number"
-                      />
-                      <CustomText
-                        className="text-black"
-                        label="Minimum Wholesale Qty"
-                        name="wholesaleQty"
-                        register={register}
-                        errors={errors}
-                        type="number"
-                      />
-                    </>
-                  )}
-                  <MultipleImageInput
-                    imageUrls={productImages}
-                    setImageUrls={setProductImages}
-                    endpoint="multipleProductsUploader"
-                    title="Product Images"
-                  />
-                  <TagInput
-                    initialValue={tags}
-                    onChange={setTags}
-                    placeholder="Add product tags..."
-                    maxTags={10}
-                    maxTagLength={20}
-                  />
                 </div>
+                <div className="grid grid-cols-5 gap-2">
+                  <CustomText
+                    className="text-black"
+                    label="Price (Before Discount)"
+                    name="productPrice"
+                    type="number"
+                    register={register}
+                    errors={errors}
+                  />
+                  <CustomText
+                    className="text-black"
+                    label="Sale Price (Discounted)"
+                    name="salePrice"
+                    register={register}
+                    errors={errors}
+                    type="number"
+                  />
+                  <CustomText
+                    className="text-black"
+                    label="Product Stock"
+                    name="productStock"
+                    register={register}
+                    errors={errors}
+                    type="number"
+                  />
+                  <CustomText
+                    className="text-black"
+                    label="Unit (e.g., Kilograms)"
+                    name="unit"
+                    register={register}
+                    errors={errors}
+                  />
+                  <CustomText
+                    className="text-black"
+                    label="Product SKU"
+                    name="sku"
+                    register={register}
+                    errors={errors}
+                  />
+                  {/* <CustomText
+                    className="text-black"
+                    label="Product Barcode"
+                    name="barcode"
+                    register={register}
+                    errors={errors}
+                  /> */}
+                </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="space-y-4">
+                    <FormSelectInput
+                      label="Farmer"
+                      options={farmers?.map((farmer: any) => ({
+                        value: farmer.id,
+                        label: farmer.title,
+                      }))}
+                      option={selectedFarmer}
+                      setOption={setSelectedFarmer}
+                    />
+                    <div className="space-y-4">
+                      <FormField
+                        control={form.control}
+                        name="isWholesale"
+                        render={({ field }) => (
+                          <FormItem className="flex flex-row items-center justify-between rounded-md border-brandBlack border-gray-300 px-2 py-1 bg-transparent">
+                            <div>
+                              <FormLabel className="text-base">
+                                Wholsale Availbale?
+                              </FormLabel>
+                            </div>
+                            <FormControl>
+                              <Switch
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    {isWholesale && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <>
+                        <CustomText
+                          className="text-black"
+                          label="Wholesale Price"
+                          name="wholesalePrice"
+                          register={register}
+                          errors={errors}
+                          type="number"
+                        />
+                        <CustomText
+                          className="text-black"
+                          label="Minimum Wholesale Qty"
+                          name="wholesaleQty"
+                          register={register}
+                          errors={errors}
+                          type="number"
+                        />
+                      </>
+                    </div>
+                    )}
+                    <TagInput
+                      initialValue={tags}
+                      onChange={setTags}
+                      placeholder="Add product tags..."
+                      maxTags={10}
+                      maxTagLength={20}
+                    />
+                  </div>
+                    <MultipleImageInput
+                      imageUrls={productImages}
+                      setImageUrls={setProductImages}
+                      endpoint="multipleProductsUploader"
+                      title="Product Images"
+                    />
+                  </div>
                 <QuillEditor
                   label="Product Content"
                   className="sm:col-span-2"

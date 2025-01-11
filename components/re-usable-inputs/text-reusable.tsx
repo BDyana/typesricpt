@@ -53,7 +53,7 @@ export default function CustomText({
         type={type}
         autoComplete="name"
         placeholder={placeholder ? placeholder : ''}
-        className="bg-transparent border-brandBorder"
+        className="bg-transparent border-gray-300"
       />
       {errors[`${name}`] && (
         <span className="text-red-600  text-sm">{label} is required</span>
