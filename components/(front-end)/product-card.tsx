@@ -140,7 +140,7 @@ export default function ProductCard({
                 </del>
               )}
               {product?.productPrice > product?.salePrice && (
-                <h4
+                <h5
                   className={cn(
                     'bg-[#fef3e9] text-[#f68b1e] p-1 inline',
                     className,
@@ -152,7 +152,7 @@ export default function ProductCard({
                     product?.salePrice,
                   )}
                   %
-                </h4>
+                </h5>
               )}
             </div>
             <button

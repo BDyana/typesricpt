@@ -37,7 +37,7 @@ export default function OrderCard({ data }: any) {
           <p className="text-muted-foreground">Ordered on {formattedDate}</p>
         </div>
         <p className="text-lg font-semibold mt-2 md:mt-0">
-          Total Amount: ${subtotal}
+          Total Amount: ৳{subtotal}
         </p>
       </CardHeader>
       <CardContent>
@@ -57,7 +57,7 @@ export default function OrderCard({ data }: any) {
                   {item.title}
                 </h4>
                 <p className="font-medium">
-                  ${item.price.toFixed(2)} x {item.quantity}
+                  ৳{item.price.toFixed(2)} x {item.quantity}
                 </p>
               </div>
               <div className="space-y-2">

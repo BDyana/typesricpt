@@ -35,7 +35,7 @@ const Timer = () => {
 export default function FlashSales({ products }: any) {
   return (
     <div className="flex flex-col gap-6 w-full min-h-[50%] bg-white mt-5">
-      <div className="flex items-center justify-between bg-[#e61601] p-4">
+      <div className="flex items-center justify-between bg-[#e61601] p-2">
         <h2 className="text-[#ffff] font-bold lg:tracking-normal lg:text-lg text-sm flex items-center gap-1">
           <Tag color="#ffba00" />
           Flash Sales

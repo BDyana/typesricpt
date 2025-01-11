@@ -26,7 +26,7 @@ export default async function SidebarMenu() {
         <ul className="">
           <li className="">
             <Link
-              href="https://www.bdyana.com/project/industrial-machineries"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Factory className="text-slate-500" size={16} />
@@ -80,7 +80,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/computer-hardware"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Laptop className="text-slate-500" size={16} />
@@ -89,7 +89,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/gadget-accessories"
+              href="/categories/gadget-accessories"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Cpu className="text-slate-500" size={16} />
@@ -98,7 +98,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/mens-fashion"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Luggage className="text-slate-500" size={16} />
@@ -107,7 +107,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="/project/womens-girls-fashion"
+              href="/categories/three-pieces"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <BookHeart className="text-slate-500" size={16} />
@@ -139,7 +139,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="group">
             <Link
-              href="/project/mothers-kids"
+              href="/categories/lactogen"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <PawPrint className="text-slate-500" size={16} />
@@ -168,7 +168,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/grocery-beverage"
+              href="/categories/grocery"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <ShoppingBasket className="text-slate-500" size={16} />
@@ -177,7 +177,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/home-appliance"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Microwave className="text-slate-500" size={16} />
@@ -186,7 +186,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/electronics-device"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Cable className="text-slate-500" size={16} />
@@ -195,7 +195,7 @@ export default async function SidebarMenu() {
           </li>
           <li className="">
             <Link
-              href="/project/sports-entertainment"
+              href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
               <Trophy className="text-slate-500" size={16} />

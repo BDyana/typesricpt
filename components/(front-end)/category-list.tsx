@@ -33,7 +33,7 @@ export default function CategoryList({
   return (
     <div className="bg-white border border-gray-200 overflow-hidden">
       <div
-        className={`${categoryColor} py-2 pl-2 flex justify-between items-center`}
+        className={`${categoryColor} py-1 pl-2 flex justify-between items-center`}
       >
         <h2 className="font-bold">{category.title}</h2>
         <Link

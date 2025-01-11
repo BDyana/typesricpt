@@ -54,10 +54,10 @@ export default function OrderDetail({ order, user }: any) {
                         <h3 className="font-semibold">{item.title}</h3>
                         <div className="text-right">
                           <p className="font-semibold">
-                            ${item.price.toFixed(2)}
+                            ৳{item.price.toFixed(2)}
                           </p>
                           <p className="text-sm text-muted-foreground line-through">
-                            ${item.price.toFixed(2)}
+                            ৳{item.price.toFixed(2)}
                           </p>
                         </div>
                       </div>
@@ -79,20 +79,20 @@ export default function OrderDetail({ order, user }: any) {
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>${subtotal}</span>
+                    <span>৳{subtotal}</span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
                     <span>Discount ({order.discount})</span>
-                    <span>-$0</span>
+                    <span>-৳0</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span>${order.shippingCost}</span>
+                    <span>৳{order.shippingCost}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-semibold">
                     <span>Total</span>
-                    <span>${subtotal}</span>
+                    <span>৳{subtotal}</span>
                   </div>
                 </div>
               </div>
