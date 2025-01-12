@@ -45,11 +45,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         avatar: session?.user?.image || '/default-avatar.png',
       },
       navSecondary: [
-        {
-          title: 'Support',
-          url: '#',
-          icon: LifeBuoy,
-        },
+        // {
+        //   title: 'Support',
+        //   url: '#',
+        //   icon: LifeBuoy,
+        // },
         {
           title: 'View Site',
           url: '/',

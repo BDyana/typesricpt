@@ -125,7 +125,7 @@ export default function OrderEditForm({ order }: { order: OrderWithItems }) {
               <p>{order.country}</p>
 
               <div className="mt-6 w-full">
-                <Button>${subtotal}</Button>
+                <Button>৳{subtotal}</Button>
               </div>
             </div>
           </div>
