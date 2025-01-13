@@ -4,7 +4,7 @@ import FakeSalesCount from '@/hooks/fake-sale-count';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { useAppSelector } from '@/redux/hooks/hooks';
 import { Category, Product } from '@prisma/client';
-import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck } from 'lucide-react';
+import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck, Star, StarHalf } from 'lucide-react';
 import Link from 'next/link';
 import AddToCartButton from './add-to-cart';
 import Breadcrumb from './breadcrumb';
@@ -53,8 +53,8 @@ export default function ProductView({ product, category }: IProps) {
             <div className="flex font-bold items-center justify-between mt-3">
               <h1>{product.title}</h1>
             </div>
-            <div className="flex gap-3 mt-2 mb-4">
-              <div>
+            <div>
+              <div className="flex gap-3 mt-2">
                 <h4>
                   Category:{' '}
                   <Link
@@ -64,9 +64,32 @@ export default function ProductView({ product, category }: IProps) {
                     {category?.title}
                   </Link>
                 </h4>
+                <span>|</span>
+                <h4>
+                  Brand:{' '}
+                  <Link 
+                  className="text-brandColor"
+                  href="">Johnson</Link>
+                </h4>
+              </div>
+              <div className="flex gap-3 justify-between">
+                <h4>
+                  Seller : <Link 
+                  className="text-brandColor"
+                  href="">Unilever Bangladesh</Link>
+                </h4>
+                <div className="flex items-center">
+                  <Star fill="#fbab32" strokeWidth={0} size={16}/>
+                  <Star fill="#fbab32" strokeWidth={0} size={16}/>
+                  <Star fill="#fbab32" strokeWidth={0} size={16}/>
+                  <StarHalf fill="#fbab32" color="#fbab32" strokeWidth={1} size={14}/>
+                  <Star color="#fbab32" size={14}/> <h4> (4.5) <b> 9</b> Reviews</h4>
+                </div>
+              </div>
+              <div className="flex gap-3 mt-2 mb-4 justify-between">
+                <FakeSalesCount />
               </div>
             </div>
-            <FakeSalesCount />
             <div className="border-b border-gray-300 mt-4">
               <h4>
                 <b>SPECIFICATION : </b>
@@ -124,10 +147,10 @@ export default function ProductView({ product, category }: IProps) {
           <h4 className="dark:bg-gray-800 p-2 font-medium border-b border-gray-200 dark:border-gray-600 text-slate-800 dark:text-slate-100">
             DELIVERY & RETURNS
           </h4>
-          <div className="p-2 space-y-2">
-            <div className="flex border-b border-gray-200 gap-2 pb-4">
+          <div className="p-2 space-y-1.5">
+            <div className="flex border-b border-gray-200 gap-2 pb-2.5">
               <div>
-                <Banknote className="mt-3" />
+                <Banknote className="mt-.5" />
               </div>
               <div>
                 <h3>Delivery Fees</h3>
@@ -145,9 +168,9 @@ export default function ProductView({ product, category }: IProps) {
                 </h5>
               </div>
             </div>
-            <div className="flex border-b border-gray-200 gap-2 pb-4">
+            <div className="flex border-b border-gray-200 gap-2 pb-2.5">
               <div>
-                <Banknote className="mt-3" />
+                <Banknote className="mt-.5" />
               </div>
               <div>
                 <h3>Cash on Delivery Available.</h3>
@@ -156,18 +179,18 @@ export default function ProductView({ product, category }: IProps) {
                 </h5>
               </div>
             </div>
-            <div className="flex border-b border-gray-200 gap-2 pb-4">
+            <div className="flex border-b border-gray-200 gap-2 pb-2.5">
               <div>
-                <Truck className="mt-3" />
+                <Truck className="mt-1" />
               </div>
               <div>
                 <h3>Standard Delivery.</h3>
                 <h5>Standard Time : 1-3 Days</h5>
               </div>
             </div>
-            <div className="flex border-b border-gray-200 gap-2 pb-4">
+            <div className="flex border-b border-gray-200 gap-2 pb-2.5">
               <div>
-                <ShieldBan className="mt-3" />
+                <ShieldBan className="mt-2" />
               </div>
               <div>
                 <h3>Warranty Not Available.</h3>
@@ -176,7 +199,7 @@ export default function ProductView({ product, category }: IProps) {
             </div>
             <div className="flex gap-2">
               <div>
-                <ShieldOff className="mt-3" />
+                <ShieldOff className="mt-2" />
               </div>
               <div>
                 <h3>This item is non-returnable.</h3>
