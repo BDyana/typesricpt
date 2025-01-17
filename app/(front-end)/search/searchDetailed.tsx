@@ -32,7 +32,9 @@ export default function CategoryDetailed() {
           `products/search?search=${search}&sort=${sort}&min${min}&max=${max}&page=${page}`,
         );
 
-        setProducts(fetchedProducts);
+        // console.log(`FetchedProducts:`, fetchedProducts);
+
+        setProducts(fetchedProducts.products);
       } catch (error) {
         setError('Failed to fetch products');
         console.error(error);

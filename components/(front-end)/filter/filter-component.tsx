@@ -26,11 +26,17 @@ export default function FilterComponent({ products }: any) {
         </Card>
 
         <div className="flex-grow">
-          <FilteredProducts
-            className="lg:grid-cols-4 gap-y-3"
-            productCount={productCount}
-            products={products}
-          />
+          {products.length === 0 ? (
+            <span className="flex items-center justify-center text-2xl font-semibold h-full">
+              Sorry, we could'nt get what we searched
+            </span>
+          ) : (
+            <FilteredProducts
+              className="lg:grid-cols-4 gap-y-3"
+              productCount={productCount}
+              products={products}
+            />
+          )}
         </div>
       </div>
     </div>

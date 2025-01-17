@@ -21,8 +21,8 @@ export default function SearchForm() {
   // Typing for the handleSearch function
   const handleSearch: SubmitHandler<SearchFormData> = (data) => {
     const { searchTerm } = data;
-    console.log(searchTerm);
-    reset();
+    // console.log(searchTerm);
+    // reset();
     router.push(`/search?search=${searchTerm}`);
   };
 
