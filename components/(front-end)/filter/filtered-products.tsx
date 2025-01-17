@@ -28,7 +28,7 @@ export default function FilteredProducts({
   const totalPages = Math.ceil(products.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
-  const currentProducts = products.slice(startIndex, endIndex);
+  // const currentProducts = products.slice(startIndex, endIndex);
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -43,7 +43,7 @@ export default function FilteredProducts({
   return (
     <div>
       <div className={cn(className, 'grid grid-cols-2 md:grid-cols-3')}>
-        {products.map((product, i) => (
+        {products?.map((product, i) => (
           <ProductCard product={product as any} key={product.id || i} />
         ))}
       </div>

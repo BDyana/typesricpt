@@ -48,7 +48,7 @@ export default async function Home() {
         />
 
         {/* flash sale */}
-        {flashSales.length >= 6 && <FlashSales products={flashSales} />}
+        {flashSales?.length >= 6 ? <FlashSales products={flashSales} /> : null}
 
         {/* Shop by category */}
         <CategoryGrid data={categoriesData} />
