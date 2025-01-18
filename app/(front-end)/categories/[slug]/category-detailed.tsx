@@ -1,7 +1,6 @@
 'use client';
-
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import FilterComponent from '@/components/(front-end)/filter/filter-component';
 import EmptyStates from '@/components/empty-states';
 import { getData } from '@/lib/getData';
@@ -25,6 +24,7 @@ interface PaginationData {
   currentPage: number;
   totalPages: number;
   totalItems: number;
+  hasMore: boolean;
 }
 
 interface PageProps {
@@ -32,22 +32,33 @@ interface PageProps {
 }
 
 export default function CategoryDetailed({ category }: PageProps) {
+  // Move all hooks to the top level
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [products, setProducts] = useState<Product[]>([]);
-  const [pagination, setPagination] = useState<PaginationData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [paginationData, setPaginationData] = useState<PaginationData>({
+    currentPage: 1,
+    totalPages: 1,
+    totalItems: 0,
+    hasMore: false,
+  });
 
-  // If no category is provided, show the CategoryNotFound component
-  if (!category) {
-    return <EmptyStates.NoCategory />;
-  }
+  const handlePageChange = (page: number) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    current.set('page', page.toString());
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    router.push(`${window.location.pathname}${query}`);
+  };
 
   useEffect(() => {
+    if (!category) return;
+
     const fetchProducts = async () => {
       setLoading(true);
       setError(null);
-
       try {
         const queryParams = new URLSearchParams({
           categoryId: category.id,
@@ -69,7 +80,7 @@ export default function CategoryDetailed({ category }: PageProps) {
         }
 
         setProducts(response.products);
-        setPagination(response.pagination);
+        setPaginationData(response.pagination);
       } catch (err) {
         setError(
           err instanceof Error ? err.message : 'Failed to fetch products',
@@ -81,7 +92,12 @@ export default function CategoryDetailed({ category }: PageProps) {
     };
 
     fetchProducts();
-  }, [category.id, searchParams]);
+  }, [category, searchParams]);
+
+  // Render logic
+  if (!category) {
+    return <EmptyStates.NoCategory />;
+  }
 
   if (loading) {
     return (
@@ -95,16 +111,16 @@ export default function CategoryDetailed({ category }: PageProps) {
     return <EmptyStates.NoProducts />;
   }
 
-  // If we have a category but no products
   if (!loading && products.length === 0) {
     return <EmptyStates.EmptyCategory categoryName={category.title} />;
   }
 
   return (
     <FilterComponent
-      category={category}
       products={products}
-      pagination={pagination}
+      pagination={paginationData}
+      onPageChange={handlePageChange}
+      loading={loading}
     />
   );
 }
