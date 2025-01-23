@@ -23,8 +23,8 @@ const linkGroups = [
       { label: 'Delivery Details', href: '#' },
       { label: 'Terms & Conditions', href: '#' },
       { label: 'Privacy Policy', href: '#' },
-      { label: 'Farmer Pricing', href: '/farmer-pricing' },
-      { label: 'Register Farmer', href: '/register-farmer' },
+      // { label: 'Farmer Pricing', href: '/farmer-pricing' },
+      { label: 'Seller Registration', href: '/register-farmer' },
     ],
   },
 ];
@@ -49,7 +49,7 @@ export default function Footer() {
               src={siteConfig.logo}
               alt={siteConfig.description || siteConfig.name}
             />
-            <p className="text-sm leading-relaxed text-gray-600 my-3 lg:mt-5">
+            <p className="text-sm leading-relaxed my-3 lg:mt-5">
               Best Online E-Commerce Website in Bangladesh. You can Buy your
               Essential Products with Best Price. Happy Shopping...
             </p>
@@ -167,7 +167,7 @@ export default function Footer() {
         </div>
         <hr className="mt-6 mb-4 lg:mt-12 lg:mb-5 border-gray-200" />
         <p className="text-sm text-center text-gray-600">
-          © Copyright 2024, All Rights Reserved by <b>{siteConfig.name}</b>
+          © Copyright 2025, All Rights Reserved by <b>{siteConfig.name}</b>
         </p>
       </div>
     </section>

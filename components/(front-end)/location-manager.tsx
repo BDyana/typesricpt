@@ -107,10 +107,13 @@ export function LocationManager({ userProfile }: any) {
     <div className="space-y-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <div className="flex justify-between items-center">
+          <div>
             <p className="text-lg font-semibold text-brandBlack">Shipping Address</p>
+            <h5>Add your Shipping address before order.</h5>
+          </div>
             <DialogTrigger asChild>
             <Button variant="outline" size="sm" className="text-sm font-normal px-2 h-8">
-                <Plus className="mr-1 h-4 w-4" />New
+                <Plus className="mr-1 h-4 w-4" />Add
             </Button>
             </DialogTrigger>
         </div>
@@ -160,37 +163,41 @@ export function LocationManager({ userProfile }: any) {
               onCheckedChange={() => handleSetDefault(location.id)}
             />
             <Label htmlFor={`checkbox-${location.id}`} className="flex-grow">
-              <div>
-                <div>
-                  <div className="flex justify-between">
-                    <div>
+                  <div className="flex justify-between relative">
+                    <div className="">
                       {location.isDefault && (
                         <span className="text-xs bg-green-100 text-green-800 px-2 py-1 inline-flex rounded-full mt-2">
                           Default
                         </span>
                       )}
-                      <p className="font-medium my-1">{location.name}</p>
-                      <p className="font-medium">{location.phone}</p>
+                      <div className="flex gap-2 mt-1.5">
+                        <div className="text-nowrap">
+                          <p className="font-medium">Name</p>
+                          <p className="font-medium my-0.5">Phone No</p>
+                          <p className="font-medium">Address</p>
+                        </div>
+                        <div>
+                          <p>: {location.name}</p>
+                          <p className="my-0.5">: {location.phone}</p>
+                          <p className="text-sm font-normal text-gray-500">: {location.streetAddress}, {location.city},{' '}
+                            {location.district}.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div>
+                    <div className="absolute right-0">
                       <Button
                         variant="ghost"
                         size="xs"
                         onClick={() => handleEditLocation(location)}
                       >
-                        <Pencil className="h-1 w-1" />
+                        <Pencil size="16" className="text-gray-500 w-1 h-1 " />
                       </Button>
-                      <Button variant="ghost" size="xs">
+                      {/* <Button variant="ghost" size="xs">
                         <Trash2 className="h-1 w-1 text-red-700" />
-                      </Button>
+                      </Button> */}
                     </div>
                   </div>
-                  <p className="text-sm font-normal text-gray-500">
-                    {location.streetAddress}, {location.city},{' '}
-                    {location.district}.
-                  </p>
-                </div>
-              </div>
             </Label>
           </div>
         ))}

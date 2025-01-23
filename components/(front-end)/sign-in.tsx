@@ -65,25 +65,25 @@ export default function SignIn() {
   }
 
   return (
-    <Card className="w-full max-w-[450px] bg-brandBlack border-brandBorder">
+    <Card className="w-full max-w-[450px]">
       <CardContent className="pt-8 px-8 pb-6">
         <div className="flex flex-col items-center space-y-6">
           {/* Logo */}
-          <div className="w-24 h-24 bg-brandColors rounded-xl flex items-center justify-center">
+          <div className="bg-brandColors rounded-xl flex items-center justify-center">
             <Link href="/" prefetch={true}>
               <Image
                 src={siteConfig.logo}
-                alt={siteConfig.name || 'Bdyana'}
+                alt={siteConfig.name || 'BDyana'}
                 width={200}
                 height={200}
-                className="w-24 h-6 invert text-white"
+                className="w-24"
               />
             </Link>
           </div>
 
           {/* Header */}
           <div className="space-y-2 text-center">
-            <h1 className="text-xl font-semibold text-white">
+            <h1 className="text-xl font-semibold">
               Sign in to {siteConfig.name}
             </h1>
             <p className="text-sm text-muted-foreground">
@@ -92,19 +92,19 @@ export default function SignIn() {
           </div>
 
           {/* Social Buttons */}
-          <div className="flex gap-3 w-full">
-            <Button
+          <div>
+            {/*<Button
               variant="outline"
               onClick={() => signIn('facebook')}
               className="flex-1 bg-transparent border-brandBorder hover:text-white hover:bg-brandBorder text-white"
             >
               <Facebook className="mr-2 h-4 w-4 text-blue-500" />
               Facebook
-            </Button>
+            </Button>*/}
             <Button
               variant="outline"
               onClick={() => signIn('google')}
-              className="flex-1 bg-transparent border-brandBorder hover:bg-brandBorder hover:text-white text-white"
+              className="bg-transparent border-brandBorder hover:bg-brandBorder hover:text-white text-md px-8"
             >
               <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
                 <path
@@ -142,7 +142,7 @@ export default function SignIn() {
               name="email"
               label="Email address"
               type="email"
-              className="w-full text-white"
+              className="w-full"
               placeholder="Enter your email"
             />
             <CustomText
@@ -151,7 +151,7 @@ export default function SignIn() {
               name="password"
               label="Password"
               type="password"
-              className="w-full text-white"
+              className="w-full"
               placeholder="********"
             />
             {/* Continue Button */}
@@ -163,36 +163,23 @@ export default function SignIn() {
                 <span className="ml-2">→</span>
               )}
             </Button>
-          </form>
-
-          {/* Sign Up Link */}
-          <div className="text-sm text-muted-foreground">
-            Forgot password?{' '}
-            <Link
-              href="/reset-password"
-              className="text-brandColor hover:underline"
-            >
-              Rest It Now
-            </Link>
-          </div>
-          <div className="text-sm text-muted-foreground">
-            Don't have an account?{' '}
-            <Link href="/register" className="text-brandColor hover:underline">
-              Sign up
-            </Link>
-          </div>
-
-          {/* Developer Branding */}
-          {/* <div className="text-xs text-muted-foreground flex items-center gap-2">
-            Secured by
-            <Link
-              target="blank"
-              href="https://mosespace.com"
-              className="underline decoration-brandColor/80 text-white hover:decoration-brandColor"
-            >
-              @mosespace
-            </Link>
-          </div> */}
+          </form>  
+            {/* Sign Up Link */}
+            <div className="text-sm text-muted-foreground">
+              Forgot password?{' '}
+              <Link
+                href="/reset-password"
+                className="text-brandColor hover:underline"
+              >
+                Reset It Now
+              </Link>
+            </div>
+            <div className="text-sm text-muted-foreground">
+              Don't have an account?{' '}
+              <Link href="/register" className="text-brandColor hover:underline">
+                Sign up
+              </Link>
+            </div>
         </div>
       </CardContent>
     </Card>

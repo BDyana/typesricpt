@@ -36,13 +36,13 @@ export default function CategoryGrid({ data }: IProps) {
   }
 
   return (
-    <div className="border rounded-sm text-slate-800 overflow-hidden mb-4">
-      <div className="pt-2 pl-2 text-slate-800 flex justify-between items-center border-b border-gray-200">
-        <h2 className="pl-3 pb-2 pt-0.5 font-semibold text-slate-800">
+    <div className="border rounded-sm overflow-hidden mb-4">
+      <div className="pt-2 pl-2 flex justify-between items-center border-b border-gray-200">
+        <h2 className="pl-3 pb-2 pt-0.5 font-semibold">
           Shop By Category
         </h2>
         <Link
-          className="duration-300 transition-all text-slate-800 rounded-md px-4 flex gap-3 items-center"
+          className="duration-300 transition-all rounded-md px-4 flex gap-3 items-center"
           href={`/categories`}
         >
           View All
@@ -63,7 +63,7 @@ export default function CategoryGrid({ data }: IProps) {
               src={category.imageUrl as string}
               alt={category.title || siteConfig.name}
             />
-            <h4 className="lg:text-sm text-xs dark:text-slate-200 text-slate-900 mt-2.5 line-clamp-1">
+            <h4 className="lg:text-sm text-xs dark:text-slate-200 mt-2.5 line-clamp-1">
               {category.title}
             </h4>
           </Link>

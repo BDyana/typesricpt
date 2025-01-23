@@ -62,7 +62,7 @@ export default function ProductImageCarousel({
       <div className="relative w-full">
         <Image
           src={productImages[currentImageIndex]}
-          alt={`Bdyana ${title} | ${description && description}`}
+          alt={`BDyana ${title} | ${description && description}`}
           width={580}
           height={580}
           className="w-full object-cover"
@@ -93,7 +93,7 @@ export default function ProductImageCarousel({
           <Image
             key={index}
             src={image}
-            alt={`Bdyana ${title} | ${description && description}`}
+            alt={`BDyana ${title} | ${description && description}`}
             width={60}
             height={60}
             onClick={() => handleThumbnailClick(index)}

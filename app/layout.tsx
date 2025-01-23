@@ -23,8 +23,8 @@ const SegoeUI = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'BDyana.com | Your Gate Way Shopping',
-  description: 'crafted and built by  @mosespace.com',
+  title: 'BDyana | Where Trends Are Born',
+  description: 'Best E-Commerce Website in Bangladesh.',
 };
 
 export default function RootLayout({

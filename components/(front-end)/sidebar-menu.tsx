@@ -17,8 +17,8 @@ import Link from 'next/link';
 
 export default async function SidebarMenu() {
   return (
-    <div className="sm:col-span-3 sm:block bg-white border border-gray-300 rounded-sm   text-slate-800 hidden">
-      <h2 className="bg-slate-100  py-2 px-4 font-semibold border-b border-gray-300  text-slate-800 ">
+    <div className="sm:col-span-3 sm:block bg-white border border-gray-300 rounded-sm hidden">
+      <h2 className="bg-slate-100  py-2 px-4 font-semibold border-b border-gray-300">
         Shop By Category
       </h2>
 
@@ -29,9 +29,9 @@ export default async function SidebarMenu() {
               href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Factory className="text-slate-500" size={16} />
+              <Factory size={16} />
               <span className="text-sm">Industrial Machineries</span>
-              <ChevronRight className="mr-1 shrink-0 w-4 h-4 text-slate-400 right-0 absolute hidden group-hover:block" />
+              <ChevronRight className="mr-1 shrink-0 w-4 h-4 right-0 absolute hidden group-hover:block" />
             </Link>
           </li>
           <li className="group">
@@ -39,9 +39,9 @@ export default async function SidebarMenu() {
               href="/categories/garments-accessories"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Building2 className="text-slate-500" size={16} />
+              <Building2 size={16} />
               <span className="text-sm">Garments & Accessories</span>
-              <ChevronRight className="mr-1 shrink-0 w-4 h-4 text-slate-400 right-0 absolute hidden group-hover:block" />
+              <ChevronRight className="mr-1 shrink-0 w-4 h-4 right-0 absolute hidden group-hover:block" />
             </Link>
             <ul className="absolute left-[275px] top-0 z-10 w-full px-3 py-1 bg-white h-[340px] hidden group-hover:block">
               <h3 className="mb-1">Thread/Yarn</h3>
@@ -83,7 +83,7 @@ export default async function SidebarMenu() {
               href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Laptop className="text-slate-500" size={16} />
+              <Laptop size={16} />
               <span className="text-sm">Computer & Hardware</span>
             </Link>
           </li>
@@ -92,7 +92,7 @@ export default async function SidebarMenu() {
               href="/categories/gadget-accessories"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Cpu className="text-slate-500" size={16} />
+              <Cpu size={16} />
               <span className="text-sm">Gadget & Accessories</span>
             </Link>
           </li>
@@ -101,7 +101,7 @@ export default async function SidebarMenu() {
               href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Luggage className="text-slate-500" size={16} />
+              <Luggage size={16} />
               <span className="text-sm">Men's Fashion</span>
             </Link>
           </li>
@@ -110,7 +110,7 @@ export default async function SidebarMenu() {
               href="/categories/three-pieces"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <BookHeart className="text-slate-500" size={16} />
+              <BookHeart size={16} />
               <span className="text-sm">Women's & Girls' Fashion</span>
             </Link>
             <ul className="absolute left-[275px] top-0 z-10 w-full px-3 py-1 bg-white h-[340px] hidden group-hover:block">
@@ -142,9 +142,9 @@ export default async function SidebarMenu() {
               href="/categories/lactogen"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <PawPrint className="text-slate-500" size={16} />
+              <PawPrint size={16} />
               <span className="text-sm">Mothers & Kids</span>
-              <ChevronRight className="mr-1 shrink-0 w-4 h-4 text-slate-400 right-0 absolute hidden group-hover:block" />
+              <ChevronRight className="mr-1 shrink-0 w-4 h-4 right-0 absolute hidden group-hover:block" />
             </Link>
             <ul className="absolute left-[275px] top-0 z-10 w-full px-3 py-1 bg-white h-[340px] hidden group-hover:block">
               <h3 className="mb-1">Baby Food</h3>
@@ -171,7 +171,7 @@ export default async function SidebarMenu() {
               href="/categories/grocery"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <ShoppingBasket className="text-slate-500" size={16} />
+              <ShoppingBasket size={16} />
               <span className="text-sm">Grocery & Beverage</span>
             </Link>
           </li>
@@ -180,7 +180,7 @@ export default async function SidebarMenu() {
               href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Microwave className="text-slate-500" size={16} />
+              <Microwave size={16} />
               <span className="text-sm">Home Appliancce</span>
             </Link>
           </li>
@@ -189,7 +189,7 @@ export default async function SidebarMenu() {
               href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Cable className="text-slate-500" size={16} />
+              <Cable size={16} />
               <span className="text-sm">Electronics Device</span>
             </Link>
           </li>
@@ -198,7 +198,7 @@ export default async function SidebarMenu() {
               href="#"
               className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <Trophy className="text-slate-500" size={16} />
+              <Trophy size={16} />
               <span className="text-sm">Sports & Entertainment</span>
             </Link>
           </li>
@@ -206,9 +206,9 @@ export default async function SidebarMenu() {
             <Link
               href="/categories"
               target="_blank"
-              className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all text-slate-800"
+              className="pl-3 py-1 flex items-center gap-3 hover:bg-slate-100 duration-300 transition-all"
             >
-              <AlignJustify className="text-slate-500" size={16} />
+              <AlignJustify size={16} />
               <span className="text-sm font-semibold">All Categories</span>
             </Link>
           </li>

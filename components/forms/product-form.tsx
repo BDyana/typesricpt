@@ -99,7 +99,6 @@ export default function ProductForm({
         barcode,
         productPrice,
         salePrice,
-
         description,
       } = watchAllFields;
 
@@ -295,7 +294,7 @@ export default function ProductForm({
                     href="/dashboard/categories/new"
                   />
                 </div>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-3 gap-2">
                   <CustomText
                     className="text-black"
                     label="Price (Before Discount)"
@@ -312,7 +311,7 @@ export default function ProductForm({
                     errors={errors}
                     type="number"
                   />
-                  <CustomText
+                  {/* <CustomText
                     className="text-black"
                     label="Product Stock"
                     name="productStock"
@@ -326,7 +325,7 @@ export default function ProductForm({
                     name="unit"
                     register={register}
                     errors={errors}
-                  />
+                  /> */}
                   <CustomText
                     className="text-black"
                     label="Product SKU"

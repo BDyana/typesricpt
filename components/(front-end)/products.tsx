@@ -24,7 +24,7 @@ export default function Products({
       <div className="flex px-3 pb-3 justify-between items-center">
         <div>
           <h2 className="text-xl font-bold">{title}</h2>
-          <h4 className="xs">{description}</h4>
+          <h4>{description}</h4>
         </div>
         <Button className="px-8 bg-brandColor h-8">{buttonTitle}</Button>
       </div>

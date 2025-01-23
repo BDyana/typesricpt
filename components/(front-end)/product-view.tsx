@@ -99,9 +99,9 @@ export default function ProductView({ product, category }: IProps) {
               </div>
               <div className="flex items-center gap-8 mb-4 justify-between">
                 <h4>SKU: {product.sku}</h4>
-                <p className="py-1.5 px-4 border rounded-full text-slate-900 ">
+                {/* <p className="py-1.5 px-4 border rounded-full text-slate-900 ">
                   <b>Stock</b>: {product.productStock}
-                </p>
+                </p> */}
               </div>
             </div>
             <div className="flex items-center gap-3 pt-4 border-b border-gray-200 pb-4">
@@ -143,8 +143,8 @@ export default function ProductView({ product, category }: IProps) {
             </div>
           </div>
         </div>
-        <div className="col-span-12 md:col-span-5 lg:col-span-3 sm:block bg-white border border-gray-100 rounded-sm dark:bg-gray-700 dark:border-gray-700 text-slate-800 overflow-hidden hidden">
-          <h4 className="dark:bg-gray-800 p-2 font-medium border-b border-gray-200 dark:border-gray-600 text-slate-800 dark:text-slate-100">
+        <div className="col-span-12 md:col-span-5 lg:col-span-3 sm:block bg-white border border-gray-100 rounded-sm dark:bg-gray-700 dark:border-gray-700 overflow-hidden hidden">
+          <h4 className="dark:bg-gray-800 p-2 font-medium border-b border-gray-200 dark:border-gray-600 dark:text-slate-100">
             DELIVERY & RETURNS
           </h4>
           <div className="p-2 space-y-1.5">
