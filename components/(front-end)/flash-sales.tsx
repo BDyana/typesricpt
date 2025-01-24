@@ -50,8 +50,8 @@ export default function FlashSales({ products }: any) {
         </Link>
       </div>
 
-      <div className="grid md:grid-cols-4 grid-cols-2 lg:grid-cols-5 gap-4 px-3 lg:pb-6 pb-4">
-        {products.splice(0, 10).map((product: Product) => {
+      <div className="grid md:grid-cols-4 grid-cols-2 lg:grid-cols-6 gap-4 px-3 lg:pb-6 pb-4">
+        {products.splice(0, 12).map((product: Product) => {
           // console.log('Product ✅: ', product);
           return (
             <ProductCard

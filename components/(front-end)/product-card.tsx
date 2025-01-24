@@ -124,14 +124,14 @@ export default function ProductCard({
       </Link>
       <div className="px-1 lg:px-2">
         <Link prefetch={true} href={`/products/${product.slug}/`} passHref>
-          <h2 className="lg:text-sm text-xs dark:text-slate-200 my-2 line-clamp-2">
+          <h2 className="lg:text-sm text-xs dark:text-slate-200 my-2 line-clamp-2 font-normal">
             {product.title}
           </h2>
         </Link>
         <div className="items-center gap-2 pb-1 dark:text-slate-200">
           <div className="justify-between flex">
             <div>
-              <p className="leading-none font-bold">
+              <p className="leading-none font-semibold">
                 BDT {product?.salePrice}
               </p>
               {product?.productPrice > product?.salePrice && (
