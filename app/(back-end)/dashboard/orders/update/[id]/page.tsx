@@ -23,7 +23,7 @@ export default async function OrderEditPage({
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">Edit Order: {order.orderNumber}</h1>
-        <Link href="/orders">
+        <Link href="/dashboard/orders">
           <Button variant="outline">
             <ArrowLeft className="mr-2 h-4 w-4" /> Back to Orders
           </Button>

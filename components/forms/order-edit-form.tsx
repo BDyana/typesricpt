@@ -161,7 +161,7 @@ export default function OrderEditForm({ order }: { order: OrderWithItems }) {
                     Quantity: {item.quantity}
                   </p>
                   <p className="text-sm text-gray-600">
-                    Price: ${item.price.toFixed(2)}
+                    Price: ৳{item.price.toFixed(2)}
                   </p>
                 </div>
               </div>

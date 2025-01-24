@@ -214,7 +214,7 @@ export default function ShoppingCart({
                   </p>
                 )}
               </div>
-              <Label>
+              <Label className="font-normal">
                 Payment Method : Cash on Delivery
                 <span className="text-red-500">*</span>
               </Label>

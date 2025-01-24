@@ -53,7 +53,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {
           title: 'View Site',
           url: '/',
-          target: "_blank",
+          target: '_blank',
           icon: Send,
           className: "font-bold text-md",
         },
@@ -115,11 +115,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   url: '/dashboard/farmers',
                   icon: UsersRound,
                 },
-                {
-                  title: 'Our Staff',
-                  url: '/dashboard/our-staff',
-                  icon: Headset,
-                },
+                // {
+                //   title: 'Our Staff',
+                //   url: '/dashboard/our-staff',
+                //   icon: Headset,
+                // },
               ],
             },
           ],
