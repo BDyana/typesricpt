@@ -97,12 +97,12 @@ export default function DeliveryOption({
           className={`w-full justify-between ${error ? 'border-red-500' : ''}`}
         >
           {selectedOption ? (
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 font-normal">
               <Truck className="h-4 w-4" />
               {selectedOption.label} - ৳{selectedOption.basePrice}
             </span>
           ) : (
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 font-normal">
               <Truck className="h-4 w-4" />
               Select Delivery Area
               {required && <span className="text-red-500">*</span>}

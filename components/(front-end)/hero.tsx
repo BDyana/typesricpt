@@ -16,10 +16,20 @@ export default function Hero({ banners }: IProps) {
         <HeroCarousel banners={banners} />
       </div>
       <div className="col-span-2 hidden sm:block bg-white rounded-sm p-3">
+        <Link
+          href="/register-farmer"
+          className="flex items-center space-x-1 mb-12"
+        >
+          <CircleDollarSign className="shrink-0 w-5 h-5 text-slate-900" />
+          <div className="flex flex-col">
+            <h2 className="uppercase text-sm">Sell on BDyana</h2>
+            <p className="text-[0.75rem]">Million of Vistors</p>
+          </div>
+        </Link>
         <Link href="#" className="flex items-center space-x-1 mb-5">
           <CircleDollarSign className="shrink-0 w-5 h-5 text-slate-900" />
           <div className="flex flex-col">
-            <h2 className="uppercase text-sm">Wholesale Available</h2>
+            <h2 className="uppercase text-sm">Wholesale Club</h2>
             <p className="text-[0.75rem]">Call for Details.</p>
           </div>
         </Link>
@@ -35,16 +45,6 @@ export default function Hero({ banners }: IProps) {
           <div className="flex flex-col">
             <h2 className="uppercase text-sm">Easy Return</h2>
             <p className="text-[0.75rem]">Quick Return</p>
-          </div>
-        </Link>
-        <Link
-          href="/register-farmer"
-          className="flex items-center space-x-1 mb-12"
-        >
-          <CircleDollarSign className="shrink-0 w-5 h-5 text-slate-900" />
-          <div className="flex flex-col">
-            <h2 className="uppercase text-sm">Sell on BDyana</h2>
-            <p className="text-[0.75rem]">Million of Vistors</p>
           </div>
         </Link>
       </div>
