@@ -32,12 +32,12 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="border border-gray-200 rounded-lg">
       {cartItems.map((item) => {
         return (
           <div
             key={item.id}
-            className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6"
+            className=" bg-white p-4 shadow-sm md:p-6"
           >
             <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
               <div className="flex gap-3">

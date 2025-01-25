@@ -8,7 +8,7 @@ export default function RecommendedProducts({
   products,
 }: RecommendedProductsProps) {
   return (
-    <div className="hidden w-full xl:mt-8 xl:block">
+    <div className="hidden w-full xl:mt-24 xl:block">
       <h3 className="text-2xl font-semibold text-brandBlack">
         People also bought
       </h3>

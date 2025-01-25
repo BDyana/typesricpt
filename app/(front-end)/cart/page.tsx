@@ -23,7 +23,7 @@ export default async function CartPage() {
 
   return (
     <section className="bg-white pb-8 antialiased">
-      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <div className="mx-auto max-w-screen-xl px-0 lg:px-4">
         <h2 className="text-xl font-semibold text-brandBlack sm:text-2xl">
           Shopping Cart
         </h2>

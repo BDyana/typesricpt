@@ -164,10 +164,10 @@ export function LocationManager({ userProfile }: any) {
             />
             <Label htmlFor={`checkbox-${location.id}`} className="flex-grow">
                   <div className="flex justify-between relative">
-                    <div className="">
+                    <div>
                       {location.isDefault && (
                         <span className="text-xs bg-green-100 text-green-800 px-2 py-1 inline-flex rounded-full mt-2">
-                          Default
+                          Active
                         </span>
                       )}
                       <div className="flex gap-2 mt-1.5">
@@ -177,11 +177,10 @@ export function LocationManager({ userProfile }: any) {
                           <p className="font-medium">Address</p>
                         </div>
                         <div>
-                          <p>: {location.name}</p>
-                          <p className="my-0.5">: {location.phone}</p>
-                          <p className="text-sm font-normal text-gray-500">: {location.streetAddress}, {location.city},{' '}
-                            {location.district}.
-                          </p>
+                          <div className="flex gap-1">: <p>{location.name}</p></div>
+                          <div className="flex gap-1">: <p className="my-0.5">{location.phone}</p></div>
+                          <div className="flex gap-1">: <p className="text-sm font-normal text-gray-500">{location.streetAddress}, {location.city},{' '}{location.district}.
+                          </p></div>
                         </div>
                       </div>
                     </div>

@@ -18,7 +18,7 @@ export default function Hero({ banners }: IProps) {
       <div className="col-span-2 hidden sm:block bg-white rounded-sm p-3">
         <Link
           href="/register-farmer"
-          className="flex items-center space-x-1 mb-12"
+          className="flex items-center space-x-1 mb-5"
         >
           <CircleDollarSign className="shrink-0 w-5 h-5 text-slate-900" />
           <div className="flex flex-col">
