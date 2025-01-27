@@ -24,6 +24,7 @@ export default async function Home() {
       category.title === "Men's Shoes" ||
       category.title === 'Beauty & Bodycare' ||
       category.title === 'Grocery' ||
+      category.title === 'Dried Fruits & Raisins' ||
       category.title === 'Wool Thread' ||
       category.title === 'Lotions & Creams'
     );

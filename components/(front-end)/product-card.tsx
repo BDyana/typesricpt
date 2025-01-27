@@ -102,14 +102,14 @@ export default function ProductCard({
     >
       <button
         onClick={handleToggleFavorite}
-        className={`absolute top-3 right-2 z-10 p-2 rounded-full transition-colors ${
+        className={`absolute top-2 right-1 z-10 p-2 rounded-full transition-colors ${
           isInFavorite
             ? 'bg-red-100 text-red-600 hover:bg-red-200'
             : 'bg-white text-gray-600 hover:bg-gray-100'
         }`}
         title={isInFavorite ? 'Remove from favorites' : 'Add to favorites'}
       >
-        <Heart size={20} fill={isInFavorite ? 'currentColor' : 'none'} />
+        <Heart size={16} fill={isInFavorite ? 'currentColor' : 'none'} />
       </button>
       <Link prefetch={true} href={`/products/${product.slug}`} passHref>
         <div className="overflow-hidden h-[160px]">

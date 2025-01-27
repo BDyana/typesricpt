@@ -69,14 +69,14 @@ export default function ProductView({ product, category }: IProps) {
                   Brand:{' '}
                   <Link 
                   className="text-brandColor"
-                  href="">Johnson</Link>
+                  href="">Unknown</Link>
                 </h4>
               </div>
               <div className="flex gap-3 justify-between">
                 <h4>
                   Seller : <Link 
                   className="text-brandColor"
-                  href="">Unilever Bangladesh</Link>
+                  href="">BDyana Official</Link>
                 </h4>
                 <div className="flex items-center">
                   <Star fill="#fbab32" strokeWidth={0} size={16}/>
@@ -87,6 +87,7 @@ export default function ProductView({ product, category }: IProps) {
                 </div>
               </div>
               <div className="flex gap-3 mt-2 mb-4 justify-between">
+                <div></div>
                 <FakeSalesCount />
               </div>
             </div>

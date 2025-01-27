@@ -24,7 +24,7 @@ export default function HeroCarousel({ banners }: IProps) {
       autoplay
       showArrows
       keyboard={false}
-      title="Bdyana | Your one stop Shop"
+      title="BDyana | Where Trends Are Born"
       scrollDistance="screen"
       className="overflow-hidden h-[100%] rounded-md w-[100%]"
       wrapMode="wrap"
