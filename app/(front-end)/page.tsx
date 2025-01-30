@@ -5,6 +5,7 @@ import CategoryGrid from '@/components/(front-end)/category-grid';
 import CategoryList from '@/components/(front-end)/category-list';
 import FlashSales from '@/components/(front-end)/flash-sales';
 import Hero from '@/components/(front-end)/hero';
+import ProductBannerOne from '@/components/(front-end)/product-banner-one';
 import Products from '@/components/(front-end)/products';
 import { PromotionalBanner } from '@/components/(front-end)/promotional-banner';
 import TrendingDeals from '@/components/(front-end)/trending-deals';
@@ -53,7 +54,7 @@ export default async function Home() {
 
         {/* Shop by category */}
         <CategoryGrid data={categoriesData} />
-
+        <ProductBannerOne/>
         {/* <HalfBannerOne/> */}
         <div className="py-8">
           <PromotionalBanner
