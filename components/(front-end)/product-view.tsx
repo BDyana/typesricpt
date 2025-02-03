@@ -67,29 +67,29 @@ export default function ProductView({ product, category }: IProps) {
                 <span>|</span>
                 <h4>
                   Brand:{' '}
-                  <Link 
-                  className="text-brandColor"
-                  href="">Unknown</Link>
+                  <Link
+                    className="text-brandColor"
+                    href="">Unknown</Link>
                 </h4>
               </div>
               <div className="flex gap-3 justify-between">
                 <h4>
-                  Seller : <Link 
-                  className="text-brandColor"
-                  href="">BDyana Official</Link>
+                  Seller : <Link
+                    className="text-brandColor"
+                    href="">BDyana Official</Link>
                 </h4>
                 <div className="flex items-center">
-                  <Star fill="#fbab32" strokeWidth={0} size={16}/>
-                  <Star fill="#fbab32" strokeWidth={0} size={16}/>
-                  <Star fill="#fbab32" strokeWidth={0} size={16}/>
-                  <StarHalf fill="#fbab32" color="#fbab32" strokeWidth={1} size={14}/>
-                  <Star color="#fbab32" size={14}/> <h4> (4.5) <b> 9</b> Reviews</h4>
+                  <Star fill="#fbab32" strokeWidth={0} size={16} />
+                  <Star fill="#fbab32" strokeWidth={0} size={16} />
+                  <Star fill="#fbab32" strokeWidth={0} size={16} />
+                  <StarHalf fill="#fbab32" color="#fbab32" strokeWidth={1} size={14} />
+                  <Star color="#fbab32" size={14} /> <h4> (4.5) <b> 9</b> Reviews</h4>
                 </div>
               </div>
-              <div className="flex gap-3 mt-2 mb-4 justify-between">
+              {/* <div className="flex gap-3 mt-2 mb-4 justify-between">
                 <div></div>
                 <FakeSalesCount />
-              </div>
+              </div> */}
             </div>
             <div className="border-b border-gray-300 mt-4">
               <h4>
