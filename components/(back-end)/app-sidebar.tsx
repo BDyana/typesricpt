@@ -111,7 +111,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   icon: Users,
                 },
                 {
-                  title: 'Farmers',
+                  title: 'Seller',
                   url: '/dashboard/farmers',
                   icon: UsersRound,
                 },
@@ -187,7 +187,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   icon: Users,
                 },
                 {
-                  title: 'Farmers',
+                  title: 'Seller',
                   url: '/dashboard/farmers',
                   icon: UsersRound,
                 },
@@ -222,7 +222,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     {siteConfig.name}
                   </span>
                   <span className="truncate text-xs">
-                    {role || 'Enterprise'}
+                    {role || 'SELLER'}
                   </span>
                 </div>
               </a>

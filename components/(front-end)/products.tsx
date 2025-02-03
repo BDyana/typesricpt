@@ -21,7 +21,7 @@ export default function Products({
 }: IProps) {
   return (
     <div className="lg:pt-8 pt-6 pb-4">
-      <div className="flex px-3 pb-3 justify-between items-center">
+      <div className="flex pb-3 justify-between items-center">
         <div>
           <h2 className="text-xl font-bold">{title}</h2>
           <h4>{description}</h4>

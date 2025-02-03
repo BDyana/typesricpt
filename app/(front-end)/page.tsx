@@ -56,14 +56,14 @@ export default async function Home() {
         <CategoryGrid data={categoriesData} />
         <ProductBannerOne/>
         {/* <HalfBannerOne/> */}
-        <div className="py-8">
+        {/* <div className="py-8">
           <PromotionalBanner
             title="Summer Sale is Here!"
             description="Get up to 50% off on all summer essentials. Limited time offer, shop now and save big!!"
             ctaText="Shop Now"
             // onCtaClick={() => console.log('CTA clicked')}
           />
-        </div>
+        </div> */}
 
         {/* More categories */}
         {categories?.map((category: Category) => {
