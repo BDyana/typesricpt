@@ -4,7 +4,7 @@ import FakeSalesCount from '@/hooks/fake-sale-count';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { useAppSelector } from '@/redux/hooks/hooks';
 import { Category, Product } from '@prisma/client';
-import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck, Star, StarHalf } from 'lucide-react';
+import { Banknote, PhoneCall, ShieldBan, ShieldOff, Truck, Star, StarHalf, Check } from 'lucide-react';
 import Link from 'next/link';
 import AddToCartButton from './add-to-cart';
 import Breadcrumb from './breadcrumb';
@@ -73,17 +73,12 @@ export default function ProductView({ product, category }: IProps) {
                 </h4>
               </div>
               <div className="flex gap-3 justify-between">
-                <h4>
-                  Seller : <Link
-                    className="text-brandColor"
-                    href="">BDyana Official</Link>
-                </h4>
                 <div className="flex items-center">
                   <Star fill="#fbab32" strokeWidth={0} size={16} />
                   <Star fill="#fbab32" strokeWidth={0} size={16} />
                   <Star fill="#fbab32" strokeWidth={0} size={16} />
                   <StarHalf fill="#fbab32" color="#fbab32" strokeWidth={1} size={14} />
-                  <Star color="#fbab32" size={14} /> <h4> (4.5) <b> 9</b> Reviews</h4>
+                  <Star color="#fbab32" size={14} /> <h4 className="ml-1"> (4.5) <b> 9</b> Reviews</h4>
                 </div>
               </div>
               {/* <div className="flex gap-3 mt-2 mb-4 justify-between">
@@ -93,16 +88,16 @@ export default function ProductView({ product, category }: IProps) {
             </div>
             <div className="border-b border-gray-300 mt-4">
               <h4>
-                <b>SPECIFICATION : </b>
+                <b>DESCRIPTION :</b>
               </h4>
               <div className="py-2">
                 <TrainingHtml content={product.content} />
               </div>
               <div className="flex items-center gap-8 mb-4 justify-between">
                 <h4>SKU: {product.sku}</h4>
-                {/* <p className="py-1.5 px-4 border rounded-full text-slate-900 ">
-                  <b>Stock</b>: {product.productStock}
-                </p> */}
+                <p className="px-2 py-1.5 border rounded-full text-slate-900 flex gap-1">
+                  <Check className="bg-green-700 rounded-full text-white p-1" strokeWidth={3} size={20}/><b>Stock Available</b>
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-3 pt-4 border-b border-gray-200 pb-4">
@@ -139,12 +134,34 @@ export default function ProductView({ product, category }: IProps) {
                 </div>
               </div>
             </div>
-            <div className="float-right">
-              <ProductShareButton urlToShare={urlToShare} />
+            <div>
+              <h3>Promotional :</h3>
+              <Link href="" className="text-brandColor"><p>* Best Delivery Charge for All Products.</p></Link>
+              <Link href="" className="text-brandColor"><p>* Grab Your Top Branded Products.</p></Link>
             </div>
+            {/* <div className="float-right">
+              <ProductShareButton urlToShare={urlToShare} />
+            </div> */}
           </div>
         </div>
-        <div className="col-span-12 md:col-span-5 lg:col-span-3 sm:block bg-white border border-gray-100 rounded-sm dark:bg-gray-700 dark:border-gray-700 overflow-hidden hidden">
+        <div className="col-span-12 md:col-span-5 lg:col-span-3 sm:block bg-white overflow-hidden hidden">
+          <div className="mb-3 border bg-gray-50 border-gray-200 rounded-sm dark:bg-gray-700 dark:border-gray-700 p-2">
+            <h4>Sold by :</h4>
+            <Link href="" className='font-medium'>BDyana Official</Link>
+            <h5 className="mb-1.5">Official Store</h5>
+            <h5><b>400</b> Products Available.</h5>
+            <div className="flex gap-1">
+            <h4>Store Rating :</h4>
+            <div className="flex items-center">
+              <Star fill="#fbab32" strokeWidth={0} size={16} />
+              <Star fill="#fbab32" strokeWidth={0} size={16} />
+              <Star fill="#fbab32" strokeWidth={0} size={16} />
+              <StarHalf fill="#fbab32" color="#fbab32" strokeWidth={1} size={14} />
+              <Star color="#fbab32" size={14} /> <h4 className="ml-1"> (4.5)</h4>
+            </div>
+            </div>
+          </div>
+        <div className="border border-gray-100 rounded-sm dark:bg-gray-700 dark:border-gray-700 ">
           <h4 className="dark:bg-gray-800 p-2 font-medium border-b border-gray-200 dark:border-gray-600 dark:text-slate-100">
             DELIVERY & RETURNS
           </h4>
@@ -210,6 +227,7 @@ export default function ProductView({ product, category }: IProps) {
                 </h5>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
