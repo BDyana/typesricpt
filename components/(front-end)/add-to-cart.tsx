@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { ShoppingCart, Trash2 } from 'lucide-react';
 import { addToCart, removeFromCart } from '@/redux/slices/cart';
 import { cn } from '@/lib/utils';
+import { Button } from '../ui/button';
 
 interface IProps {
   product: Product | null;
@@ -50,14 +51,14 @@ export default function AddToCartButton({
     toast.success('Product added Successfully');
   }
   return (
-    <button
+    <Button
       type="button"
       onClick={() => {
         handleAddToCart();
         if (!isInCart) handleClick(); // Only trigger FB pixel on add, not remove
       }}
       className={cn(
-        'flex items-center space-x-2 md:px-8 bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded-sm text-white',
+        'flex items-center space-x-2 md:px-8 px-4 py-2 rounded-sm text-white w-1/2',
         className,
       )}
     >
@@ -72,6 +73,6 @@ export default function AddToCartButton({
           <span>Add to Cart</span>
         </>
       )}
-    </button>
+    </Button>
   );
 }

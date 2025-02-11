@@ -1,11 +1,10 @@
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
-import './globals.css';
 import Providers from '@/context/providers';
-import { extractRouterConfig } from 'uploadthing/server';
-import { ourFileRouter } from './api/uploadthing/core';
 import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin';
 import { Analytics } from '@vercel/analytics/react';
+import localFont from 'next/font/local';
+import { extractRouterConfig } from 'uploadthing/server';
+import { ourFileRouter } from './api/uploadthing/core';
+import './globals.css';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -22,9 +21,67 @@ const SegoeUI = localFont({
   variable: '--font-segoe-ui',
 });
 
-export const metadata: Metadata = {
-  title: 'BDyana | Where Trends Are Born',
-  description: 'Best E-Commerce Website in Bangladesh.',
+export const metadata = {
+  metadataBase: new URL('https://Kyajastoreug.com'),
+  title: {
+    default: 'BDyana | Where Trends Are Born',
+    template: '%s | BDyana',
+  },
+  description:
+    "Discover a wide range of quality products at BDyana where trends are born, located in Bangladesh.. Explore our extensive collection, including fashion, beauty products, and more. From the latest beauty products to trendy fashion, we've got it all. Call us at +880 01511-309-309 for personalized assistance and unbeatable deals.",
+  applicationName: 'BDyana',
+  keywords: [
+    'BDyana Store',
+    'Bangladesh Town Center',
+    'electronics',
+    'fashion',
+    'gadgets',
+    'trendy fashion',
+    'personalized assistance',
+    'unbeatable deals',
+    'one-stop shop',
+    'quality products',
+    'tech accessories',
+    'home appliances',
+    'affordable fashion',
+    'student discounts',
+    'local business',
+    'convenient shopping',
+    'online store',
+    'best prices',
+    'customer satisfaction',
+    'top brands',
+    'latest trends',
+  ],
+  authors: [{ name: 'Kisakye Moses', url: 'https://www.mosespace.com' }],
+  creator: 'Kisakye Moses | Affordable Software developer',
+  publisher: 'Kisakye Moses | Affordable Software developer',
+  openGraph: {
+    title: {
+      default:
+        'BDyana | Where Trends Are Born - Your One-Stop Shop for All Your Needs',
+      template: '%s | BDyana Store',
+    },
+    description:
+      "Discover a wide range of quality products at BDyana Store, located in Bangladeshi. Explore our extensive collection, including fashion, electronics, and more. From the latest gadgets to trendy fashion, we've got it all. Call us at +880 01511-309-309 for personalized assistance and unbeatable deals.",
+    url: 'http://bdyana.com',
+    siteName: 'BDyana store',
+    type: 'website',
+    local: 'en_us',
+    images: [
+      {
+        url: 'https://www.bdyana.com/opengraph-image.png',
+        width: 800,
+        height: 600,
+        alt: 'BDyana | Where Trends Are Born',
+      },
+    ],
+    locale: 'en_US',
+  },
+  alternates: {
+    canonical: '/',
+    languages: ['en'],
+  },
 };
 
 export default function RootLayout({

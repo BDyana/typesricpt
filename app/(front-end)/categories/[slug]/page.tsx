@@ -3,25 +3,29 @@ import TrendingDeals from '@/components/(front-end)/trending-deals';
 import { Suspense } from 'react';
 import CategoryDetailed from './category-detailed';
 
-interface Category {
-  id: string;
-  name: string;
-  // Define other properties based on your category model
-}
-
-interface Product {
-  id: string;
-  title: string;
-  price: number;
-  // Define other properties based on your product model
-}
-
 interface PageProps {
   params: any;
 }
 
-function SearchBarFallback() {
+function CategoryFallback() {
   return <></>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
+
+  const category = await getCategoryBySlug(slug);
+  return {
+    title: category?.title,
+    description: category?.description,
+    alternates: {
+      canonical: `/categories/${category?.slug}`,
+    },
+  };
 }
 
 export default async function Page({ params }: PageProps) {
@@ -36,7 +40,7 @@ export default async function Page({ params }: PageProps) {
   // console.log('Category:', category);
   return (
     <div>
-      <Suspense fallback={<SearchBarFallback />}>
+      <Suspense fallback={<CategoryFallback />}>
         <CategoryDetailed category={category as any} />
 
         <div>

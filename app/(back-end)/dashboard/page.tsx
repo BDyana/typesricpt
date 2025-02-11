@@ -1,17 +1,12 @@
-import { ChartArea } from '@/components/chart-area';
-import { ChartBar } from '@/components/chart-bar';
-import { ChartLine } from '@/components/chart-line';
-import { ChartPie } from '@/components/chart-pie';
+import { getAllCategories } from '@/actions/categories';
+import AnalyticsDashboard from '@/components/analytics-dashboard';
 
-export default function Page() {
+export default async function Page() {
+  const categoriesData = await getAllCategories();
+  const categories = categoriesData?.data;
   return (
     <div className="flex min-h-svh items-center justify-center p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-7xl">
-        <ChartLine />
-        <ChartBar />
-        <ChartArea />
-        <ChartPie />
-      </div>
+      <AnalyticsDashboard categories={categories} />
     </div>
   );
 }

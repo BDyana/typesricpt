@@ -155,7 +155,10 @@ export default function SignIn() {
               placeholder="********"
             />
             {/* Continue Button */}
-            <Button className="w-full bg-brandColor hover:bg-brandColor/90 text-white">
+            <Button
+              disabled={loggingIn}
+              className="w-full bg-brandColor hover:bg-brandColor/90 gap-4 inline-flex items-center text-white"
+            >
               Continue
               {loggingIn ? (
                 <Loader2 className="size-4 animate-spin" />
@@ -163,23 +166,23 @@ export default function SignIn() {
                 <span className="ml-2">→</span>
               )}
             </Button>
-          </form>  
-            {/* Sign Up Link */}
-            <div className="text-sm text-muted-foreground">
-              Forgot password?{' '}
-              <Link
-                href="/reset-password"
-                className="text-brandColor hover:underline"
-              >
-                Reset It Now
-              </Link>
-            </div>
-            <div className="text-sm text-muted-foreground">
-              Don't have an account?{' '}
-              <Link href="/register" className="text-brandColor hover:underline">
-                Sign up
-              </Link>
-            </div>
+          </form>
+          {/* Sign Up Link */}
+          <div className="text-sm text-muted-foreground">
+            Forgot password?{' '}
+            <Link
+              href="/reset-password"
+              className="text-brandColor hover:underline"
+            >
+              Reset It Now
+            </Link>
+          </div>
+          <div className="text-sm text-muted-foreground">
+            Don't have an account?{' '}
+            <Link href="/register" className="text-brandColor hover:underline">
+              Sign up
+            </Link>
+          </div>
         </div>
       </CardContent>
     </Card>

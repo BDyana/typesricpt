@@ -4,10 +4,10 @@ import React from 'react';
 
 export default function Layout({
   children,
-  modal,
+  // modal, // removed model upon request
 }: {
   children: React.ReactNode;
-  modal: React.ReactNode;
+  // modal: React.ReactNode; // removed model upon request
   auth: React.ReactNode;
 }) {
   return (
@@ -15,7 +15,7 @@ export default function Layout({
       <Navbar />
       <div className="lg:w-[1185px] min-h-screen mx-auto py-2 lg:py-5 px-2 bg-[#f6f8fa]s">
         {children}
-        {modal}
+        {/* {modal} */}
       </div>
       <Footer />
     </div>

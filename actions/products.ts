@@ -3,7 +3,6 @@
 import { db } from '@/lib/db';
 import { Product } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-import { getUserById } from './users';
 
 export async function createProduct(formData: Product) {
   // console.log('FormData;', formData);
@@ -82,6 +81,9 @@ export async function createProduct(formData: Product) {
 export const getLatestProducts = async (pageSize?: number) => {
   try {
     const products = await db.product.findMany({
+      where: {
+        isActive: true,
+      },
       include: {
         category: true,
         user: true,
@@ -104,6 +106,7 @@ export async function getFlashSaleProducts() {
     const products = await db.product.findMany({
       where: {
         isFlashSale: true,
+        isActive: true,
       },
       include: {
         comments: true,
@@ -123,6 +126,7 @@ export async function getProductBySlug(slug: string) {
     const product = await db.product.findUnique({
       where: {
         slug,
+        isActive: true,
       },
       include: {
         comments: true,
@@ -163,6 +167,7 @@ export async function getProductById(id: string) {
     const product = await db.product.findUnique({
       where: {
         id,
+        isActive: true,
       },
     });
 

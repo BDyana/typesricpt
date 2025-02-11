@@ -7,7 +7,6 @@ import FlashSales from '@/components/(front-end)/flash-sales';
 import Hero from '@/components/(front-end)/hero';
 import ProductBannerOne from '@/components/(front-end)/product-banner-one';
 import Products from '@/components/(front-end)/products';
-import { PromotionalBanner } from '@/components/(front-end)/promotional-banner';
 import TrendingDeals from '@/components/(front-end)/trending-deals';
 import { Category } from '@prisma/client';
 
@@ -42,7 +41,7 @@ export default async function Home() {
       <Hero banners={banners} />
 
       <div className="px-0">
-        {/* New Products */}
+        {/* New Arrivals */}
         <Products
           title="New Arrivals"
           description="100+ products added today"
@@ -54,7 +53,7 @@ export default async function Home() {
 
         {/* Shop by category */}
         <CategoryGrid data={categoriesData} />
-        <ProductBannerOne/>
+        <ProductBannerOne />
         {/* <HalfBannerOne/> */}
         {/* <div className="py-8">
           <PromotionalBanner

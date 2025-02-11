@@ -3,7 +3,7 @@ import { getProductBySlug } from '@/actions/products';
 import Modal from './modal';
 import { Suspense } from 'react';
 
-function SearchBarFallback() {
+function ProductFallback() {
   return <></>;
 }
 export default async function ProductModalPage({
@@ -22,7 +22,7 @@ export default async function ProductModalPage({
   const category: any = await getCategoryById(product.categoryId);
 
   return (
-    <Suspense fallback={<SearchBarFallback />}>
+    <Suspense fallback={<ProductFallback />}>
       <Modal product={product} category={category} />;
     </Suspense>
   );

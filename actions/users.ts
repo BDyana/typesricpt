@@ -319,6 +319,8 @@ export async function sendPasswordResetEmail(email: string) {
       'Click the link below to reset your password. Thank you.';
     const subject = 'Password Reset - Bdyana.com Ecommerce';
 
+    console.log('Redirect URL ✅:', redirectUrl);
+
     const emailResult = await resend.emails.send({
       from: 'Bdyana <info@bdyana.com>',
       to: email,
