@@ -4,6 +4,7 @@ import DataTable from '@/components/data-table/data-table';
 import { columns } from './columns';
 export default async function page() {
   const products = await getLatestProducts();
+  const searchKeys = ['title', 'slug'];
 
   return (
     <div className="">
@@ -14,7 +15,11 @@ export default async function page() {
       />
 
       <div className="">
-        <DataTable data={products as any} columns={columns} />
+        <DataTable
+          data={products as any}
+          searchKeys={searchKeys}
+          columns={columns}
+        />
       </div>
     </div>
   );

@@ -44,10 +44,12 @@ import { DataTableViewOptions } from './data-table-view';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  searchKeys?: string[];
 }
 export default function DataTable<TData, TValue>({
   columns,
   data,
+  searchKeys,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState({});
@@ -55,12 +57,22 @@ export default function DataTable<TData, TValue>({
     [],
   );
   const [searchResults, setSearchResults] = useState(data);
-  const [filteredData, setFilteredData] = useState(data);
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [isSearch, setIsSearch] = useState(true);
+  // const [isSearch, setIsSearch] = useState(true);
+
+  // Filtering state
+  const [filteredData, setFilteredData] = useState<TData[]>(data);
+  const [searchActive, setSearchActive] = useState(false);
+
+  // Memoize the final data to prevent unnecessary re-renders
+  const tableData = React.useMemo(
+    () => (searchActive ? filteredData : data),
+    [searchActive, filteredData, data],
+  );
+
   // console.log(isSearch);
   const table = useReactTable({
-    data: isSearch ? searchResults : filteredData,
+    data: tableData,
     columns,
     state: {
       sorting,
@@ -81,26 +93,46 @@ export default function DataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
   // console.log(searchResults);
+
+  // Handler for filter updates
+  const handleFilterUpdate = (newData: TData[]) => {
+    setFilteredData(newData);
+    setSearchActive(true);
+    // Reset to first page when filter changes
+    table.setPageIndex(0);
+  };
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center gap-8">
         <div className="flex-1 w-full">
-          <SearchBar
-            data={data}
-            onSearch={setSearchResults}
-            setIsSearch={setIsSearch}
-          />
+          {searchKeys && searchKeys.length > 0 ? ( // With specific search keys
+            <SearchBar
+              data={data}
+              onSearch={handleFilterUpdate}
+              setIsSearch={setSearchActive}
+              placeholder="Search services..."
+              searchKeys={searchKeys}
+            />
+          ) : (
+            // Basic usage
+            <SearchBar
+              data={data}
+              onSearch={handleFilterUpdate}
+              setIsSearch={setSearchActive}
+              placeholder="Search services..."
+            />
+          )}
         </div>
         <div className="flex items-center gap-2 ">
           <DateRangeFilter
             data={data}
-            onFilter={setFilteredData}
-            setIsSearch={setIsSearch}
+            onFilter={handleFilterUpdate}
+            setIsSearch={setSearchActive}
           />
           <DateFilters
             data={data}
-            onFilter={setFilteredData}
-            setIsSearch={setIsSearch}
+            onFilter={handleFilterUpdate}
+            setIsSearch={setSearchActive}
           />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -145,7 +177,7 @@ export default function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="mx-auto text-centers w-full">
+          <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
@@ -168,7 +200,7 @@ export default function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  No results found.
                 </TableCell>
               </TableRow>
             )}

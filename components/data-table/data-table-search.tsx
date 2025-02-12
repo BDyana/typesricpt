@@ -1,20 +1,41 @@
 'use client';
 
 import { Search, X } from 'lucide-react';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 
 interface SearchBarProps {
   data: any[];
   onSearch: (filteredData: any[]) => void;
   setIsSearch: (isSearching: boolean) => void;
   placeholder?: string;
+  searchKeys?: string[];
 }
+
+const deepSearch = (obj: any, searchTerm: string): boolean => {
+  const term = searchTerm.toLowerCase().trim();
+
+  // Base cases
+  if (!obj) return false;
+  if (typeof obj === 'string') return obj.toLowerCase().includes(term);
+  if (typeof obj === 'number')
+    return obj.toString().toLowerCase().includes(term);
+  if (typeof obj === 'boolean')
+    return obj.toString().toLowerCase().includes(term);
+
+  // Recursive case for objects and arrays
+  if (typeof obj === 'object') {
+    return Object.values(obj).some((value) => deepSearch(value, term));
+  }
+
+  return false;
+};
 
 export default function SearchBar({
   data,
   onSearch,
   setIsSearch,
   placeholder = 'Search...',
+  searchKeys,
 }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -30,12 +51,18 @@ export default function SearchBar({
       return;
     }
 
-    const filteredData = data.filter((item: any) =>
-      Object.values(item).some(
-        (value: any) =>
-          value && value.toString().toLowerCase().includes(value.toLowerCase()),
-      ),
-    );
+    const filteredData = data.filter((item: any) => {
+      // If searchKeys are provided, only search in specified keys
+      if (searchKeys && searchKeys.length > 0) {
+        return searchKeys.some((key) => {
+          const fieldValue = item[key];
+          // Pass the search term, not the field value as the search term
+          return fieldValue && deepSearch(fieldValue, value);
+        });
+      }
+      // Otherwise, search in all fields
+      return deepSearch(item, value);
+    });
 
     setIsSearch(true);
     onSearch(filteredData);
@@ -66,7 +93,6 @@ export default function SearchBar({
           ease-in-out
         `}
       >
-        {/* Search Icon */}
         <div className="absolute left-3 pointer-events-none">
           <Search
             className={`
@@ -78,7 +104,6 @@ export default function SearchBar({
           />
         </div>
 
-        {/* Search Input */}
         <input
           ref={inputRef}
           id="search"
@@ -103,7 +128,6 @@ export default function SearchBar({
           "
         />
 
-        {/* Clear Search Button */}
         {searchTerm && (
           <button
             type="button"
