@@ -46,7 +46,7 @@
     "dayjs": "^1.11.13",
     "html-react-parser": "^5.2.0",
     "lucide-react": "^0.465.0",
-    "next": "15.0.3",
+    "next": ">=15.1.2",
     "next-auth": "^4.24.7",
     "nuka-carousel": "^8.1.1",
     "prisma": "^6.0.1",
