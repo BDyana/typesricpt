@@ -9,7 +9,7 @@ interface IProps {
   title: string;
   description: string;
   buttonTitle?: string;
-  products: [];
+  products: Product[];
   className?: string;
 }
 export default function Products({
@@ -34,7 +34,7 @@ export default function Products({
           'grid grid-cols-3 gap-y-2 md:gap-y-0 sm:grid-cols-3 md:grid-cols-4 lg:mt-3 mt-1.5 -mx-1',
         )}
       >
-        {products.map((product: Product) => (
+        {products.map((product) => (
           <div key={product.id}>
             <ProductCard product={product as any} />
           </div>
