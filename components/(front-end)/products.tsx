@@ -35,7 +35,8 @@ export default function Products({
         )}
       >
         {products.map((product) => (
-          <div key={product.id}>
+          <div className='gap-2
+          ' key={product.id}>
             <ProductCard product={product as any} />
           </div>
         ))}

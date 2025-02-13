@@ -28,7 +28,7 @@ export const metadata = {
     template: '%s | BDyana',
   },
   description:
-    "Discover a wide range of quality products at BDyana where trends are born, located in Bangladesh.. Explore our extensive collection, including fashion, beauty products, and more. From the latest beauty products to trendy fashion, we've got it all. Call us at +880 01511-309-309 for personalized assistance and unbeatable deals.",
+    "Discover a wide range of quality products at BDyana where trends are born, located in Bangladesh.. Explore our extensive collection, including fashion, beauty products, and more. From the latest beauty products to trendy fashion, we've got it all. Call us at +880 01511-309 309 for personalized assistance and unbeatable deals.",
   applicationName: 'BDyana',
   keywords: [
     'BDyana Store',
@@ -53,9 +53,9 @@ export const metadata = {
     'top brands',
     'latest trends',
   ],
-  authors: [{ name: 'Kisakye Moses', url: 'https://www.mosespace.com' }],
-  creator: 'Kisakye Moses | Affordable Software developer',
-  publisher: 'Kisakye Moses | Affordable Software developer',
+  authors: [{ name: 'Md. Roshidul Hasan', url: 'https://www.bdyana.com' }],
+  creator: 'BDyana Developer Team | Affordable Software developer',
+  publisher: 'BDyana Developer Team | Affordable Software developer',
   openGraph: {
     title: {
       default:
@@ -63,7 +63,7 @@ export const metadata = {
       template: '%s | BDyana Store',
     },
     description:
-      "Discover a wide range of quality products at BDyana Store, located in Bangladeshi. Explore our extensive collection, including fashion, electronics, and more. From the latest gadgets to trendy fashion, we've got it all. Call us at +880 01511-309-309 for personalized assistance and unbeatable deals.",
+      "Discover a wide range of quality products at BDyana Store, located in Bangladeshi. Explore our extensive collection, including fashion, electronics, and more. From the latest gadgets to trendy fashion, we've got it all. Call us at +880 01511-309 309 for personalized assistance and unbeatable deals.",
     url: 'http://bdyana.com',
     siteName: 'BDyana store',
     type: 'website',
