@@ -1,6 +1,7 @@
 import Footer from '@/components/(front-end)/footer';
 import Navbar from '@/components/(front-end)/navbar';
-import React from 'react';
+import Loader from '@/components/loader';
+import React, { Suspense } from 'react';
 
 export default function Layout({
   children,
@@ -14,7 +15,7 @@ export default function Layout({
     <div>
       <Navbar />
       <div className="lg:w-[1185px] min-h-screen mx-auto py-2 lg:py-5 px-2 bg-[#f6f8fa]s">
-        {children}
+        <Suspense fallback={<Loader />}>{children}</Suspense>
         {/* {modal} */}
       </div>
       <Footer />

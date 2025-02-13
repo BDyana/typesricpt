@@ -1,4 +1,4 @@
-import { type FC } from 'react';
+import { type FC, Suspense } from 'react';
 import { type Banner, type Category } from '@prisma/client';
 
 // Action imports
@@ -63,36 +63,46 @@ const Home: FC = async () => {
 
   return (
     <main className="min-h-screen">
-      <Hero banners={banners} />
+      <Suspense>
+        <Hero banners={banners} />
+      </Suspense>
 
       <div className="px-0">
-        {/* New Arrivals Section */}
-        <Products
-          title="New Arrivals"
-          description="100+ products added today"
-          products={latestProducts}
-        />
+        <Suspense>
+          <Products
+            title="New Arrivals"
+            description="100+ products added today"
+            products={latestProducts}
+          />
+        </Suspense>
 
-        {/* Flash Sales Section - Only show if we have enough products */}
-        {flashSales.length >= 6 && <FlashSales products={flashSales} />}
+        {flashSales.length >= 6 && (
+          <Suspense>
+            <FlashSales products={flashSales} />
+          </Suspense>
+        )}
 
-        {/* Categories Section */}
-        <CategoryGrid data={categories as any} />
+        <Suspense>
+          <CategoryGrid data={categories as any} />
+        </Suspense>
 
-        {/* Product Banner Section */}
-        <ProductBannerOne />
+        <Suspense>
+          <ProductBannerOne />
+        </Suspense>
 
-        {/* Category Lists Section */}
-        <section>
-          {categories.map((category) => (
-            <div key={category.id} className="lg:pb-4 pb-2">
-              <CategoryList category={category} />
-            </div>
-          ))}
-        </section>
+        <Suspense>
+          <section>
+            {categories.map((category) => (
+              <div key={category.id} className="lg:pb-4 pb-2">
+                <CategoryList category={category} />
+              </div>
+            ))}
+          </section>
+        </Suspense>
 
-        {/* Trending Deals Section */}
-        <TrendingDeals categories={categories as any} />
+        <Suspense>
+          <TrendingDeals categories={categories as any} />
+        </Suspense>
       </div>
     </main>
   );
