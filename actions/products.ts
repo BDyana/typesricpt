@@ -60,6 +60,8 @@ export async function createProduct(formData: Product) {
       data: processedData,
     });
 
+    revalidatePath('/');
+
     return {
       success: true,
       status: 201, // Created
