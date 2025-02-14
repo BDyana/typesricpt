@@ -1,6 +1,7 @@
 import CartBanner from '@/components/(front-end)/checkout/cart-banner';
 import { Steps } from '@/components/(front-end)/checkout/steps';
 import CheckoutFormSteps from '@/components/(front-end)/checkout/steps/checkout-form-steps';
+import RecentlyViewedProducts from '@/components/(front-end)/recently-viewed';
 import { authOptions } from '@/lib/authOptions';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
@@ -41,6 +42,8 @@ export default async function page() {
           <CartBanner />
           {/* Form */}
           <CheckoutFormSteps />
+
+          <RecentlyViewedProducts />
         </div>
       </div>
     </div>

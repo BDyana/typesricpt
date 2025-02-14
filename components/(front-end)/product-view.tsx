@@ -17,9 +17,7 @@ import {
 import Link from 'next/link';
 import AddToCartButton from './add-to-cart';
 import Breadcrumb from './breadcrumb';
-import CategoryCarousel from './category-carousel';
 import ProductImageCarousel from './product-image-carousel';
-import ProductReviews from './product-review';
 import TrainingHtml from './training-html';
 
 interface IProps {
@@ -28,12 +26,6 @@ interface IProps {
 }
 
 export default function ProductView({ product, category }: IProps) {
-  const { id } = product;
-  const categoryProducts = category?.products;
-
-  const products =
-    categoryProducts?.filter((product: Product) => product.id !== id) ?? [];
-
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${product?.slug}`;
 
@@ -266,17 +258,6 @@ export default function ProductView({ product, category }: IProps) {
             </div>
           </div>
         </div>
-      </div>
-      <ProductReviews productId={product.id} />
-      <div className="bg-white dark:bg-slate-700 mt-12 rounded-sm py-2">
-        {/* <ProductComments
-          productId={product.id}
-          initialComments={product.comments as any}
-        /> */}
-        <h2 className="mb-4 text-xl font-semibold dark:text-slate-200">
-          Similar Products
-        </h2>
-        <CategoryCarousel products={products} />
       </div>
     </>
   );

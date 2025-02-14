@@ -14,6 +14,7 @@ import CategoryGrid from '@/components/(front-end)/category-grid';
 import CategoryList from '@/components/(front-end)/category-list';
 import ProductBannerOne from '@/components/(front-end)/product-banner-one';
 import TrendingDeals from '@/components/(front-end)/trending-deals';
+import RecentlyViewedProducts from '@/components/(front-end)/recently-viewed';
 
 // Featured category titles
 const FEATURED_CATEGORIES = [
@@ -102,6 +103,10 @@ const Home: FC = async () => {
 
         <Suspense>
           <TrendingDeals categories={categories as any} />
+        </Suspense>
+
+        <Suspense>
+          <RecentlyViewedProducts />
         </Suspense>
       </div>
     </main>

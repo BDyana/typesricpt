@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import ProductCard from '@/components/(front-end)/product-card';
 import { useState, useMemo } from 'react';
+import RecentlyViewedProducts from '@/components/(front-end)/recently-viewed';
 
 export default function Page() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -73,6 +74,8 @@ export default function Page() {
           Showing {filteredItems.length} of {favoriteItems.length} items
         </div>
       )}
+
+      <RecentlyViewedProducts />
     </div>
   );
 }

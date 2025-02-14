@@ -160,12 +160,12 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
         </div>
 
         <div>
-          <h3 className="text-xl font-semibold mb-4">Recent Reviews</h3>
           {reviews.map((review) => (
             <div
               key={review.id}
               className="border-b border-gray-200 py-4 last:border-b-0"
             >
+              <h3 className="text-xl font-semibold mb-4">Recent Reviews</h3>
               <div className="flex items-center mb-2">
                 <Avatar className="w-10 h-10 mr-3">
                   <AvatarImage

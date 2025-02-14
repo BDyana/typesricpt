@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { siteConfig } from '@/constants/site';
+import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
+import { cn } from '@/lib/utils';
+import { useAppSelector } from '@/redux/hooks/hooks';
+import { addToCart, removeFromCart } from '@/redux/slices/cart';
+import { addToFavorite, removeFromFavorite } from '@/redux/slices/favorites';
+import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'sonner';
 import * as fbq from '../../lib/fpixel';
-import { useDispatch } from 'react-redux';
-import { ShoppingCart, Trash2, Heart } from 'lucide-react';
-import { addToCart, removeFromCart } from '@/redux/slices/cart';
-import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
-import { useAppSelector } from '@/redux/hooks/hooks';
-import { cn } from '@/lib/utils';
-import { siteConfig } from '@/constants/site';
-import { addToFavorite, removeFromFavorite } from '@/redux/slices/favorites';
 
 interface IProduct {
   imageUrl: string;
@@ -38,6 +38,8 @@ export default function ProductCard({
   const dispatch = useDispatch();
   const cartItems = useAppSelector((state) => state.cart);
   const favoriteItems = useAppSelector((state) => state.favorite);
+  const RECENTLY_VIEWED_KEY = 'recently_viewed_products';
+  const MAX_RECENT_PRODUCTS = 10;
 
   // Check if product is already in cart
   const isInCart = cartItems?.some((item: any) => item.id === product.id);
@@ -49,13 +51,36 @@ export default function ProductCard({
     setIsInFavorite(favoriteItems?.some((item: any) => item.id === product.id));
   }, [favoriteItems, product.id]);
 
+  // Handle recently viewed products
+  const handleProductClick = () => {
+    if (!product.id) return;
+
+    // Get existing items
+    const existingItems = JSON.parse(
+      localStorage.getItem(RECENTLY_VIEWED_KEY) || '[]',
+    );
+
+    // Remove the product if it already exists (to move it to the front)
+    const filteredItems = existingItems.filter(
+      (id: string) => id !== product.id,
+    );
+
+    // Add the current product to the beginning
+    const updatedItems = [product.id, ...filteredItems].slice(
+      0,
+      MAX_RECENT_PRODUCTS,
+    );
+
+    // Save back to localStorage
+    localStorage.setItem(RECENTLY_VIEWED_KEY, JSON.stringify(updatedItems));
+  };
+
   const handleClick = () => {
     fbq.event('Purchase', { currency: 'USD', value: 10 });
   };
 
   function handleAddToCart() {
     if (isInCart) {
-      // Remove from cart if already present
       dispatch(removeFromCart(product.id));
       toast.success('Product removed from cart');
       return;
@@ -97,7 +122,7 @@ export default function ProductCard({
 
   return (
     <div
-      style={{ height: '265px' }} // Fixed height for the card
+      style={{ height: '265px' }}
       className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow relative"
     >
       <button
@@ -111,7 +136,12 @@ export default function ProductCard({
       >
         <Heart size={16} fill={isInFavorite ? 'currentColor' : 'none'} />
       </button>
-      <Link prefetch={true} href={`/products/${product.slug}`} passHref>
+      <Link
+        onClick={handleProductClick}
+        prefetch={true}
+        href={`/products/${product.slug}`}
+        passHref
+      >
         <div className="overflow-hidden h-[160px]">
           <Image
             src={product.imageUrl}
@@ -123,7 +153,12 @@ export default function ProductCard({
         </div>
       </Link>
       <div className="px-1 lg:px-2">
-        <Link prefetch={true} href={`/products/${product.slug}/`} passHref>
+        <Link
+          onClick={handleProductClick}
+          prefetch={true}
+          href={`/products/${product.slug}/`}
+          passHref
+        >
           <h2 className="lg:text-sm text-xs dark:text-slate-200 my-2 line-clamp-2 font-normal">
             {product.title}
           </h2>
@@ -159,7 +194,7 @@ export default function ProductCard({
               type="button"
               onClick={() => {
                 handleAddToCart();
-                if (!isInCart) handleClick(); // Only trigger FB pixel on add, not remove
+                if (!isInCart) handleClick();
               }}
               className={`flex items-center p-2 lg:p-3 rounded-full transition-colors ${
                 isInCart

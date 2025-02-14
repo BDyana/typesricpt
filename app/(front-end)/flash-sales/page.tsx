@@ -3,6 +3,7 @@ import AllProducts from '../products/all-products';
 import { getFlashSaleProducts } from '@/actions/products';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import RecentlyViewedProducts from '@/components/(front-end)/recently-viewed';
 
 export default async function CategoriesPage() {
   const flashSaleProducts = await getFlashSaleProducts();
@@ -30,6 +31,7 @@ export default async function CategoriesPage() {
         isFlashSale={true}
         className="bg-[#fce7e5] text-[#e61601]"
       />
+      <RecentlyViewedProducts />
     </div>
   );
 }
