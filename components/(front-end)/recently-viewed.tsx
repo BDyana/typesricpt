@@ -13,18 +13,17 @@ export default function RecentlyViewedProducts() {
     const fetchRecentlyViewed = async () => {
       const recentIds = getRecentlyViewedProducts();
 
-      // Get only the last 6 product IDs (slice from the end)
-      const lastSixIds = recentIds.slice(-6);
-
-      if (lastSixIds.length === 0) {
+      if (recentIds.length === 0) {
         setLoading(false);
         return;
       }
 
       try {
+        // Replace this with your actual API call to fetch products by IDs
         const fetchedProducts = await Promise.all(
-          lastSixIds.map((id) => getProductById(id))
+          recentIds.map((id) => getProductById(id)),
         );
+
         setProducts(fetchedProducts);
       } catch (error) {
         console.error('Error fetching recently viewed products:', error);
@@ -36,14 +35,14 @@ export default function RecentlyViewedProducts() {
     fetchRecentlyViewed();
   }, []);
 
-  if (!loading && products.length === 0) {
+  if (products.length === 0) {
     return null;
   }
 
   return (
     <section className="py-8">
       <h2 className="text-2xl font-semibold mb-4">Recently Viewed</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
