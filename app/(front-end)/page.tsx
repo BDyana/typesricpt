@@ -31,6 +31,7 @@ const FEATURED_CATEGORIES = [
 
 interface PageData {
   categories: Category[];
+  categories2: Category[];
   banners: Banner[];
   latestProducts: any[]; // Replace 'any' with your product type
   flashSales: any[]; // Replace 'any' with your product type
@@ -45,6 +46,8 @@ async function getPageData(): Promise<PageData> {
       getFlashSaleProducts(),
     ]);
 
+  const categories2 = categoriesResponse?.data ?? [];
+
   const categories =
     categoriesResponse?.data?.filter((category: Category) =>
       FEATURED_CATEGORIES.includes(category.title as any),
@@ -52,6 +55,7 @@ async function getPageData(): Promise<PageData> {
 
   return {
     categories,
+    categories2,
     banners: bannersData?.data ?? [],
     latestProducts: latestProducts ?? [],
     flashSales: flashSales ?? [],
@@ -59,7 +63,7 @@ async function getPageData(): Promise<PageData> {
 }
 
 const Home: FC = async () => {
-  const { categories, banners, latestProducts, flashSales } =
+  const { categories, banners, latestProducts, flashSales, categories2 } =
     await getPageData();
 
   return (
@@ -84,7 +88,7 @@ const Home: FC = async () => {
         )}
 
         <Suspense>
-          <CategoryGrid data={categories as any} />
+          <CategoryGrid data={categories2 as any} />
         </Suspense>
 
         <Suspense>
@@ -102,7 +106,7 @@ const Home: FC = async () => {
         </Suspense>
 
         <Suspense>
-          <TrendingDeals categories={categories as any} />
+          <TrendingDeals categories={categories2 as any} />
         </Suspense>
 
         <Suspense>
