@@ -19,6 +19,7 @@ import AddToCartButton from './add-to-cart';
 import Breadcrumb from './breadcrumb';
 import ProductImageCarousel from './product-image-carousel';
 import TrainingHtml from './training-html';
+import Image from 'next/image';
 
 interface IProps {
   product: Product | any;
@@ -138,15 +139,16 @@ export default function ProductView({ product, category }: IProps) {
             </div>
             <div className="flex justify-between items-center py-6">
               <AddToCartButton isInCart={isInCart} product={product} />
-              <div className="flex gap-3">
-                <div>
-                  <PhoneCall className="mt-3" />
+              <Link href="https://wa.me/8801511309309?text=" className="flex gap-1">
+                <div className="bg-blue-50 w-12 h-12 pt-2 pl-2 rounded-full">
+                  <PhoneCall size={18} className="absolute ml-3" />
+                  <Image className="mt-3" src="/whatsapp.png" alt="" width="26" height="26"/>
                 </div>
                 <div>
                   <h4>Call for Any Query :</h4>
                   <h3 className="font-bold">{CONTACT_INFO.supportNumber}</h3>
                 </div>
-              </div>
+              </Link>
             </div>
             <div>
               <h3>Promotional :</h3>
