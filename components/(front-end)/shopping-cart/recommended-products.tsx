@@ -17,7 +17,7 @@ export default function RecommendedProducts({
         description=""
         products={products}
         buttonTitle="View More"
-        className="lg:grid-cols-5 gap-y-2"
+        className="lg:grid-cols-4 gap-y-2"
       />
     </div>
   );
