@@ -29,9 +29,10 @@ interface PaginationData {
 
 interface PageProps {
   category: Category | null;
+  slug?: string | null;
 }
 
-export default function CategoryDetailed({ category }: PageProps) {
+export default function CategoryDetailed({ category, slug }: PageProps) {
   // Move all hooks to the top level
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function CategoryDetailed({ category }: PageProps) {
     current.set('page', page.toString());
     const search = current.toString();
     const query = search ? `?${search}` : '';
+
     router.push(`${window.location.pathname}${query}`);
   };
 
@@ -117,6 +119,7 @@ export default function CategoryDetailed({ category }: PageProps) {
 
   return (
     <FilterComponent
+      slug={slug}
       products={products}
       pagination={paginationData}
       onPageChange={handlePageChange}

@@ -16,6 +16,7 @@ interface FilterComponentProps {
   pagination: PaginationData;
   onPageChange: (page: number) => void;
   loading: boolean;
+  slug?: string | null;
 }
 
 export default function FilterComponent({
@@ -23,12 +24,13 @@ export default function FilterComponent({
   pagination,
   onPageChange,
   loading,
+  slug,
 }: FilterComponentProps) {
   return (
     <div className="container mx-auto px-4 py-8">
       <Card className="mb-6">
         <CardContent className="py-4">
-          <Sorting />
+          <Sorting slug={slug} />
         </CardContent>
       </Card>
       <div className="flex flex-col md:flex-row gap-6">

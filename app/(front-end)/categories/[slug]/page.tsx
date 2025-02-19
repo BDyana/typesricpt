@@ -41,7 +41,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <div>
       <Suspense fallback={<CategoryFallback />}>
-        <CategoryDetailed category={category as any} />
+        <CategoryDetailed category={category as any} slug={slug} />
 
         <div>
           <TrendingDeals
