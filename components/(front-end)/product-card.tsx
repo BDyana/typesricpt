@@ -39,7 +39,7 @@ export default function ProductCard({
   const cartItems = useAppSelector((state) => state.cart);
   const favoriteItems = useAppSelector((state) => state.favorite);
   const RECENTLY_VIEWED_KEY = 'recently_viewed_products';
-  const MAX_RECENT_PRODUCTS = 10;
+  const MAX_RECENT_PRODUCTS = 6;
 
   // Check if product is already in cart
   const isInCart = cartItems?.some((item: any) => item.id === product.id);

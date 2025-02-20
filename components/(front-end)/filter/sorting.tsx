@@ -51,15 +51,15 @@ export default function Sorting({ slug }: { slug?: string | null }) {
           .join(' ')}
       </h2>
       <div className="flex items-center space-x-3">
-        <p className="text-sm">Sort by:</p>
+        <p className="text-sm">Sort by :</p>
         <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="w-[200px] justify-between">
+            <Button variant="outline" className="w-[160px] justify-between">
               {activeSortTitle}
               <ChevronDown className="h-4 w-4 opacity-50" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-[200px]">
+          <DropdownMenuContent className="w-[160px]">
             {sortingLinks.map((link, i) => (
               <DropdownMenuItem key={i} asChild>
                 <Link

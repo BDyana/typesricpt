@@ -38,9 +38,10 @@ export default function PriceFilter() {
 
   return (
     <Card className="w-full bg-transparent shadow-none border-none">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-2xl font-bold">Filter</CardTitle>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-0 py-0 pb-1">
+        <CardTitle className="text-xl font-bold">Filter</CardTitle>
         <Button
+          className="h-8"
           onClick={() => router.push(`/search?search=${search}`)}
           variant="outline"
           size="sm"
@@ -48,8 +49,8 @@ export default function PriceFilter() {
           Reset
         </Button>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-2">
+      <CardContent className="p-0">
+        <div>
           {priceRanges.map((range, i) => {
             const isActive =
               (range.min && range.min.toString() === minParam) ||
@@ -71,16 +72,16 @@ export default function PriceFilter() {
               <Link
                 key={i}
                 href={linkHref}
-                className={`flex items-center space-x-2 p-2 rounded-md transition-colors ${
+                className={`flex items-center space-x-2 py-1 rounded-md transition-colors ${
                   isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'hover:bg-muted'
+                    ? 'font-semibold py-1 p-0'
+                    : 'hover:font-semibold'
                 }`}
               >
                 {isActive ? (
-                  <Check className="w-4 h-4" />
+                  <Circle fill="#000000" className="w-3 h-3" />
                 ) : (
-                  <Circle className="w-4 h-4" />
+                  <Circle className="w-3 h-3" />
                 )}
                 <span className="text-sm">{range.display}</span>
               </Link>
@@ -88,7 +89,7 @@ export default function PriceFilter() {
           })}
         </div>
 
-        <Separator className="my-6" />
+        <Separator className="my-4" />
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-2 gap-2">
             <div>

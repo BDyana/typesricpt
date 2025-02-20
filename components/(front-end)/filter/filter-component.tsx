@@ -33,7 +33,7 @@ export default function FilterComponent({
           <Sorting slug={slug} />
         </CardContent>
       </Card>
-      <div className="flex flex-col md:flex-row gap-6">
+      <div className="flex flex-col md:flex-row gap-3">
         <Card className="md:w-[20%] flex-shrink-0 h-fit">
           <CardContent className="p-2">
             <Filters />
@@ -48,7 +48,7 @@ export default function FilterComponent({
             </span>
           ) : (
             <FilteredProducts
-              className="lg:grid-cols-4 gap-y-3"
+              className="lg:grid-cols-4"
               products={products}
               pagination={pagination}
               onPageChange={onPageChange}
