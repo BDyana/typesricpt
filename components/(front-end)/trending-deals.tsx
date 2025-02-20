@@ -14,13 +14,13 @@ export default function TrendingDeals({
 }: IProps) {
   return (
     <div className="w-full bg-white">
-      <div className={cn('w-full shadow-md py-4', className)}>
+      <div className={cn('w-full shadow-md py-2', className)}>
         <h2 className="text-center text-xl font-bold text-white">
           Trending Deals
         </h2>
       </div>
-      <div className="container mx-auto px-0 md:px-4 py-8">
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+      <div className="container mx-auto p-0 py-4">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
           {categories
             ?.slice(0, 12)
             .filter((category) => category.products.length >= 0)
