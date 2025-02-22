@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ProductBannerOne() {
     return (
-        <div className="grid grid-cols-12 lg:gap-4 gap-2 my-7">
+        <div className="grid grid-cols-12 lg:gap-4 gap-2 my-6">
             <Link href="https://www.bdyana.com/categories/food-supplements" className="lg:col-span-4 col-span-6">
                 <Image 
                     src="/Karkuma-food-banner.png" // Update the path to start with "/"

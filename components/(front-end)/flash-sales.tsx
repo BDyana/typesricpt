@@ -82,7 +82,7 @@ const FlashSales: React.FC<FlashSalesProps> = ({
 
   return (
     <section
-      className="flex flex-col gap-3 w-full min-h-[50%] bg-white mt-5"
+      className="flex flex-col gap-3 w-full min-h-[50%] bg-white"
       aria-label="Flash Sales"
     >
       <FlashSalesHeader />

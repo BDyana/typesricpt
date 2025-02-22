@@ -34,7 +34,7 @@ export default function FilterComponent({
         </CardContent>
       </Card>
       <div className="flex flex-col md:flex-row gap-3">
-        <Card className="md:w-[20%] flex-shrink-0 h-fit">
+        <Card className="md:w-[200px] flex-shrink-0 h-fit">
           <CardContent className="p-2">
             <Filters />
           </CardContent>
@@ -48,7 +48,7 @@ export default function FilterComponent({
             </span>
           ) : (
             <FilteredProducts
-              className="lg:grid-cols-4"
+              className="lg:grid-cols-5"
               products={products}
               pagination={pagination}
               onPageChange={onPageChange}

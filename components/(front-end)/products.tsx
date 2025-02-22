@@ -20,7 +20,7 @@ export default function Products({
   className = 'lg:grid-cols-6',
 }: IProps) {
   return (
-    <div className="lg:pt-8 pt-6 pb-4">
+    <div className="py-6">
       <div className="flex pb-3 justify-between items-center">
         <div>
           <h2 className="text-xl font-bold">{title}</h2>

@@ -36,7 +36,7 @@ export default function CategoryGrid({ data }: IProps) {
   }
 
   return (
-    <div className="border rounded-sm overflow-hidden mb-4">
+    <div className="border rounded-sm overflow-hidden">
       <div className="pt-2 pl-2 flex justify-between items-center border-b border-gray-200">
         <h2 className="pl-3 pb-2 pt-0.5 font-semibold">
           Shop By Category
@@ -54,7 +54,7 @@ export default function CategoryGrid({ data }: IProps) {
           <Link
             key={category.id}
             href={`/categories/${category.slug}`}
-            className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-3.5 lg:pb-2.5"
+            className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-4 lg:pb-3"
           >
             <Image
               width={500}

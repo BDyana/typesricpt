@@ -122,8 +122,8 @@ export default function ProductCard({
 
   return (
     <div
-      style={{ height: '265px' }}
-      className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden border border-gray-100 hover:shadow relative"
+      style={{ height: '280px' }}
+      className="mb-1 lg:mb-2 lg:mx-1 mx-0.3 bg-white overflow-hidden hover:border-b relative"
     >
       <button
         onClick={handleToggleFavorite}
@@ -142,7 +142,7 @@ export default function ProductCard({
         href={`/products/${product.slug}`}
         passHref
       >
-        <div className="overflow-hidden h-[160px]">
+        <div className="overflow-hidden h-[180px]">
           <Image
             src={product.imageUrl}
             alt={product.description || siteConfig.name}
@@ -152,7 +152,7 @@ export default function ProductCard({
           />
         </div>
       </Link>
-      <div className="px-1 lg:px-2">
+      <div className="">
         <Link
           onClick={handleProductClick}
           prefetch={true}

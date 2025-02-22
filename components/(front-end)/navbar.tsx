@@ -31,7 +31,7 @@ export default function Navbar() {
         <Announcement />
       </div>
       <div className="bg-white shadow sticky top-0 z-40 w-full backdrop-blur-md">
-        <div className="container flex items-center justify-between lg:pt-3.5 pt-0 lg:px-0 px-3 max-w-6xl gap-6 mx-auto">
+        <div className="lg:w-[1185px] container flex items-center justify-between lg:pt-3.5 pt-0 px-2 gap-6 mx-auto">
           {/* Logo */}
           <Link className="" href="/">
             <Image
@@ -39,7 +39,7 @@ export default function Navbar() {
               alt={siteConfig.description || siteConfig.name}
               width={400}
               height={400}
-              className="md:w-32 w-24 mt-1"
+              className="md:w-36 w-28 mt-1"
             />
           </Link>
 
@@ -81,7 +81,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-        <div className="container mx-auto mt-1 pb-2 px-3 md:px-2">
+        <div className="container mx-auto mt-1 pb-2 px-2">
           <div className="flex md:hidden mx-auto">
             <div className="flex overflow-hidden w-full">
               <SearchForm />
