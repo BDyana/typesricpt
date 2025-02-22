@@ -22,7 +22,7 @@ const SegoeUI = localFont({
 });
 
 export const metadata = {
-  metadataBase: new URL('https://Kyajastoreug.com'),
+  metadataBase: new URL('https://bdyana.com'),
   title: {
     default: 'BDyana | Where Trends Are Born',
     template: '%s | BDyana',
