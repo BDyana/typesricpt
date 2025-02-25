@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const max = request.nextUrl.searchParams.get('max');
     const categoryId = request.nextUrl.searchParams.get('categoryId');
     const page = parseInt(request.nextUrl.searchParams.get('page') || '1', 10);
-    const pageSize = 10;
+    const pageSize = 40;
 
     // Validate `page`
     if (isNaN(page) || page <= 0) {
