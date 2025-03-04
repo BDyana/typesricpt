@@ -57,18 +57,18 @@ export default function ProductCard({
 
     // Get existing items
     const existingItems = JSON.parse(
-      localStorage.getItem(RECENTLY_VIEWED_KEY) || '[]',
+      localStorage.getItem(RECENTLY_VIEWED_KEY) || '[]'
     );
 
     // Remove the product if it already exists (to move it to the front)
     const filteredItems = existingItems.filter(
-      (id: string) => id !== product.id,
+      (id: string) => id !== product.id
     );
 
     // Add the current product to the beginning
     const updatedItems = [product.id, ...filteredItems].slice(
       0,
-      MAX_RECENT_PRODUCTS,
+      MAX_RECENT_PRODUCTS
     );
 
     // Save back to localStorage
@@ -99,7 +99,9 @@ export default function ProductCard({
     dispatch(addToCart(cartItem as any));
     toast.success('Product added successfully');
   }
-
+  const loaderProp = ({ src }: any) => {
+    return src;
+  };
   function handleToggleFavorite() {
     if (isInFavorite) {
       dispatch(removeFromFavorite(product.id));
@@ -149,6 +151,7 @@ export default function ProductCard({
             width={350}
             height={350}
             className="w-full object-contain h-full transition-transform duration-300 hover:scale-110"
+            loader={loaderProp}
           />
         </div>
       </Link>
@@ -178,13 +181,13 @@ export default function ProductCard({
                 <h5
                   className={cn(
                     'bg-[#fef3e9] text-[#f68b1e] p-1 inline',
-                    className,
+                    className
                   )}
                 >
                   -
                   {calculateDiscountPercentage(
                     product?.productPrice,
-                    product?.salePrice,
+                    product?.salePrice
                   )}
                   %
                 </h5>
