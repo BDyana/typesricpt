@@ -19,12 +19,15 @@ export default function RecentlyViewedProducts() {
       }
 
       try {
-        // Replace this with your actual API call to fetch products by IDs
+        // Fetch products and filter out null/undefined results
         const fetchedProducts = await Promise.all(
-          recentIds.map((id) => getProductById(id)),
+          recentIds.map(async (id) => {
+            const product = await getProductById(id);
+            return product ?? null; // Ensure we don't pass undefined
+          })
         );
 
-        setProducts(fetchedProducts);
+        setProducts(fetchedProducts.filter(Boolean)); // Remove null values
       } catch (error) {
         console.error('Error fetching recently viewed products:', error);
       } finally {
@@ -35,7 +38,7 @@ export default function RecentlyViewedProducts() {
     fetchRecentlyViewed();
   }, []);
 
-  if (products.length === 0) {
+  if (!products || products.length === 0) {
     return null;
   }
 
@@ -43,9 +46,9 @@ export default function RecentlyViewedProducts() {
     <section className="py-4">
       <h2 className="text-xl font-semibold mb-4">Recently Viewed</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+        {products.map((product) =>
+          product ? <ProductCard key={product.id} product={product} /> : null
+        )}
       </div>
     </section>
   );

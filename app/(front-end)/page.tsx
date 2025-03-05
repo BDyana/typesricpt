@@ -4,12 +4,12 @@ import { type Banner, type Category } from '@prisma/client';
 // Action imports
 import { getBanners } from '@/actions/banners';
 import { getAllCategories } from '@/actions/categories';
-import { getFlashSaleProducts, getLatestProducts } from '@/actions/products';
-
+import { getFlashSaleProducts, getLatestProducts, getSponsoredProducts } from '@/actions/products';
 // Component imports
 import Hero from '@/components/(front-end)/hero';
 import Products from '@/components/(front-end)/products';
 import FlashSales from '@/components/(front-end)/flash-sales';
+import SponsoredOne from '@/components/(front-end)/sponsored-one';
 import CategoryGrid from '@/components/(front-end)/category-grid';
 import CategoryList from '@/components/(front-end)/category-list';
 import ProductBannerOne from '@/components/(front-end)/product-banner-one';
@@ -35,15 +35,17 @@ interface PageData {
   banners: Banner[];
   latestProducts: any[]; // Replace 'any' with your product type
   flashSales: any[]; // Replace 'any' with your product type
+  sponsoredOne: any[]; // Replace 'any' with your product type
 }
 
 async function getPageData(): Promise<PageData> {
-  const [categoriesResponse, bannersData, latestProducts, flashSales] =
+  const [categoriesResponse, bannersData, latestProducts, flashSales, sponsoredOne] =
     await Promise.all([
       getAllCategories(),
       getBanners(),
       getLatestProducts(12),
       getFlashSaleProducts(),
+      getSponsoredProducts(),
     ]);
 
   const categories2 = categoriesResponse?.data ?? [];
@@ -59,11 +61,12 @@ async function getPageData(): Promise<PageData> {
     banners: bannersData?.data ?? [],
     latestProducts: latestProducts ?? [],
     flashSales: flashSales ?? [],
+    sponsoredOne: sponsoredOne ?? [],
   };
 }
 
 const Home: FC = async () => {
-  const { categories, banners, latestProducts, flashSales, categories2 } =
+  const { categories, banners, latestProducts, flashSales, categories2, sponsoredOne } =
     await getPageData();
 
   return (
@@ -81,6 +84,11 @@ const Home: FC = async () => {
           />
         </Suspense>
 
+        {sponsoredOne.length >= 1 && (
+          <Suspense>
+            <SponsoredOne products={sponsoredOne} />
+          </Suspense>
+        )}
         {flashSales.length >= 6 && (
           <Suspense>
             <FlashSales products={flashSales} />

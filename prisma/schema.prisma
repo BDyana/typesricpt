@@ -123,6 +123,7 @@ model Product {
   qty            Int?
   productLeft    Int?
   isFlashSale    Boolean   @default(false)
+  isSponsoredOne Boolean   @default(false)
   tags           String[]
   comments       Comment[]
   reviews        Review[]

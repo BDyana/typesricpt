@@ -65,6 +65,7 @@ export default function ProductForm({
     defaultValues: {
       isActive: false,
       isFlashSale: false,
+      isSponsoredOne: false,
       isWholesale: false,
       ...initialData,
     },
@@ -367,6 +368,23 @@ export default function ProductForm({
                     <FormItem className="flex flex-row justify-center rounded-lg border-none bg-transparent gap-3 items-center">
                       <Label htmlFor="isFlashSale">
                         Flash Sale?
+                      </Label>
+                      <FormControl>
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="isSponsoredOne"
+                  render={({ field }) => (
+                    <FormItem className="flex flex-row justify-center rounded-lg border-none bg-transparent gap-3 items-center">
+                      <Label htmlFor="isSponsoredOne">
+                        Sponsored 1 ?
                       </Label>
                       <FormControl>
                         <Switch

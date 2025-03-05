@@ -102,6 +102,25 @@ export const getLatestProducts = async (pageSize?: number) => {
   }
 };
 
+export async function getSponsoredProducts() {
+  try {
+    // Fetch the product with comments
+    const products = await db.product.findMany({
+      where: {
+        isSponsoredOne: true,
+        isActive: true,
+      },
+      include: {
+        comments: true,
+      },
+    });
+
+    return products;
+  } catch (error) {
+    console.error('Error while fetching product by slug', error);
+    throw new Error('Error while fetching product by slug');
+  }
+}
 export async function getFlashSaleProducts() {
   try {
     // Fetch the product with comments

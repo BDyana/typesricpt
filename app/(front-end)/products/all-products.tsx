@@ -40,10 +40,12 @@ function SearchBarFallback() {
 
 export default function AllProducts({
   isFlashSale,
+  isSponsoredOne,
   className,
   products,
 }: {
   isFlashSale?: boolean;
+  isSponsoredOne?: boolean;
   className?: string;
   products?: [];
 }) {
@@ -51,7 +53,8 @@ export default function AllProducts({
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
-  const pageSize = isFlashSale ? 100 : 12;
+  const pageSize = isFlashSale || isSponsoredOne ? 100 : 12;
+
 
   // Function to fetch the latest products
   const getLatest = async () => {
@@ -107,6 +110,23 @@ export default function AllProducts({
             <h2 className="text-[#ffff] font-bold lg:tracking-normal lg:text-lg text-sm flex items-center gap-1">
               <Tag color="#ffba00" />
               Flash Sales
+            </h2>
+            <Timer />
+            <Link
+              className="text-[#fff] hidden font-bold lg:text-sm text-xs items-center gap-1"
+              href="/flash-sales"
+            >
+              SEE ALL <ChevronRight className="w-5 h-5" />
+            </Link>
+          </div>
+        ) : (
+          'All Products'
+        )}
+        {isSponsoredOne ? (
+          <div className="flex items-center justify-between bg-[#e61601] p-4">
+            <h2 className="text-[#ffff] font-bold lg:tracking-normal lg:text-lg text-sm flex items-center gap-1">
+              <Tag color="#ffba00" />
+              Sponsored
             </h2>
             <Timer />
             <Link
