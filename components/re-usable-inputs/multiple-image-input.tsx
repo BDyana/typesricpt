@@ -9,13 +9,15 @@ type ImageInputProps = {
   setImageUrls: any;
   endpoint: any;
 };
+const loaderProp = ({ src }: any) => {
+  return src;
+};
 export default function MultipleImageInput({
   title,
   imageUrls,
   setImageUrls,
   endpoint,
 }: ImageInputProps) {
-  // console.log(imageUrls);
   return (
     <Card className="overflow-hidden">
       <CardHeader>
@@ -29,6 +31,7 @@ export default function MultipleImageInput({
             height="80"
             src={imageUrls[0]}
             width="160"
+            loader={loaderProp}
           />
           <div className="grid grid-cols-3 gap-2">
             {imageUrls.map((imageUrl: string, i: number) => {
@@ -40,6 +43,7 @@ export default function MultipleImageInput({
                     height="80"
                     src={imageUrl}
                     width="80"
+                    loader={loaderProp}
                   />
                 </div>
               );

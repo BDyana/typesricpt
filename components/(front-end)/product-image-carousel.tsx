@@ -41,7 +41,9 @@ export default function ProductImageCarousel({
   const handleThumbnailClick = (index: number) => {
     setCurrentImageIndex(index);
   };
-
+  const loaderProp = ({ src }: any) => {
+    return src;
+  };
   if (productImages.length <= 0 && thumbnail) {
     return (
       <div className="col-span-4">
@@ -51,6 +53,7 @@ export default function ProductImageCarousel({
           width={580}
           height={580}
           className="w-full"
+          loader={loaderProp}
         />
       </div>
     );
@@ -66,6 +69,7 @@ export default function ProductImageCarousel({
           width={580}
           height={580}
           className="w-full object-cover"
+          loader={loaderProp}
         />
 
         {/* Navigation Buttons */}
@@ -97,6 +101,7 @@ export default function ProductImageCarousel({
             width={60}
             height={60}
             onClick={() => handleThumbnailClick(index)}
+            loader={loaderProp}
             className={`w-16 h-16 object-cover cursor-pointer 
               ${
                 index === currentImageIndex

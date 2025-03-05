@@ -1,7 +1,9 @@
 import { siteConfig } from '@/constants/site';
 import Image from 'next/image';
 import React from 'react';
-
+const loaderProp = ({ src }: any) => {
+  return src;
+};
 export default function ImageColumn({
   row,
   accessorKey,
@@ -20,6 +22,7 @@ export default function ImageColumn({
         height={200}
         src={imageUrl ?? ''}
         width={200}
+        loader={loaderProp}
       />
     </div>
   );
