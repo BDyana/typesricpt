@@ -1,13 +1,16 @@
-'use client';
-import dynamic from 'next/dynamic';
-import 'react-quill-new/dist/quill.snow.css';
+"use client";
+import dynamic from "next/dynamic";
+import "react-quill-new/dist/quill.snow.css";
+import { Quill } from "react-quill-new"; // Explicitly import Quill
 
-// Import ReactQuill type for better type checking
-
-const QuillNoSSRWrapper = dynamic(() => import('react-quill-new'), {
+const QuillNoSSRWrapper = dynamic(() => import("react-quill-new"), {
   ssr: false,
-  loading: () => <p></p>,
+  loading: () => <p>Loading...</p>,
 });
+
+// Ensure the "bullet" format is registered
+const List = Quill.import("formats/list");
+Quill.register(List, true);
 
 interface QuillEditorProps {
   label: string;
@@ -18,35 +21,34 @@ interface QuillEditorProps {
 
 export default function QuillEditor({
   label,
-  className = 'sm:col-span-2',
+  className = "sm:col-span-2",
   value,
   onChange,
 }: QuillEditorProps) {
   const modules = {
     toolbar: [
       [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      ['link', 'color', 'image'],
-      [{ 'code-block': true }],
-      ['clean'],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }], // Ensure bullet list is enabled
+      ["link", "color", "image"],
+      [{ "code-block": true }],
+      ["clean"],
     ],
   };
 
   const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'link',
-    'indent',
-    'image',
-    'code-block',
-    'color',
+    "header",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "link",
+    "indent",
+    "image",
+    "code-block",
+    "color",
   ];
 
   return (

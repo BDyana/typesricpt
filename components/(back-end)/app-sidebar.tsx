@@ -53,7 +53,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {
           title: 'View Site',
           url: '/',
-          target: '_blank',
+          target:"_blank",
           icon: Send,
           className: "font-bold text-md",
         },

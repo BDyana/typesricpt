@@ -4,7 +4,6 @@ import { generateSlug } from '@/lib/generateSlug';
 import { generateUserCode } from '@/lib/generateUserCode';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-
 import {
   Card,
   CardContent,
@@ -16,9 +15,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Textarea } from '@/components/ui/textarea';
-
 import MultipleImageInput from '../re-usable-inputs/multiple-image-input';
-
 import { createProduct, updateProduct } from '@/actions/products';
 import dynamic from 'next/dynamic';
 import { toast } from 'sonner';
@@ -42,7 +39,6 @@ const QuillEditor = dynamic(
     ssr: false,
   },
 );
-
 export default function ProductForm({
   categories,
   farmers,
@@ -65,18 +61,14 @@ export default function ProductForm({
   const [productcontent, setProductContent] = useState(initialContent);
   const [isFormComplete, setIsFormComplete] = useState(false);
   const [activeTab, setActiveTab] = useState('basic');
-
   const form = useForm<z.infer<any>>({
-    // resolver: zodResolver(ProductSchema),
     defaultValues: {
       isActive: false,
       isFlashSale: false,
       isWholesale: false,
-      // ...updateData,
       ...initialData,
     },
   });
-
   const {
     register,
     handleSubmit,
@@ -85,12 +77,8 @@ export default function ProductForm({
     formState: { errors },
     reset,
   } = form;
-
-  // Watch all form fields
   const watchAllFields = watch();
   const isWholesale = watch('isWholesale');
-
-  // Validation function to check form completeness
   useEffect(() => {
     const validateForm = () => {
       const {
@@ -101,50 +89,28 @@ export default function ProductForm({
         salePrice,
         description,
       } = watchAllFields;
-
-      // Basic info validation
       const isBasicInfoComplete = !!(title && sku && barcode);
-
-      // Pricing validation
       const isPricingComplete = !!(productPrice && salePrice);
-      // &&
-      // (!isWholesale || (wholesalePrice && wholesaleQty));
-
-      // Inventory validation
-      // const isInventoryComplete = !!(productStock && unit);
-
-      // Media validation
       const isMediaComplete =
         productImages.length > 0 &&
-        // productImages[0] !== '/placeholder.svg';
         tags.length > 0;
-
-      // Description validation
       const isDescriptionComplete = !!(productcontent && description);
-
-      // Set form completeness
       setIsFormComplete(
         isBasicInfoComplete &&
           isPricingComplete &&
-          // isInventoryComplete &&
           isMediaComplete &&
           isDescriptionComplete,
       );
     };
-
-    validateForm();
+  validateForm();
   }, [watchAllFields, productImages, tags, productcontent]);
-
-  // When setting tags
   const handleTagsChange = (tagsInput: string) => {
-    // Split the input string by comma and trim each tag
     const tagsArray = tagsInput
       .split(',')
       .map((tag) => tag.trim())
       .filter((tag) => tag !== '');
     setTags(tagsArray);
   };
-
   const [selectedCategory, setSelectedCategory] = useState<any>(() => {
     const initialCategory = categories?.find(
       (category: any) => category.id === initialData?.categoryId,
@@ -153,7 +119,6 @@ export default function ProductForm({
       ? { value: initialCategory.id, label: initialCategory.title }
       : { label: '', value: '' };
   });
-
   const [selectedFarmer, setSelectedFarmer] = useState<any>(() => {
     const initialFarmer = farmers?.find(
       (farmer: any) => farmer.id === initialData?.userId,
@@ -162,13 +127,8 @@ export default function ProductForm({
       ? { value: initialFarmer.id, label: initialFarmer.title }
       : { label: '', value: '' };
   });
-
-  // console.log('selectedFarmer;', selectedFarmer);
-  // console.log('selectedcategory;', selectedCategory);
   async function onSubmit(data: any, event: React.BaseSyntheticEvent) {
-    // Prevent default form submission
     event.preventDefault();
-
     const slug = generateSlug(data.title);
     const productCode = generateUserCode('LLP', data.title);
     data.slug = slug;
@@ -187,14 +147,10 @@ export default function ProductForm({
     data.userId = selectedFarmer.value;
     data.wholesalePrice;
     data.imageUrl = productImages?.[0];
-
     setLoading(true);
     try {
       if (id) {
-        // data.id = id;
-        // Update logic here
         const res = await updateProduct(id, data);
-
         if (res.status === 200) {
           toast.success(`${res.message}`);
           location.reload();
@@ -208,13 +164,10 @@ export default function ProductForm({
           reset();
           setTags(initialData);
         } else {
-          // Handle any unexpected status codes
           toast.error('An unexpected error occurred');
         }
       } else {
-        // Create logic here
         const res = await createProduct(data);
-
         if (res.status === 201) {
           toast.success(`${res.message}`);
           reset();
@@ -230,13 +183,9 @@ export default function ProductForm({
           reset();
           setTags(initialData);
         } else {
-          // Handle any unexpected status codes
           toast.error('An unexpected error occurred');
         }
       }
-
-      // Optional: redirect after successful submission
-      // router.push('/dashboard/products');
     } catch (error) {
       console.error('Error submitting form:', error);
     } finally {
@@ -258,14 +207,6 @@ export default function ProductForm({
         />
         <Card>
           <CardHeader>
-            {/* <CardTitle>
-              {id
-                ? 'This form will be used for updating a product'
-                : 'This form will be used for creating a product'}
-            </CardTitle>
-            <CardDescription>
-              * Enter the details for your product below.
-            </CardDescription> */}
           </CardHeader>
           <CardContent>
             <Tabs
@@ -311,21 +252,6 @@ export default function ProductForm({
                     errors={errors}
                     type="number"
                   />
-                  {/* <CustomText
-                    className="text-black"
-                    label="Product Stock"
-                    name="productStock"
-                    register={register}
-                    errors={errors}
-                    type="number"
-                  />
-                  <CustomText
-                    className="text-black"
-                    label="Unit (e.g., Kilograms)"
-                    name="unit"
-                    register={register}
-                    errors={errors}
-                  /> */}
                   <CustomText
                     className="text-black"
                     label="Product SKU"
@@ -333,13 +259,6 @@ export default function ProductForm({
                     register={register}
                     errors={errors}
                   />
-                  {/* <CustomText
-                    className="text-black"
-                    label="Product Barcode"
-                    name="barcode"
-                    register={register}
-                    errors={errors}
-                  /> */}
                 </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="space-y-4">
@@ -430,7 +349,7 @@ export default function ProductForm({
                   name="isActive"
                   render={({ field }) => (
                     <FormItem className="flex flex-row justify-center rounded-lg border-none bg-transparent gap-3 items-center">
-                      <Label htmlFor="isActive">Publish your product</Label>
+                      <Label htmlFor="isActive">Publish</Label>
                       <FormControl>
                         <Switch
                           checked={field.value}
@@ -447,7 +366,7 @@ export default function ProductForm({
                   render={({ field }) => (
                     <FormItem className="flex flex-row justify-center rounded-lg border-none bg-transparent gap-3 items-center">
                       <Label htmlFor="isFlashSale">
-                        Is this product Flash Sale?
+                        Flash Sale?
                       </Label>
                       <FormControl>
                         <Switch
