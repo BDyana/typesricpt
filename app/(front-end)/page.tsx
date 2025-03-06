@@ -89,7 +89,7 @@ const Home: FC = async () => {
             <SponsoredOne products={sponsoredOne} />
           </Suspense>
         )}
-        {flashSales.length >= 6 && (
+        {flashSales.length >= 1 && (
           <Suspense>
             <FlashSales products={flashSales} />
           </Suspense>
