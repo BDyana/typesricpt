@@ -1,40 +1,32 @@
 'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { MoveRight } from 'lucide-react';
 import { Category } from '@prisma/client';
 import React, { useState, useEffect } from 'react';
 import { siteConfig } from '@/constants/site';
-
 interface IProps {
   data: (Category & { products: any[] })[] | null | undefined;
 }
-
+const loaderProp = ({ src }: any) => {
+  return src;
+};
 export default function CategoryGrid({ data }: IProps) {
   const [categories, setCategories] = useState<Category[]>([]);
-
   useEffect(() => {
-    // Client-side logic to filter and randomize categories
     if (data) {
       const filteredCategories = data.filter(
         (category: Category & { products: any[] }) =>
           category.products.length > 0,
       );
-
-      // Create a stable random sort using a seed
       const shuffled = filteredCategories.sort(() => 0.5 - Math.random());
       const randomCategories = shuffled.slice(0, 24);
-
       setCategories(randomCategories);
     }
   }, [data]);
-
-  // Render nothing on initial server render
   if (typeof window === 'undefined' || categories.length === 0) {
     return null;
   }
-
   return (
     <div className="border rounded-sm overflow-hidden">
       <div className="pt-2 pl-2 flex justify-between items-center border-b border-gray-200">
@@ -62,6 +54,7 @@ export default function CategoryGrid({ data }: IProps) {
               className="lg:w-14 w-11 lg:h-14 h-11 rounded-lg object-cover m-auto"
               src={category.imageUrl as string}
               alt={category.title || siteConfig.name}
+              loader={loaderProp}
             />
             <h4 className="lg:text-sm text-xs dark:text-slate-200 mt-2.5 line-clamp-1">
               {category.title}
