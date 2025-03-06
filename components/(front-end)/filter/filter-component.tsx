@@ -39,7 +39,7 @@ export default function FilterComponent({
             <Filters />
           </CardContent>
         </Card>
-        <div className="flex-grow">
+        <div className="flex-grow bg-white rounded border border-gray-200 p-2">
           {loading ? (
             <Loader />
           ) : products.length === 0 ? (

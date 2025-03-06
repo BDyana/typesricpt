@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { Loader, Star, ThumbsUp } from 'lucide-react';
@@ -15,7 +14,6 @@ import {
 import { Card, CardContent } from '../ui/card';
 import { toast } from 'sonner';
 import { siteConfig } from '@/constants/site';
-
 interface Review {
   id: string;
   user: {
@@ -27,22 +25,18 @@ interface Review {
   createdAt: string;
   helpfulCount: number;
 }
-
 interface ProductReviewsProps {
   productId: string;
 }
-
 const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [newReview, setNewReview] = useState({ rating: 0, comment: '' });
   const { data: session } = useSession();
   const [loading, setLoading] = useState<boolean>(false);
   const [thumbsLoading, setThumbsLoading] = useState<boolean>(false);
-
   useEffect(() => {
     fetchReviews();
   }, [productId]);
-
   const fetchReviews = async () => {
     const response = await getAllReviewsByProductId(productId);
     if (response.status === 201) {
@@ -50,12 +44,10 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
       setReviews(data as any);
     }
   };
-
   const averageRating =
     reviews.length > 0
       ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
       : 0;
-
   const ratingCounts = reviews.reduce(
     (acc, review) => {
       acc[review.rating] = (acc[review.rating] || 0) + 1;
@@ -63,7 +55,6 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
     },
     {} as Record<number, number>,
   );
-
   const handleSubmitReview = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -72,13 +63,10 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
         toast('You must be logged in to submit a review');
         return;
       }
-
       if (newReview.rating === 0) {
         toast.error('You must at least choose a rating a swell');
       }
-
       const response = await createReview(productId, newReview);
-
       if (response.status === 201) {
         const newReviewData = response?.data;
         setReviews([newReviewData as any, ...reviews]);
@@ -90,12 +78,10 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
       setThumbsLoading(false);
     }
   };
-
   const handleHelpful = async (reviewId: string) => {
     try {
       setLoading(true);
       const response = await updateReview(reviewId);
-
       if (response.status === 201) {
         const updatedReview = response?.data;
         setReviews(
@@ -112,12 +98,10 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
       setLoading(false);
     }
   };
-
   return (
     <Card className="my-4 shadow-sm rounded-sm">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Customer Reviews</h2>
-
         <div className="flex flex-col md:flex-row gap-8 mb-8">
           <div className="flex-1">
             <div className="flex items-center mb-4">
@@ -141,7 +125,6 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
               {reviews.length} total ratings
             </p>
           </div>
-
           <div className="flex-1">
             {[5, 4, 3, 2, 1].map((rating) => (
               <div key={rating} className="flex items-center mb-2">
@@ -158,7 +141,6 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
             ))}
           </div>
         </div>
-
         <div>
           {reviews.map((review) => (
             <div
@@ -209,7 +191,6 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
             </div>
           ))}
         </div>
-
         {session && (
           <div className="mb-8">
             <h3 className="text-xl font-semibold mb-4">Write a Review</h3>
@@ -260,5 +241,4 @@ const ProductReviews: React.FC<ProductReviewsProps> = ({ productId }) => {
     </Card>
   );
 };
-
 export default ProductReviews;

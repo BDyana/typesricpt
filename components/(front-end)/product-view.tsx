@@ -41,7 +41,7 @@ export default function ProductView({ product, category }: IProps) {
         <Breadcrumb />{' '}
       </div>
       <div className="grid grid-cols-12 gap-4">
-        <div className="bg-white col-span-12 md:col-span-9 md:flex border border-gray-100 rounded-sm pb-5">
+        <div className="bg-white col-span-12 md:col-span-9 md:flex border border-gray-200 rounded pb-5">
           <div className="w-full md:w-5/12">
             <ProductImageCarousel
               productImages={product.productImages}
@@ -164,8 +164,8 @@ export default function ProductView({ product, category }: IProps) {
             </div> */}
           </div>
         </div>
-        <div className="col-span-12 md:col-span-5 lg:col-span-3 sm:block bg-white overflow-hidden hidden">
-          <div className="mb-3 border bg-gray-50 border-gray-200 rounded-sm dark:bg-gray-700 dark:border-gray-700 p-2">
+        <div className="col-span-12 md:col-span-5 lg:col-span-3 sm:block bg-white overflow-hidden hidden border rounded border-gray-200">
+          <div className="mb-3 bg-gray-50 rounded-sm dark:bg-gray-700 dark:border-gray-700 p-2">
             <h4>Sold by :</h4>
             <Link href="" className="font-medium">
               BDyana Official
