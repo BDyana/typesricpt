@@ -1,10 +1,8 @@
 'use client';
-
 import { Product } from '@prisma/client';
 import { Button } from '../ui/button';
 import ProductCard from './product-card';
 import { cn } from '@/lib/utils';
-
 interface IProps {
   title: string;
   description: string;
@@ -20,8 +18,8 @@ export default function Products({
   className = 'lg:grid-cols-6',
 }: IProps) {
   return (
-    <div className="py-6">
-      <div className="flex pb-3 justify-between items-center">
+    <div className="my-4 bg-white rounded">
+      <div className="p-2 flex justify-between items-center">
         <div>
           <h2 className="text-xl font-bold">{title}</h2>
           <h4>{description}</h4>
@@ -31,7 +29,7 @@ export default function Products({
       <div
         className={cn(
           className,
-          'grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 mt-1.5',
+          'grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 p-1',
         )}
       >
         {products.map((product) => (

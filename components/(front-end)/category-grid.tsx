@@ -28,7 +28,7 @@ export default function CategoryGrid({ data }: IProps) {
     return null;
   }
   return (
-    <div className="border rounded-sm overflow-hidden">
+    <div className="border border-gray-200 rounded overflow-hidden bg-white">
       <div className="pt-2 pl-2 flex justify-between items-center border-b border-gray-200">
         <h2 className="pl-3 pb-2 pt-0.5 font-semibold">
           Shop By Category

@@ -59,7 +59,7 @@ const Timer: React.FC<TimerProps> = ({
 };
 
 const FlashSalesHeader: React.FC = () => (
-  <div className="flex items-center justify-between bg-[#e61601] p-2">
+  <div className="flex items-center justify-between bg-[#e61601] p-2 rounded-t">
     <h2 className="text-white font-bold lg:tracking-normal lg:text-lg text-sm flex items-center gap-1">
       <Tag color="#ffba00" />
       Flash Sales
@@ -86,7 +86,7 @@ const FlashSales: React.FC<FlashSalesProps> = ({
       aria-label="Flash Sales"
     >
       <FlashSalesHeader />
-      <div className="grid md:grid-cols-4 grid-cols-2 lg:grid-cols-6 py-2 border-t-0 border-2 border-[#e61601]">
+      <div className="grid md:grid-cols-4 grid-cols-2 lg:grid-cols-6 p-1 border-t-0 border-2 border-[#e61601] rounded-b">
         {displayProducts.map((product) => (
           <ProductCard
             className="bg-[#fce7e5] text-[#e61601]"

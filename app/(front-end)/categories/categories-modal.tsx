@@ -1,5 +1,4 @@
 'use client';
-
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { siteConfig } from '@/constants/site';
@@ -7,25 +6,23 @@ import { ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
+const loaderProp = ({ src }: any) => {
+  return src;
+};
 interface Category {
   slug: string;
   title: string;
   products: any[];
   imageUrl: string;
 }
-
 interface CategoriesDisplayProps {
   categories: Category[] | any;
 }
-
 export function CategoriesModal({ categories }: CategoriesDisplayProps) {
   const [shuffledCategories, setShuffledCategories] = useState<Category[]>([]);
-
   useEffect(() => {
     setShuffledCategories([...categories].sort(() => 0.5 - Math.random()));
   }, [categories]);
-
   return (
     <Card className="py-12 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
       <CardHeader className="text-center">
@@ -47,6 +44,7 @@ export function CategoriesModal({ categories }: CategoriesDisplayProps) {
                     <Image
                       width={300}
                       height={300}
+                      loader={loaderProp}
                       src={category.imageUrl}
                       className="w-14 h-14 mb-3 text-primary group-hover:text-brandColor transition-colors duration-300"
                       alt={category.title || siteConfig.name}

@@ -43,7 +43,7 @@ export default function RecentlyViewedProducts() {
   }
 
   return (
-    <section className="py-4">
+    <section className="p-2 my-4 rounded bg-white">
       <h2 className="text-xl font-semibold mb-4">Recently Viewed</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
         {products.map((product) =>

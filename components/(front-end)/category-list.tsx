@@ -1,9 +1,7 @@
 'use client';
-
 import Link from 'next/link';
 import { MoveRight } from 'lucide-react';
 import CategoryCarousel from './category-carousel';
-
 interface IProps {
   category: any;
   isMarketPage?: boolean;
@@ -27,13 +25,11 @@ export default function CategoryList({
     typeof category.id === 'number'
       ? category.id % colors.length
       : category.title.length % colors.length;
-
   const categoryColor = colors[colorIndex];
-
   return (
-    <div className="bg-white border border-gray-200 overflow-hidden">
+    <div className="overflow-hidden">
       <div
-        className={`${categoryColor} py-1 pl-2 flex justify-between items-center`}
+        className={`${categoryColor} py-1 pl-2 flex justify-between items-center rounded-t`}
       >
         <h2 className="font-bold text-white">{category.title}</h2>
         <Link
@@ -43,7 +39,7 @@ export default function CategoryList({
           <MoveRight className="size-8 text-white" strokeWidth={1.5} />
         </Link>
       </div>
-      <div className="bg-white pt-2 px-1 pb-0">
+      <div className="bg-white pt-2 px-1 pb-0 border-t-0 border border-gray-200 rounded-b">
         <CategoryCarousel
           isMarketPage={isMarketPage}
           products={category.products}

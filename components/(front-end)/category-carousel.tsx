@@ -38,6 +38,7 @@ export default function CategoryCarousel({
     <Carousel
       swipeable={true}
       draggable={false}
+      minimumTouchDrag={50}
       showDots={false}
       responsive={responsive}
       ssr={true}
@@ -45,8 +46,8 @@ export default function CategoryCarousel({
       autoPlay={false}
       autoPlaySpeed={2000}
       keyBoardControl={true}
-      customTransition="transform 400ms ease-in-out"
-      transitionDuration={500}
+      customTransition="transform 300ms ease-in-out"
+      transitionDuration={300}
       containerClass="carousel-container"
       removeArrowOnDeviceType={['tablet', 'mobile']}
       dotListClass="custom-dot-list-style"
