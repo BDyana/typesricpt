@@ -24,9 +24,9 @@ export function CategoriesModal({ categories }: CategoriesDisplayProps) {
     setShuffledCategories([...categories].sort(() => 0.5 - Math.random()));
   }, [categories]);
   return (
-    <Card className="py-12 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+    <Card className="py-8 bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
       <CardHeader className="text-center">
-        <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-brandColor bg-clip-text text-transparent">
+        <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-brandColor bg-clip-text text-transparent mb-6 ">
           Explore Our Categories
         </CardTitle>
       </CardHeader>
@@ -39,7 +39,7 @@ export function CategoriesModal({ categories }: CategoriesDisplayProps) {
               style={{ animationDelay: `${index * 50}ms` }}
             >
               <Link prefetch={true} href={`/categories/${category.slug}`}>
-                <Card className="group h-full overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105">
+                <Card className="group h-full overflow-hidden hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-4 flex flex-col items-center justify-center text-center h-full">
                     <Image
                       width={300}
