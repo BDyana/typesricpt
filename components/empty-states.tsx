@@ -34,6 +34,18 @@ export const CategoryNotFound = () => (
   </EmptyStateWrapper>
 );
 
+export const BrandNotFound = () => (
+  <EmptyStateWrapper>
+    <div className="bg-gray-100 rounded-full p-3 w-16 h-16 mx-auto">
+      <EqualApproximately className="w-10 h-10 text-gray-500" />
+    </div>
+    <h3 className="text-xl font-semibold text-gray-900">Brand Not Found</h3>
+    <p className="text-gray-600">
+      The brand you're looking for doesn't exist or might have been removed.
+    </p>
+  </EmptyStateWrapper>
+);
+
 // Component for empty category (when category exists but has no products)
 export const EmptyCategory = ({ categoryName = 'this category' }) => (
   <EmptyStateWrapper>
@@ -48,11 +60,26 @@ export const EmptyCategory = ({ categoryName = 'this category' }) => (
   </EmptyStateWrapper>
 );
 
+export const EmptyBrand = ({ brandName = 'this brand' }) => (
+  <EmptyStateWrapper>
+    <div className="bg-gray-100 rounded-full p-3 w-16 h-16 mx-auto">
+      <Package className="w-10 h-10 text-gray-500" />
+    </div>
+    <h3 className="text-xl font-semibold text-gray-900">No Products Yet</h3>
+    <p className="text-gray-600">
+      There are currently no products available in {brandName}. Please check
+      back later.
+    </p>
+  </EmptyStateWrapper>
+);
+
 // Default export that handles all cases
 const EmptyStates = {
   NoProducts: NoProductsFound,
   NoCategory: CategoryNotFound,
+  NoBrand: BrandNotFound,
   EmptyCategory: EmptyCategory,
+  EmptyBrand: EmptyBrand,
 };
 
 export default EmptyStates;

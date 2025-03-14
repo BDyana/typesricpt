@@ -198,8 +198,6 @@ export default function ProductForm({ categories, brands, farmers, initialData, 
           loading={loading}
         />
         <Card>
-          <CardHeader>
-          </CardHeader>
           <CardContent>
             <Tabs
               value={activeTab}
@@ -280,7 +278,7 @@ export default function ProductForm({ categories, brands, farmers, initialData, 
                         control={form.control}
                         name="isWholesale"
                         render={({ field }) => (
-                          <FormItem className="flex flex-row items-center justify-between rounded-md border-brandBlack border-gray-300 px-2 py-1 bg-transparent">
+                          <FormItem className="flex flex-row items-center justify-between rounded-md border-brandBlack px-2 py-1 bg-transparent">
                             <div>
                               <FormLabel className="text-base">
                                 Wholsale Availbale?
