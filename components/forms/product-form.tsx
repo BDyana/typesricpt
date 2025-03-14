@@ -4,13 +4,7 @@ import { generateSlug } from '@/lib/generateSlug';
 import { generateUserCode } from '@/lib/generateUserCode';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle,} from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -23,14 +17,7 @@ import { z } from 'zod';
 import FormSelectInput from '../re-usable-inputs/select-input';
 import TagInput from '../re-usable-inputs/tag-input';
 import CustomText from '../re-usable-inputs/text-reusable';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '../ui/form';
+import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel,} from '../ui/form';
 import FormHeader from './form-header';
 import SubmitButton from './submit-button';
 const QuillEditor = dynamic(
@@ -39,12 +26,7 @@ const QuillEditor = dynamic(
     ssr: false,
   },
 );
-export default function ProductForm({
-  categories,
-  farmers,
-  initialData,
-  editingId,
-}: any) {
+export default function ProductForm({ categories, brands, farmers, initialData, editingId,}: any) {
   const initialContent = initialData?.content ?? '';
   const initialImageUrl = initialData?.imageUrl ?? '';
   const initialTags = Array.isArray(initialData?.tags)
@@ -120,6 +102,14 @@ export default function ProductForm({
       ? { value: initialCategory.id, label: initialCategory.title }
       : { label: '', value: '' };
   });
+  const [selectedBrand, setSelectedBrand] = useState<any>(() => {
+    const initialBrand = brands?.find(
+      (brand: any) => brand.id === initialData?.brandId,
+    );
+    return initialBrand
+      ? { value: initialBrand.id, label: initialBrand.title }
+      : { label: '', value: '' };
+  });
   const [selectedFarmer, setSelectedFarmer] = useState<any>(() => {
     const initialFarmer = farmers?.find(
       (farmer: any) => farmer.id === initialData?.userId,
@@ -145,6 +135,7 @@ export default function ProductForm({
     data.qty = 1;
     data.productCode = productCode;
     data.categoryId = selectedCategory.value;
+    data.brandId = selectedBrand.value;
     data.userId = selectedFarmer.value;
     data.wholesalePrice;
     data.imageUrl = productImages?.[0];
@@ -217,7 +208,7 @@ export default function ProductForm({
               className="space-y-4"
             >
               <TabsContent value="basic" className="space-y-4">
-                <div className="grid gap-2 md:grid-cols-2">
+                <div className="grid gap-2">
                   <CustomText
                     className="text-black"
                     label="Product Title"
@@ -225,6 +216,8 @@ export default function ProductForm({
                     register={register}
                     errors={errors}
                   />
+                </div>
+                <div className="grid gap-2 md:grid-cols-2">
                   <FormSelectInput
                     label="Category"
                     options={categories?.map((category: any) => ({
@@ -234,6 +227,16 @@ export default function ProductForm({
                     option={selectedCategory}
                     setOption={setSelectedCategory}
                     href="/dashboard/categories/new"
+                  />
+                  <FormSelectInput
+                    label="Brand"
+                    options={brands?.map((brand: any) => ({
+                      value: brand.id,
+                      label: brand.title,
+                    }))}
+                    option={selectedBrand}
+                    setOption={setSelectedBrand}
+                    href="/dashboard/brands/new"
                   />
                 </div>
                 <div className="grid grid-cols-3 gap-2">

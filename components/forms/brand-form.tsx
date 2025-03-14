@@ -5,10 +5,10 @@ import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { createCategory, updateCategoryById } from '@/actions/categories';
+import { createBrand, updateBrandById } from '@/actions/brands';
 import { generateSlug } from '@/lib/generateSlug';
-import { CategoryProps } from '@/types/types';
-import { Category } from '@prisma/client';
+import { BrandProps } from '@/types/types';
+import {Brand} from '@prisma/client';
 import { toast } from 'sonner';
 import CustomTextArea from '../re-usable-inputs/custom-text-area';
 import ImageInput from '../re-usable-inputs/image-input';
@@ -20,22 +20,22 @@ export type SelectOptionProps = {
   label: string;
   value: string;
 };
-type CategoryFormProps = {
+type BrandFormProps = {
   editingId?: string | undefined;
-  initialData?: Category | undefined | null;
+  initialData?: Brand | undefined | null;
 };
 
-export default function CategoryForm({
+export default function BrandForm({
   editingId,
   initialData,
-}: CategoryFormProps) {
+}: BrandFormProps) {
   const {
     register,
     handleSubmit,
     reset,
     control,
     formState: { errors },
-  } = useForm<CategoryProps>({
+  } = useForm<BrandProps>({
     defaultValues: {
       title: initialData?.title,
       description: initialData?.description || '',
@@ -43,31 +43,30 @@ export default function CategoryForm({
     },
   });
   const router = useRouter();
-
   const [loading, setLoading] = useState(false);
   const initialImage = initialData?.imageUrl || '/placeholder.svg';
   const [imageUrl, setImageUrl] = useState(initialImage);
 
-  async function saveCategory(data: CategoryProps) {
+  async function saveBrand(data: BrandProps) {
     try {
       setLoading(true);
       data.slug = generateSlug(data.title);
       data.imageUrl = imageUrl;
 
       if (editingId) {
-        await updateCategoryById(editingId, data);
+        await updateBrandById(editingId, data);
         setLoading(false);
         toast.success('Updated Successfully!');
         reset();
-        router.push('/dashboard/categories');
+        router.push('/dashboard/brands');
         setImageUrl('/placeholder.svg');
       } else {
-        await createCategory(data);
+        await createBrand(data);
         setLoading(false);
         toast.success('Successfully Created!');
         reset();
         setImageUrl('/placeholder.svg');
-        router.push('/dashboard/categories');
+        router.push('/dashboard/brands');
       }
     } catch (error) {
       setLoading(false);
@@ -76,11 +75,11 @@ export default function CategoryForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(saveCategory)}>
+    <form onSubmit={handleSubmit(saveBrand)}>
       <FormHeader
-        href="/categories"
+        href="/brands"
         parent=""
-        title="Category"
+        title="Brand"
         editingId={editingId}
         loading={loading}
       />
@@ -89,10 +88,7 @@ export default function CategoryForm({
         <div className="lg:col-span-8 col-span-full space-y-3">
           <Card>
             <CardHeader>
-              <CardTitle>This form will be used for Category</CardTitle>
-              <CardDescription>
-                * Kindly Enter all the necessary fields as required
-              </CardDescription>
+              <h2>This form will be used for Brand</h2>
             </CardHeader>
             <CardContent>
               <div className="grid gap-6">
@@ -100,7 +96,7 @@ export default function CategoryForm({
                   <CustomText
                     register={register}
                     errors={errors}
-                    label="Category Title"
+                    label="Brand Title"
                     name="title"
                     className="text-brandBlack"
                   />
@@ -114,7 +110,7 @@ export default function CategoryForm({
                   />
                 </div>
                 <div className="flex items-center space-x-2">
-                  <Label htmlFor="isActive">Publish your Category</Label>
+                  <Label htmlFor="isActive">Publish your Brand</Label>
                   <Controller
                     name="isActive"
                     control={control}
@@ -134,19 +130,19 @@ export default function CategoryForm({
         <div className="lg:col-span-4 col-span-full ">
           <div className="grid auto-rows-max items-start gap-4 ">
             <ImageInput
-              title="Category Image"
+              title="Brand Image"
               imageUrl={imageUrl}
               setImageUrl={setImageUrl}
-              endpoint="categoryImageUploader"
+              endpoint="brandImageUploader"
             />
           </div>
         </div>
       </div>
       <FormFooter
-        href="/categories"
+        href="/brands"
         editingId={editingId}
         loading={loading}
-        title="Category"
+        title="Brand"
         parent=""
       />
     </form>

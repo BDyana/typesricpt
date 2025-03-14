@@ -34,13 +34,10 @@ export default function ImageInput({
             className="mt-4 ut-button:!cursor-pointer ut-button:bg-brandColor ut-label:text-white ut-label:hover:text-brandBlack/50 ut-button:ut-readying:bg-orange-600/50"
             endpoint={endpoint}
             onClientUploadComplete={(res) => {
-              // Do something with the response
               console.log('Files: ', res);
-
               setImageUrl(res[0].url);
             }}
             onUploadError={(error: Error) => {
-              // Do something with the error.
               alert(`ERROR! ${error.message}`);
             }}
           />

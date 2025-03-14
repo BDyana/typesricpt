@@ -5,6 +5,13 @@ export type CategoryProps = {
   description: string;
   isActive: boolean;
 };
+export type BrandProps = {
+  title: string;
+  slug: string;
+  imageUrl: string;
+  description: string;
+  isActive: boolean;
+};
 
 export type BannerProps = {
   title: string;

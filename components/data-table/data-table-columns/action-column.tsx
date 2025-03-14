@@ -2,6 +2,7 @@
 
 import { deleteBanner } from '@/actions/banners';
 import { deleteCategory } from '@/actions/categories';
+import { deleteBrand } from '@/actions/brands';
 import { deleteCoupon } from '@/actions/coupons';
 import { deleteOrder } from '@/actions/orders';
 import { deleteProduct } from '@/actions/products';
@@ -52,6 +53,12 @@ export default function ActionColumn({
     try {
       if (model === 'category') {
         const res = await deleteCategory(id);
+        if (res?.ok) {
+          window.location.reload();
+        }
+        toast.success(`${capitalizeFirstLetter(model)} Deleted Successfully`);
+      } else if (model === 'brand') {
+        const res = await deleteBrand(id);
         if (res?.ok) {
           window.location.reload();
         }

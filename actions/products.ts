@@ -85,7 +85,9 @@ export const getLatestProducts = async (pageSize?: number) => {
     const products = await db.product.findMany({
       where: {
         isActive: true,
+        // brandId: { not: null },
       },
+      take: pageSize || 10,
       include: {
         category: true,
         user: true,

@@ -88,6 +88,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   icon: List,
                 },
                 {
+                  title: 'Brands',
+                  url: '/dashboard/brands',
+                  icon: List,
+                },
+                {
                   title: 'Coupons',
                   url: '/dashboard/coupons',
                   icon: Tag,
