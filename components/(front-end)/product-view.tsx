@@ -3,17 +3,8 @@
 import { CONTACT_INFO } from '@/constants/contacts';
 import { calculateDiscountPercentage } from '@/lib/calculatePercentage';
 import { useAppSelector } from '@/redux/hooks/hooks';
-import { Category, Product } from '@prisma/client';
-import {
-  Banknote,
-  Check,
-  PhoneCall,
-  ShieldBan,
-  ShieldOff,
-  Star,
-  StarHalf,
-  Truck,
-} from 'lucide-react';
+import { Category, Brand, Product } from '@prisma/client';
+import {Banknote, Check, PhoneCall, ShieldBan, ShieldOff, Star, StarHalf, Truck,} from 'lucide-react';
 import Link from 'next/link';
 import AddToCartButton from './add-to-cart';
 import Breadcrumb from './breadcrumb';
@@ -24,14 +15,13 @@ import Image from 'next/image';
 interface IProps {
   product: Product | any;
   category: (Category & { products: any[] }) | null | undefined;
+  brand: (Brand & { products: any[] }) | null | undefined;
 }
 
-export default function ProductView({ product, category }: IProps) {
+export default function ProductView({ product, category, brand }: IProps) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const urlToShare = `${baseUrl}/products/${product?.slug}`;
-
   const cartItems = useAppSelector((state) => state.cart);
-
   // Check if product is already in cart
   const isInCart = cartItems.some((item: any) => item.id === product.id);
 
@@ -68,8 +58,11 @@ export default function ProductView({ product, category }: IProps) {
                 <span>|</span>
                 <h4>
                   Brand:{' '}
-                  <Link className="text-brandColor" href="">
-                    Unknown
+                  <Link
+                    className="text-brandColor"
+                    href={`/brands/${brand?.slug}`}
+                  >
+                    {brand?.title}
                   </Link>
                 </h4>
               </div>
