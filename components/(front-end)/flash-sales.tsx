@@ -86,7 +86,7 @@ const FlashSales: React.FC<FlashSalesProps> = ({
       aria-label="Flash Sales"
     >
       <FlashSalesHeader />
-      <div className="grid md:grid-cols-4 grid-cols-2 lg:grid-cols-6 p-1 border-t-0 border-2 border-[#e61601] rounded-b">
+      <div className="grid md:grid-cols-4 grid-cols-2 lg:grid-cols-6 p-1 border border-gray-200 rounded-b">
         {displayProducts.map((product) => (
           <ProductCard
             className="bg-[#fce7e5] text-[#e61601]"

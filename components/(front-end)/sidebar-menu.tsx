@@ -17,8 +17,8 @@ import Link from 'next/link';
 
 export default async function SidebarMenu() {
   return (
-    <div className="sm:col-span-3 sm:block bg-white border border-gray-300 rounded-sm hidden">
-      <h2 className="bg-slate-100  py-2 px-4 font-semibold border-b border-gray-300">
+    <div className="sm:col-span-3 sm:block bg-white border border-gray-200 rounded-sm hidden">
+      <h2 className="bg-slate-100  py-2 px-4 font-semibold border-b border-gray-200">
         Shop By Category
       </h2>
 
