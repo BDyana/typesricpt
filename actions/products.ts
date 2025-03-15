@@ -3,16 +3,11 @@
 import { db } from '@/lib/db';
 import { Product } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
-
 export async function createProduct(formData: Product) {
-  // console.log('FormData;', formData);
-
   try {
-    // Check if the product already exists
     const existingProduct = await db.product.findUnique({
       where: { slug: formData.slug },
     });
-
     if (existingProduct) {
       return {
         success: false,
@@ -20,7 +15,6 @@ export async function createProduct(formData: Product) {
         message: `Product (${formData.title}) already exists in the Database`,
       };
     }
-
     // Validate and transform formData
     const processedData = {
       ...formData,
@@ -39,12 +33,12 @@ export async function createProduct(formData: Product) {
         ? parseInt(formData.productLeft as unknown as string, 10)
         : null,
     };
-
     // Validate required fields
     if (
       !processedData.title ||
       !processedData.slug ||
       !processedData.categoryId ||
+      !processedData.brandId ||
       !processedData.imageUrl
     ) {
       return {
@@ -54,14 +48,11 @@ export async function createProduct(formData: Product) {
           'Invalid product data; make sure all required fields are filled! (check image is uploaded correctly)',
       };
     }
-
     // Create the new product
     const newProduct = await db.product.create({
       data: processedData,
     });
-
     revalidatePath('/');
-
     return {
       success: true,
       status: 201, // Created
@@ -70,7 +61,6 @@ export async function createProduct(formData: Product) {
     };
   } catch (error) {
     console.error('Product creation error:', error);
-
     return {
       success: false,
       status: 500, // Internal Server Error
@@ -78,8 +68,7 @@ export async function createProduct(formData: Product) {
       error: error instanceof Error ? error.message : 'Unknown error',
     };
   }
-}
-
+};
 export const getLatestProducts = async (pageSize?: number) => {
   try {
     const products = await db.product.findMany({
@@ -90,6 +79,7 @@ export const getLatestProducts = async (pageSize?: number) => {
       take: pageSize || 10,
       include: {
         category: true,
+        brand: true,
         user: true,
       },
       orderBy: {
@@ -103,7 +93,6 @@ export const getLatestProducts = async (pageSize?: number) => {
     throw new Error('Error while fetching latest products');
   }
 };
-
 export async function getSponsoredProducts() {
   try {
     // Fetch the product with comments
@@ -116,7 +105,6 @@ export async function getSponsoredProducts() {
         comments: true,
       },
     });
-
     return products;
   } catch (error) {
     console.error('Error while fetching product by slug', error);
@@ -135,14 +123,12 @@ export async function getFlashSaleProducts() {
         comments: true,
       },
     });
-
     return products;
   } catch (error) {
     console.error('Error while fetching product by slug', error);
     throw new Error('Error while fetching product by slug');
   }
 }
-
 export async function getProductBySlug(slug: string) {
   try {
     // Fetch the product with comments
@@ -159,7 +145,6 @@ export async function getProductBySlug(slug: string) {
     if (!product) {
       throw new Error('Product not found');
     }
-
     // Refactor comments to include user data
     const commentsWithUser = await Promise.all(
       product.comments.map(async (comment) => {
@@ -174,7 +159,6 @@ export async function getProductBySlug(slug: string) {
         };
       }),
     );
-
     return {
       ...product,
       comments: commentsWithUser,
@@ -184,7 +168,6 @@ export async function getProductBySlug(slug: string) {
     throw new Error('Error while fetching product by slug');
   }
 }
-
 export async function getProductById(id: string) {
   try {
     const product = await db.product.findUnique({
@@ -193,23 +176,19 @@ export async function getProductById(id: string) {
         isActive: true,
       },
     });
-
     return product;
   } catch (error) {
     console.error('Error while fetching product by id', error);
     throw new Error('Error while fetching product by id');
   }
 }
-
 export async function updateProduct(id: string, formData: Partial<Product>) {
   console.log('Update FormData:', formData);
-
   try {
     // Check if the product exists
     const existingProduct = await db.product.findUnique({
       where: { id },
     });
-
     if (!existingProduct) {
       return {
         success: false,
@@ -217,9 +196,7 @@ export async function updateProduct(id: string, formData: Partial<Product>) {
         message: `Product with id (${id}) not found`,
       };
     }
-
     delete formData.id;
-
     // Validate and transform formData
     const updatedData = {
       ...formData,
@@ -252,7 +229,6 @@ export async function updateProduct(id: string, formData: Partial<Product>) {
           ? parseInt(formData.productLeft as unknown as string, 10)
           : undefined,
     };
-
     // Ensure updatedData is not empty
     if (Object.keys(updatedData).length === 0) {
       return {
@@ -261,13 +237,11 @@ export async function updateProduct(id: string, formData: Partial<Product>) {
         message: 'No valid fields provided for update',
       };
     }
-
     // Perform the update
     const updatedProduct = await db.product.update({
       where: { id },
       data: updatedData,
     });
-
     return {
       success: true,
       status: 200, // OK
@@ -276,7 +250,6 @@ export async function updateProduct(id: string, formData: Partial<Product>) {
     };
   } catch (error) {
     console.error('Product update error:', error);
-
     return {
       success: false,
       status: 500, // Internal Server Error
@@ -285,7 +258,6 @@ export async function updateProduct(id: string, formData: Partial<Product>) {
     };
   }
 }
-
 export async function deleteProduct(id: string) {
   try {
     // First check if product exists and get its relations
@@ -300,7 +272,6 @@ export async function deleteProduct(id: string) {
         },
       },
     });
-
     if (!existingProduct) {
       return {
         success: false,
@@ -308,7 +279,6 @@ export async function deleteProduct(id: string) {
         message: `Product with id (${id}) not found`,
       };
     }
-
     // Perform the delete operation - this will cascade to related records
     const deletedProduct = await db.product.delete({
       where: { id },
@@ -321,9 +291,7 @@ export async function deleteProduct(id: string) {
         },
       },
     });
-
     revalidatePath('/dashboard/products');
-
     return {
       success: true,
       status: 200,
@@ -345,7 +313,6 @@ export async function deleteProduct(id: string) {
     };
   }
 }
-
 export async function findProblematicProducts() {
   try {
     // First get all products
@@ -356,10 +323,8 @@ export async function findProblematicProducts() {
         userId: true,
       },
     });
-
     // Then verify each product's user exists
     const problematicProducts = [];
-
     for (const product of allProducts) {
       try {
         const userExists = await db.user.findUnique({
@@ -367,7 +332,6 @@ export async function findProblematicProducts() {
             id: product.userId,
           },
         });
-
         if (!userExists) {
           problematicProducts.push(product);
         }
@@ -376,7 +340,6 @@ export async function findProblematicProducts() {
         problematicProducts.push(product);
       }
     }
-
     if (problematicProducts.length === 0) {
       return {
         success: true,
@@ -385,7 +348,6 @@ export async function findProblematicProducts() {
         products: [],
       };
     }
-
     // Update the problematic products with the new userId
     const fixedProducts = [];
     for (const product of problematicProducts) {
@@ -404,7 +366,6 @@ export async function findProblematicProducts() {
         console.error(`Failed to update product ${product.id}:`, error);
       }
     }
-
     return {
       success: true,
       message: `Found ${problematicProducts.length} problematic products and fixed {fixedProducts.length}`,
@@ -432,7 +393,6 @@ export async function verifyDefaultUser() {
         id: '67522330490c70bbe22c63df',
       },
     });
-
     return {
       exists: !!defaultUser,
       message: defaultUser ? 'Default user exists' : 'Default user not found',

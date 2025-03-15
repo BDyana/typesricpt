@@ -9,6 +9,7 @@ export async function GET(request: NextRequest) {
     const min = request.nextUrl.searchParams.get('min');
     const max = request.nextUrl.searchParams.get('max');
     const categoryId = request.nextUrl.searchParams.get('categoryId');
+    const brandId = request.nextUrl.searchParams.get('brandId');
     const page = parseInt(request.nextUrl.searchParams.get('page') || '1', 10);
     const pageSize = 40;
 
@@ -32,6 +33,7 @@ export async function GET(request: NextRequest) {
         },
         // Category filter
         ...(categoryId ? [{ categoryId }] : []),
+        ...(brandId ? [{ brandId }] : []),
       ],
     };
 
@@ -54,6 +56,13 @@ export async function GET(request: NextRequest) {
         orderBy: { salePrice: sortBy === 'asc' ? 'asc' : 'desc' },
         include: {
           category: {
+            select: {
+              id: true,
+              title: true,
+              slug: true,
+            },
+          },
+          brand: {
             select: {
               id: true,
               title: true,

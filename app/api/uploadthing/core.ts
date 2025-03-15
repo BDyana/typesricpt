@@ -6,46 +6,46 @@ export const ourFileRouter = {
   categoryImageUploader: f({ image: { maxFileSize: '1MB' } })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log('file url', file.url, metadata);
-      return { uploadedBy: 'JB' };
+      return { uploadedBy: 'BDyana' };
     }),
   brandImageUploader: f({ image: { maxFileSize: '1MB' } })
       .onUploadComplete(async ({ metadata, file }) => {
         console.log('file url', file.url, metadata);
-        return { uploadedBy: 'JB' };
+        return { uploadedBy: 'BDyana' };
       }),
   bannerImageUploader: f({ image: { maxFileSize: '2MB' } })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log('file url', file.url, metadata);
-      return { uploadedBy: 'JB' };
+      return { uploadedBy: 'BDyana' };
     }),
   marketLogoUploader: f({ image: { maxFileSize: '1MB' } })
     .onUploadComplete(async ({ metadata, file }) => {
       console.log('file url', file.url, metadata);
-      return { uploadedBy: 'JB' };
+      return { uploadedBy: 'BDyana' };
     }),
   productImageUploader: f({ image: { maxFileSize: '1MB' } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log('file url', file.url, metadata);
-      return { uploadedBy: 'JB' };
+      return { uploadedBy: 'BDyana' };
     }),
   trainingImageUploader: f({ image: { maxFileSize: '1MB' } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log('file url', file.url, metadata);
-      return { uploadedBy: 'JB' };
+      return { uploadedBy: 'BDyana' };
     }),
   farmerProfileUploader: f({ image: { maxFileSize: '1MB' } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log('file url', file.url, metadata);
-      return { uploadedBy: 'JB' };
+      return { uploadedBy: 'BDyana' };
     }),
   customerProfileUploader: f({ image: { maxFileSize: '1MB' } })
     // Set permissions and file types for this FileRoute
     .onUploadComplete(async ({ metadata, file }) => {
       console.log('file url', file.url, metadata);
-      return { uploadedBy: 'JB' };
+      return { uploadedBy: 'BDyana' };
     }),
   multipleProductsUploader: f({
     image: { maxFileSize: '8MB', maxFileCount: 4 },
