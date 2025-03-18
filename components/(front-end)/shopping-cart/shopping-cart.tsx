@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  Card,
-  CardContent,
-} from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { splitFullName } from '@/lib/splitNames';
@@ -75,7 +72,14 @@ export default function ShoppingCart({
   const [errors, setErrors] = useState({
     location: false,
     delivery: false,
+    phone: false,
+    streetAddress: false,
+    city: false,
+    district: false,
   });
+
+  // State to track if validation has been attempted
+  const [validationAttempted, setValidationAttempted] = useState(false);
 
   const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart);
@@ -118,19 +122,44 @@ export default function ShoppingCart({
     : null;
 
   async function handleSubmit() {
-    if (!checkoutFormData) {
-      toast.error('Missing required form data');
-      return;
-    }
+    // Mark that validation has been attempted
+    setValidationAttempted(true);
 
+    // Reset all errors first
     const newErrors = {
       location: !sortedLocation,
       delivery: !selectedDelivery,
+      phone: sortedLocation ? !sortedLocation.phone.trim() : false,
+      streetAddress: sortedLocation
+        ? !sortedLocation.streetAddress.trim()
+        : false,
+      city: sortedLocation ? !sortedLocation.city.trim() : false,
+      district: sortedLocation ? !sortedLocation.district.trim() : false,
     };
+
     setErrors(newErrors);
 
-    if (newErrors.location || newErrors.delivery) {
-      toast.error('Please fill in all required fields');
+    // Check if there are any validation errors
+    if (Object.values(newErrors).some(Boolean)) {
+      // Show appropriate error message based on what's missing
+      if (newErrors.location) {
+        toast.error('Please add a delivery address');
+      } else if (
+        newErrors.phone ||
+        newErrors.streetAddress ||
+        newErrors.city ||
+        newErrors.district
+      ) {
+        toast.error('Please complete all required shipping information');
+      } else if (newErrors.delivery) {
+        toast.error('Please select a delivery option');
+      }
+      return;
+    }
+
+    // If form data is missing (shouldn't happen if validation passes)
+    if (!checkoutFormData) {
+      toast.error('Missing required form data');
       return;
     }
 
@@ -187,14 +216,48 @@ export default function ShoppingCart({
       <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
         <Card>
           <CardContent className="m-2">
-            <div className={errors.location ? 'border-red-500' : ''}>
+            <div
+              className={
+                validationAttempted && errors.location ? 'border-red-500' : ''
+              }
+            >
               <LocationManager userProfile={userProfile} />
-              {errors.location && (
+              {validationAttempted && errors.location && (
                 <p className="text-sm text-red-500 mt-1">
                   Please select a delivery location
                 </p>
               )}
             </div>
+
+            {validationAttempted &&
+              sortedLocation &&
+              (errors.phone ||
+                errors.streetAddress ||
+                errors.city ||
+                errors.district) && (
+                <div className="mt-4 p-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200">
+                  <div className="flex mb-2">
+                    <svg
+                      className="w-4 h-4 mr-2 flex-shrink-0 mt-0.5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
+                    </svg>
+                    <span className="font-medium">
+                      Please complete the following required fields:
+                    </span>
+                  </div>
+                  <ul className="ml-6 list-disc space-y-1">
+                    {errors.phone && <li>Phone number</li>}
+                    {errors.streetAddress && <li>Street address</li>}
+                    {errors.city && <li>City</li>}
+                    {errors.district && <li>District</li>}
+                  </ul>
+                </div>
+              )}
 
             <div className="mt-4">
               <Label>
@@ -206,9 +269,9 @@ export default function ShoppingCart({
                   onSelect={setSelectedDelivery}
                   selectedOptionId={selectedDelivery?.id}
                   required
-                  error={errors.delivery}
+                  error={validationAttempted && errors.delivery}
                 />
-                {errors.delivery && (
+                {validationAttempted && errors.delivery && (
                   <p className="text-sm text-red-500 mt-1">
                     Please select a delivery option
                   </p>
@@ -219,11 +282,14 @@ export default function ShoppingCart({
                 <span className="text-red-500">*</span>
               </Label>
               {/* <PaymentMethodSelector /> */}
-              </div>
+            </div>
           </CardContent>
         </Card>
         <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
-          <OrderSummary subTotal={subTotal} selectedDelivery={selectedDelivery} />
+          <OrderSummary
+            subTotal={subTotal}
+            selectedDelivery={selectedDelivery}
+          />
           <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
             <dt className="text-base font-bold text-brandBlack">Total</dt>
             <dd className="text-base font-bold text-brandBlack">
@@ -242,8 +308,7 @@ export default function ShoppingCart({
             >
               {loading ? (
                 <span className="flex gap-2 ">
-                  <Loader2Icon className="size-4 animate-spin" />{' '}
-                  Submitting...
+                  <Loader2Icon className="size-4 animate-spin" /> Submitting...
                 </span>
               ) : (
                 <> Submit Order</>

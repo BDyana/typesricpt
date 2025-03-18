@@ -1,4 +1,3 @@
-// This is a server component - no 'use client' directive
 import { getLatestProducts } from '@/actions/products';
 import { getUserProfile } from '@/actions/update-profile';
 import ShoppingCart from '@/components/(front-end)/shopping-cart/shopping-cart';
