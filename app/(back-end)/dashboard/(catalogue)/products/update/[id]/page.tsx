@@ -1,11 +1,8 @@
-import {getAllCategories, getCategoryBrief, getCategoryById,} from '@/actions/categories';
-import {getAllBrands, getBrandBrief, getBrandById,} from '@/actions/brands';
+import { getBrandBrief } from '@/actions/brands';
+import { getCategoryBrief } from '@/actions/categories';
 import { getProductById } from '@/actions/products';
-import { getFarmers, getUsers } from '@/actions/users';
-import CategoryForm from '@/components/forms/category-form';
-import BrandForm from '@/components/forms/category-form';
+import { getFarmers } from '@/actions/users';
 import ProductForm from '@/components/forms/product-form';
-import React from 'react';
 
 export default async function page({
   params,

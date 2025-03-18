@@ -129,7 +129,7 @@ export async function createBulkBrands(brands: BrandProps[]) {
 
 export async function getBrandBrief() {
   try {
-    const users = await db.brand.findMany({
+    const brands = await db.brand.findMany({
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
@@ -138,7 +138,7 @@ export async function getBrandBrief() {
     });
     return {
       message: 'Brands fetched successfully',
-      data: users,
+      data: brands,
     };
   } catch (error) {
     console.error('Fetch farmers error:', error);

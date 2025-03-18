@@ -1,7 +1,6 @@
 import { getAllCategories } from '@/actions/categories';
 import { getAllBrands } from '@/actions/brands';
 import { getUsers } from '@/actions/users';
-import CategoryForm from '@/components/forms/category-form';
 import ProductForm from '@/components/forms/product-form';
 import Loader from '@/components/loader';
 export default async function page() {

@@ -68,7 +68,7 @@ export async function createProduct(formData: Product) {
       error: error instanceof Error ? error.message : 'Unknown error',
     };
   }
-};
+}
 export const getLatestProducts = async (pageSize?: number) => {
   try {
     const products = await db.product.findMany({
@@ -139,6 +139,7 @@ export async function getProductBySlug(slug: string) {
       },
       include: {
         comments: true,
+        brand: true,
       },
     });
 
@@ -175,6 +176,9 @@ export async function getProductById(id: string) {
         id,
         isActive: true,
       },
+      include: {
+        brand: true,
+      },
     });
     return product;
   } catch (error) {
@@ -183,7 +187,7 @@ export async function getProductById(id: string) {
   }
 }
 export async function updateProduct(id: string, formData: Partial<Product>) {
-  console.log('Update FormData:', formData);
+  // console.log('Update FormData:', formData);
   try {
     // Check if the product exists
     const existingProduct = await db.product.findUnique({
