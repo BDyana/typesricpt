@@ -7,12 +7,19 @@ import ProductView from '@/components/(front-end)/product-view';
 import RecentlyViewedProducts from '@/components/(front-end)/recently-viewed';
 import { Product } from '@prisma/client';
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
   const product = await getProductBySlug(slug);
 
   if (!product) {
-    return { title: 'Product Not Found', description: 'This product does not exist.' };
+    return {
+      title: 'Product Not Found',
+      description: 'This product does not exist.',
+    };
   }
 
   return {
@@ -24,15 +31,21 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const slug = params.slug;
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const slug = (await params).slug;
   const product = await getProductBySlug(slug);
 
   if (!product) {
     return <div>Product not found</div>;
   }
 
-  const category = product.categoryId ? await getCategoryById(product.categoryId) : null;
+  const category = product.categoryId
+    ? await getCategoryById(product.categoryId)
+    : null;
   const brand = product.brandId ? await getBrandById(product.brandId) : null;
 
   const categoryProducts = category?.products ?? [];
