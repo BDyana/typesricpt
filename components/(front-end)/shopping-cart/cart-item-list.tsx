@@ -35,16 +35,10 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
     <div className="border border-gray-200 rounded-lg">
       {cartItems.map((item) => {
         return (
-          <div
-            key={item.id}
-            className=" bg-white p-4 shadow-sm md:p-6"
-          >
+          <div key={item.id} className=" bg-white p-4 shadow-sm md:p-6">
             <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
               <div className="flex gap-3">
-                <Link
-                  href={`/products/${item.slug}`}
-                  className=""
-                >
+                <Link href={`/products/${item.slug}`} className="">
                   <img
                     className="h-20 w-20"
                     src={item.imageUrl as string}
@@ -90,8 +84,8 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
                       <Minus className="me-1.5 h-5 w-5" />
                       Remove
                     </button>
-                  </div>  
-                </div>  
+                  </div>
+                </div>
               </div>
               <label htmlFor="counter-input" className="sr-only">
                 Choose quantity:

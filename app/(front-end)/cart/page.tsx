@@ -20,6 +20,8 @@ export default async function CartPage() {
     getUserProfile(session.user.id),
   ]);
 
+  // console.log('user Profile ✅:', userProfile);
+
   return (
     <section className="bg-white pb-8 antialiased">
       <div className="mx-auto max-w-screen-xl px-0 lg:px-4">

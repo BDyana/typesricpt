@@ -1,6 +1,5 @@
 'use client';
 import { Button } from '@/components/ui/button';
-import {CardHeader} from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
@@ -12,8 +11,8 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { Pencil, Plus, Trash2 } from 'lucide-react';
-import { useEffect, useState, useCallback } from 'react';
+import { Pencil, Plus } from 'lucide-react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomText from '../re-usable-inputs/text-reusable';
 
@@ -40,6 +39,7 @@ export function LocationManager({ userProfile }: any) {
         id: Date.now().toString(), // Add unique ID
         city: userProfile.city || '',
         country: userProfile.country || '',
+        name: `${userProfile.firstName} ${userProfile.lastName}` || '',
         streetAddress: userProfile.streetAddress || '',
         district: userProfile.district || '',
         phone: userProfile.phone || '',
@@ -108,14 +108,21 @@ export function LocationManager({ userProfile }: any) {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <div className="flex justify-between items-center">
           <div>
-            <p className="text-lg font-semibold text-brandBlack">Shipping Address</p>
+            <p className="text-lg font-semibold text-brandBlack">
+              Shipping Address
+            </p>
             <h5>Add your Shipping address before order.</h5>
           </div>
-            <DialogTrigger asChild>
-            <Button variant="outline" size="sm" className="text-sm font-normal px-2 h-8">
-                <Plus className="mr-1 h-4 w-4" />Add
+          <DialogTrigger asChild>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-sm font-normal px-2 h-8"
+            >
+              <Plus className="mr-1 h-4 w-4" />
+              Add
             </Button>
-            </DialogTrigger>
+          </DialogTrigger>
         </div>
         <DialogContent className="">
           <DialogHeader>
@@ -163,40 +170,49 @@ export function LocationManager({ userProfile }: any) {
               onCheckedChange={() => handleSetDefault(location.id)}
             />
             <Label htmlFor={`checkbox-${location.id}`} className="flex-grow">
-                  <div className="flex justify-between relative">
+              <div className="flex justify-between relative">
+                <div>
+                  {location.isDefault && (
+                    <span className="text-xs bg-green-100 text-green-800 px-2 py-1 inline-flex mt-2 uppercase">
+                      Active
+                    </span>
+                  )}
+                  <div className="flex gap-2 mt-1.5">
+                    <div className="text-nowrap">
+                      <p className="font-medium">NAME</p>
+                      <p className="font-medium my-0.5">PHONE NO</p>
+                      <p className="font-medium">ADDRESS</p>
+                    </div>
                     <div>
-                      {location.isDefault && (
-                        <span className="text-xs bg-green-100 text-green-800 px-2 py-1 inline-flex rounded-full mt-2">
-                          Active
-                        </span>
-                      )}
-                      <div className="flex gap-2 mt-1.5">
-                        <div className="text-nowrap">
-                          <p className="font-medium">Name</p>
-                          <p className="font-medium my-0.5">Phone No</p>
-                          <p className="font-medium">Address</p>
-                        </div>
-                        <div>
-                          <div className="flex gap-1">: <p>{location.name}</p></div>
-                          <div className="flex gap-1">: <p className="my-0.5">{location.phone}</p></div>
-                          <div className="flex gap-1">: <p className="text-sm font-normal text-gray-500">{location.streetAddress}, {location.city},{' '}{location.district}.
-                          </p></div>
-                        </div>
+                      <div className="flex gap-1">
+                        : <p>{location.name}</p>
+                      </div>
+                      <div className="flex gap-1">
+                        : <p className="my-0.5">{location.phone}</p>
+                      </div>
+                      <div className="flex gap-1">
+                        :{' '}
+                        <p className="text-sm font-normal line-clamp-1 text-gray-500">
+                          {location.streetAddress}, {location.city},{' '}
+                          {location.district}.
+                        </p>
                       </div>
                     </div>
-                    <div className="absolute right-0">
-                      <Button
-                        variant="ghost"
-                        size="xs"
-                        onClick={() => handleEditLocation(location)}
-                      >
-                        <Pencil size="16" className="text-gray-500 w-1 h-1 " />
-                      </Button>
-                      {/* <Button variant="ghost" size="xs">
+                  </div>
+                </div>
+                <div className="absolute right-0">
+                  <Button
+                    variant="ghost"
+                    size="xs"
+                    onClick={() => handleEditLocation(location)}
+                  >
+                    <Pencil size="16" className="text-gray-500 w-1 h-1 " />
+                  </Button>
+                  {/* <Button variant="ghost" size="xs">
                         <Trash2 className="h-1 w-1 text-red-700" />
                       </Button> */}
-                    </div>
-                  </div>
+                </div>
+              </div>
             </Label>
           </div>
         ))}

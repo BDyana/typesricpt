@@ -1,16 +1,27 @@
 'use client';
 
-import { Card, CardContent } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+import { Loader2, ShoppingBag, MapPin, Truck, CreditCard } from 'lucide-react';
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { splitFullName } from '@/lib/splitNames';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { removeFromCart } from '@/redux/slices/cart';
-import { type Product, type UserProfile } from '@prisma/client';
-import { Loader2Icon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { toast } from 'sonner';
+
 import { LocationManager } from '../location-manager';
 import CartItemList from './cart-item-list';
 import DeliveryOption from './delivery-option';
@@ -18,7 +29,7 @@ import { EmptyCart } from './empty-cart';
 import { OrderSummary } from './order-summary';
 import RecommendedProducts from './recommended-products';
 
-interface DeliveryOption {
+interface DeliveryOptionType {
   id: string;
   label: string;
   basePrice: number;
@@ -29,6 +40,7 @@ interface DeliveryOption {
 interface Location {
   isDefault: boolean;
   phone: string;
+  name: string;
   streetAddress: string;
   city: string;
   country: string;
@@ -36,8 +48,8 @@ interface Location {
 }
 
 interface ShoppingCartProps {
-  products: Product[] | null | undefined;
-  userProfile: UserProfile | null;
+  products: any[] | null | undefined;
+  userProfile: any | null;
   user: {
     id: string;
     name: string;
@@ -56,6 +68,7 @@ export default function ShoppingCart({
         {
           isDefault: true,
           phone: userProfile.phone || '',
+          name: `${userProfile.firstName} ${userProfile.lastName}` || '',
           streetAddress: userProfile.streetAddress || '',
           city: userProfile.city || '',
           country: userProfile.country || '',
@@ -66,8 +79,9 @@ export default function ShoppingCart({
 
   const [loading, setLoading] = useState(false);
   const [selectedDelivery, setSelectedDelivery] =
-    useState<DeliveryOption | null>(null);
+    useState<DeliveryOptionType | null>(null);
   const [errors, setErrors] = useState({
+    name: false,
     location: false,
     delivery: false,
     phone: false,
@@ -119,13 +133,11 @@ export default function ShoppingCart({
       }
     : null;
 
-  async function handleSubmit() {
-    // Mark that validation has been attempted
-    setValidationAttempted(true);
-
+  const validateForm = () => {
     // Reset all errors first
     const newErrors = {
       location: !sortedLocation,
+      name: !firstName || !secondName,
       delivery: !selectedDelivery,
       phone: sortedLocation ? !sortedLocation.phone.trim() : false,
       streetAddress: sortedLocation
@@ -136,20 +148,26 @@ export default function ShoppingCart({
     };
 
     setErrors(newErrors);
+    return !Object.values(newErrors).some(Boolean);
+  };
 
-    // Check if there are any validation errors
-    if (Object.values(newErrors).some(Boolean)) {
+  async function handleSubmit() {
+    // Mark that validation has been attempted
+    setValidationAttempted(true);
+
+    if (!validateForm()) {
       // Show appropriate error message based on what's missing
-      if (newErrors.location) {
+      if (errors.location) {
         toast.error('Please add a delivery address');
       } else if (
-        newErrors.phone ||
-        newErrors.streetAddress ||
-        newErrors.city ||
-        newErrors.district
+        errors.phone ||
+        errors.name ||
+        errors.streetAddress ||
+        errors.city ||
+        errors.district
       ) {
         toast.error('Please complete all required shipping information');
-      } else if (newErrors.delivery) {
+      } else if (errors.delivery) {
         toast.error('Please select a delivery option');
       }
       return;
@@ -205,141 +223,224 @@ export default function ShoppingCart({
   }
 
   return (
-    <div className="mt-4 md:gap-6 lg:flex lg:items-start xl:gap-8">
-      <div className="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-3xl">
-        <CartItemList cartItems={cartItems} />
-        {products && <RecommendedProducts products={products} />}
-      </div>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
+        <ShoppingBag className="h-6 w-6" />
+        Your Shopping Cart
+      </h1>
 
-      <div className="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
-        <Card>
-          <CardContent className="m-2">
-            <div
-              className={
-                validationAttempted && errors.location ? 'border-red-500' : ''
-              }
-            >
-              <LocationManager userProfile={userProfile} />
-              {validationAttempted && errors.location && (
-                <p className="text-sm text-red-500 mt-1">
-                  Please select a delivery location
-                </p>
-              )}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Left column - Cart items and recommendations */}
+        <div className="lg:col-span-2 space-y-6">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg">Items in Your Cart</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CartItemList cartItems={cartItems} />
+            </CardContent>
+          </Card>
+
+          {products && (
+            <Card>
+              <CardHeader className="pb-3">
+                <CardTitle className="text-lg">Recommended For You</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <RecommendedProducts products={products} />
+              </CardContent>
+            </Card>
+          )}
+        </div>
+
+        {/* Right column - Checkout information */}
+        <div className="space-y-6">
+          <Card className="sticky top-4 overflow-hidden">
+            <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4">
+              <h3 className="text-xl font-semibold flex items-center gap-2">
+                <MapPin className="h-5 w-5 text-primary" />
+                Delivery Information
+              </h3>
+              <p className="text-sm text-muted-foreground mt-1">
+                Please provide your delivery details below
+              </p>
             </div>
 
-            {validationAttempted &&
-              sortedLocation &&
-              (errors.phone ||
-                errors.streetAddress ||
-                errors.city ||
-                errors.district) && (
-                <div className="mt-4 p-4 text-sm text-red-800 rounded-lg bg-red-50 border border-red-200">
-                  <div className="flex mb-2">
-                    <svg
-                      className="w-4 h-4 mr-2 flex-shrink-0 mt-0.5"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z" />
-                    </svg>
-                    <span className="font-medium">
-                      Please complete the following required fields:
-                    </span>
-                  </div>
-                  <ul className="ml-6 list-disc space-y-1">
-                    {errors.phone && <li>Phone number</li>}
-                    {errors.streetAddress && <li>Street address</li>}
-                    {errors.city && <li>City</li>}
-                    {errors.district && <li>District</li>}
-                  </ul>
+            <CardContent className="p-6 space-y-6">
+              {/* Delivery Address Section */}
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <h4 className="font-medium flex items-center gap-1.5">
+                    <MapPin className="h-4 w-4 text-primary" />
+                    Delivery Address
+                    <span className="text-destructive">*</span>
+                  </h4>
+                  {sortedLocation && (
+                    <Badge variant="outline" className="bg-primary/5">
+                      {sortedLocation.city}, {sortedLocation.district}
+                    </Badge>
+                  )}
                 </div>
-              )}
 
-            <div className="mt-4">
-              <Label>
-                Delivery Charge
-                <span className="text-red-500">*</span>
-              </Label>
-              <div className="my-2">
-                <DeliveryOption
-                  onSelect={setSelectedDelivery}
-                  selectedOptionId={selectedDelivery?.id}
-                  required
-                  error={validationAttempted && errors.delivery}
-                />
-                {validationAttempted && errors.delivery && (
-                  <p className="text-sm text-red-500 mt-1">
-                    Please select a delivery option
-                  </p>
-                )}
-              </div>
-              <Label className="font-normal">
-                Payment Method : Cash on Delivery
-                <span className="text-red-500">*</span>
-              </Label>
-              {/* <PaymentMethodSelector /> */}
-            </div>
-          </CardContent>
-        </Card>
-        <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-3 shadow-sm">
-          <OrderSummary
-            subTotal={subTotal}
-            selectedDelivery={selectedDelivery}
-          />
-          <div className="flex mt-4 items-center justify-between gap-4 border-t border-gray-200 pt-2 ">
-            <dt className="text-base font-bold text-brandBlack">Total</dt>
-            <dd className="text-base font-bold text-brandBlack">
-              ৳
-              {(
-                parseFloat(subTotal) + (selectedDelivery?.basePrice ?? 0)
-              ).toFixed(2)}
-            </dd>
-          </div>
-          <div className="my-4">
-            <button
-              disabled={loading}
-              onClick={() => handleSubmit()}
-              title="Proceed to checkout"
-              className="flex bg-brandColor w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-brandBlack dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            >
-              {loading ? (
-                <span className="flex gap-2 ">
-                  <Loader2Icon className="size-4 animate-spin" /> Submitting...
-                </span>
-              ) : (
-                <> Submit Order</>
-              )}
-            </button>
-            {/* 
-            <div className="flex items-center mt-2 justify-center gap-2">
-              <span className="text-sm font-normal text-gray-500"> or </span>
-              <Link
-                href="/"
-                prefetch={true}
-                title="Continue Shopping"
-                className="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
-              >
-                Continue Shopping
-                <svg
-                  className="h-5 w-5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
+                <div
+                  className={`rounded-lg ${validationAttempted && errors.location ? 'border-destructive shadow-sm shadow-destructive/10' : 'border-none'}  transition-all`}
                 >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 12H5m14 0-4 4m4-4-4-4"
+                  <LocationManager userProfile={userProfile} />
+                  {validationAttempted && errors.location && (
+                    <div className="mt-2 flex items-center gap-2 text-destructive text-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-alert-circle"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                      </svg>
+                      Please select a delivery location
+                    </div>
+                  )}
+                </div>
+
+                {validationAttempted &&
+                  sortedLocation &&
+                  (errors.phone ||
+                    errors.name ||
+                    errors.streetAddress ||
+                    errors.city ||
+                    errors.district) && (
+                    <Alert
+                      variant="destructive"
+                      className="animate-in fade-in-50 slide-in-from-top-5"
+                    >
+                      <AlertDescription>
+                        <div className="font-medium mb-2">
+                          Please complete the following required fields:
+                        </div>
+                        <ul className="list-disc pl-5 space-y-1">
+                          {errors.name && <li>Name</li>}
+                          {errors.phone && <li>Phone number</li>}
+                          {errors.streetAddress && <li>Street address</li>}
+                          {errors.city && <li>City</li>}
+                          {errors.district && <li>District</li>}
+                        </ul>
+                      </AlertDescription>
+                    </Alert>
+                  )}
+              </div>
+
+              <Separator />
+
+              {/* Delivery Options Section */}
+              <div className="space-y-3">
+                <h4 className="font-medium flex items-center gap-1.5">
+                  <Truck className="h-4 w-4 text-primary" />
+                  Delivery Options
+                  <span className="text-destructive">*</span>
+                </h4>
+
+                <div
+                  className={`rounded-lg ${validationAttempted && errors.delivery ? 'border-destructive shadow-sm shadow-destructive/10' : 'border-none'} transition-all`}
+                >
+                  <DeliveryOption
+                    onSelect={setSelectedDelivery}
+                    selectedOptionId={selectedDelivery?.id}
+                    required
+                    error={validationAttempted && errors.delivery}
                   />
-                </svg>
-              </Link>
-            </div> */}
-          </div>
+                  {validationAttempted && errors.delivery && (
+                    <div className="mt-2 flex items-center gap-2 text-destructive text-sm">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="lucide lucide-alert-circle"
+                      >
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="8" x2="12" y2="12" />
+                        <line x1="12" y1="16" x2="12.01" y2="16" />
+                      </svg>
+                      Please select a delivery option
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <Separator />
+
+              {/* Payment Method Section */}
+              <div className="space-y-3">
+                <h4 className="font-medium flex items-center gap-1.5">
+                  <CreditCard className="h-4 w-4 text-primary" />
+                  Payment Method
+                </h4>
+
+                <div className="rounded-lg border border-border p-4 bg-muted/30">
+                  <div className="flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                      <CreditCard className="h-5 w-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium">Cash on Delivery</p>
+                      <p className="text-sm text-muted-foreground">
+                        Pay when you receive your order
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+
+            <Separator />
+
+            <CardContent className="p-6">
+              <OrderSummary
+                subTotal={subTotal}
+                selectedDelivery={selectedDelivery}
+              />
+              <div className="flex mt-6 items-center justify-between gap-4 border-t border-border pt-4">
+                <span className="text-lg font-bold">Total</span>
+                <span className="text-xl font-bold text-primary">
+                  ৳{' '}
+                  {(
+                    Number.parseFloat(subTotal) +
+                    (selectedDelivery?.basePrice ?? 0)
+                  ).toFixed(2)}
+                </span>
+              </div>
+            </CardContent>
+
+            <CardFooter className="px-6 pb-6 pt-0">
+              <Button
+                className="w-full"
+                size="lg"
+                disabled={loading}
+                onClick={handleSubmit}
+              >
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Processing...
+                  </span>
+                ) : (
+                  'Complete Order'
+                )}
+              </Button>
+            </CardFooter>
+          </Card>
         </div>
       </div>
     </div>
