@@ -1,4 +1,5 @@
 'use client';
+
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -11,10 +12,12 @@ import {
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { useLocalStorage } from '@/hooks/use-local-storage';
-import { Pencil, Plus } from 'lucide-react';
+import { Pencil, Plus, Router } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CustomText from '../re-usable-inputs/text-reusable';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export function LocationManager({ userProfile }: any) {
   const [locations, setLocations] = useLocalStorage<any[]>('locations', []);
@@ -23,6 +26,7 @@ export function LocationManager({ userProfile }: any) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingLocation, setEditingLocation] = useState<any>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -74,6 +78,7 @@ export function LocationManager({ userProfile }: any) {
       } catch (error) {
         console.error('Error:', error);
       } finally {
+        router.refresh();
         setIsSubmitting(false);
       }
     },

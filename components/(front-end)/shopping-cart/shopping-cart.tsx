@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Loader2, ShoppingBag, MapPin, Truck, CreditCard } from 'lucide-react';
@@ -63,26 +63,25 @@ export default function ShoppingCart({
   userProfile,
 }: ShoppingCartProps) {
   // Initialize default location only if userProfile exists
-  const userProfileDefaultLocation: Location[] = userProfile
-    ? [
-        {
-          isDefault: true,
-          phone: userProfile.phone || '',
-          name: `${userProfile.firstName} ${userProfile.lastName}` || '',
-          streetAddress: userProfile.streetAddress || '',
-          city: userProfile.city || '',
-          country: userProfile.country || '',
-          district: userProfile.district || '',
-        },
-      ]
-    : [];
+  // const userProfileDefaultLocation: Location[] = userProfile
+  //   ? [
+  //       {
+  //         isDefault: true,
+  //         phone: userProfile.phone || '',
+  //         name: `${userProfile.firstName} ${userProfile.lastName}` || '',
+  //         streetAddress: userProfile.streetAddress || '',
+  //         city: userProfile.city || '',
+  //         country: userProfile.country || '',
+  //         district: userProfile.district || '',
+  //       },
+  //     ]
+  //   : [];
 
   const [loading, setLoading] = useState(false);
   const [selectedDelivery, setSelectedDelivery] =
     useState<DeliveryOptionType | null>(null);
   const [errors, setErrors] = useState({
     name: false,
-    location: false,
     delivery: false,
     phone: false,
     streetAddress: false,
@@ -104,12 +103,25 @@ export default function ShoppingCart({
     )
     .toFixed(2);
 
-  const [locations] = useLocalStorage<Location[]>(
-    'locations',
-    userProfileDefaultLocation,
-  );
+  const [locations, setLocations] = useState<Location[]>([]);
 
-  const sortedLocation = locations.find(
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedLocations = localStorage.getItem('locations');
+      setLocations(storedLocations ? JSON.parse(storedLocations) : []);
+    }
+  }, []);
+
+  // console.log('Locations ✅:', locations);
+
+  // Update localStorage whenever locations change
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('locations', JSON.stringify(locations));
+    }
+  }, [locations]);
+
+  const defaultLocation = locations.find(
     (location) => location.isDefault === true,
   );
 
@@ -118,14 +130,18 @@ export default function ShoppingCart({
   const email = user?.email ?? '';
   const userId = user?.id ?? '';
 
-  const { firstName, secondName } = splitFullName(fullName);
+  const { firstName, secondName } = splitFullName(
+    (defaultLocation?.name as string) || '',
+  );
 
-  const checkoutFormData = sortedLocation
+  // console.log('First Name:', firstName, 'Second Name:', secondName);
+
+  const checkoutFormData = defaultLocation
     ? {
-        ...sortedLocation,
+        ...defaultLocation,
         email,
         userId,
-        tel: sortedLocation.phone,
+        tel: defaultLocation.phone,
         firstName,
         lastName: secondName,
         paymentMethod: 'Cash On Delivery',
@@ -133,18 +149,17 @@ export default function ShoppingCart({
       }
     : null;
 
+  // Reset all errors first
   const validateForm = () => {
-    // Reset all errors first
     const newErrors = {
-      location: !sortedLocation,
-      name: !firstName || !secondName,
+      name: defaultLocation ? !defaultLocation.name.trim() : false,
       delivery: !selectedDelivery,
-      phone: sortedLocation ? !sortedLocation.phone.trim() : false,
-      streetAddress: sortedLocation
-        ? !sortedLocation.streetAddress.trim()
+      phone: defaultLocation ? !defaultLocation.phone.trim() : false,
+      streetAddress: defaultLocation
+        ? !defaultLocation.streetAddress.trim()
         : false,
-      city: sortedLocation ? !sortedLocation.city.trim() : false,
-      district: sortedLocation ? !sortedLocation.district.trim() : false,
+      city: defaultLocation ? !defaultLocation.city.trim() : false,
+      district: defaultLocation ? !defaultLocation.district.trim() : false,
     };
 
     setErrors(newErrors);
@@ -152,29 +167,12 @@ export default function ShoppingCart({
   };
 
   async function handleSubmit() {
-    // Mark that validation has been attempted
     setValidationAttempted(true);
 
-    if (!validateForm()) {
-      // Show appropriate error message based on what's missing
-      if (errors.location) {
-        toast.error('Please add a delivery address');
-      } else if (
-        errors.phone ||
-        errors.name ||
-        errors.streetAddress ||
-        errors.city ||
-        errors.district
-      ) {
-        toast.error('Please complete all required shipping information');
-      } else if (errors.delivery) {
-        toast.error('Please select a delivery option');
-      }
-      return;
-    }
+    // Get fresh validation errors
+    const isValid = validateForm();
 
-    // If form data is missing (shouldn't happen if validation passes)
-    if (!checkoutFormData) {
+    if (!isValid || !checkoutFormData) {
       toast.error('Missing required form data');
       return;
     }
@@ -183,6 +181,8 @@ export default function ShoppingCart({
       checkoutFormData,
       orderItems: cartItems,
     };
+
+    console.log('Data ✅;', data);
 
     try {
       setLoading(true);
@@ -275,42 +275,21 @@ export default function ShoppingCart({
                     Delivery Address
                     <span className="text-destructive">*</span>
                   </h4>
-                  {sortedLocation && (
+                  {defaultLocation && (
                     <Badge variant="outline" className="bg-primary/5">
-                      {sortedLocation.city}, {sortedLocation.district}
+                      {defaultLocation.city}, {defaultLocation.district}
                     </Badge>
                   )}
                 </div>
 
                 <div
-                  className={`rounded-lg ${validationAttempted && errors.location ? 'border-destructive shadow-sm shadow-destructive/10' : 'border-none'}  transition-all`}
+                  className={`rounded-lg ${validationAttempted && errors.name ? 'border-destructive shadow-sm shadow-destructive/10' : 'border-none'}  transition-all`}
                 >
                   <LocationManager userProfile={userProfile} />
-                  {validationAttempted && errors.location && (
-                    <div className="mt-2 flex items-center gap-2 text-destructive text-sm">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="lucide lucide-alert-circle"
-                      >
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
-                      </svg>
-                      Please select a delivery location
-                    </div>
-                  )}
                 </div>
 
                 {validationAttempted &&
-                  sortedLocation &&
+                  defaultLocation &&
                   (errors.phone ||
                     errors.name ||
                     errors.streetAddress ||
