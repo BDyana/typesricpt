@@ -75,6 +75,7 @@ export function LocationManager({ userProfile }: any) {
           setIsDialogOpen(false);
         }
         reset();
+        window.location.reload();
       } catch (error) {
         console.error('Error:', error);
       } finally {
