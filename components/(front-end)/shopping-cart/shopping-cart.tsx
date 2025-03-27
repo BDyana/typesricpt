@@ -4,24 +4,15 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Loader2, ShoppingBag, MapPin, Truck, CreditCard } from 'lucide-react';
-
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-
 import { useLocalStorage } from '@/hooks/use-local-storage';
 import { splitFullName } from '@/lib/splitNames';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { removeFromCart } from '@/redux/slices/cart';
-
 import { LocationManager } from '../location-manager';
 import CartItemList from './cart-item-list';
 import DeliveryOption from './delivery-option';
@@ -91,18 +82,15 @@ export default function ShoppingCart({
 
   // State to track if validation has been attempted
   const [validationAttempted, setValidationAttempted] = useState(false);
-
   const router = useRouter();
   const cartItems = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
-
   const subTotal = cartItems
     .reduce(
       (acc, currentItem) => acc + currentItem.salePrice * currentItem.qty,
       0,
     )
     .toFixed(2);
-
   const [locations, setLocations] = useState<Location[]>([]);
 
   useEffect(() => {
@@ -124,12 +112,10 @@ export default function ShoppingCart({
   const defaultLocation = locations.find(
     (location) => location.isDefault === true,
   );
-
   // Handle case where user or user properties might be undefined
   const fullName = user?.name ?? '';
   const email = user?.email ?? '';
   const userId = user?.id ?? '';
-
   const { firstName, secondName } = splitFullName(
     (defaultLocation?.name as string) || '',
   );
@@ -171,26 +157,21 @@ export default function ShoppingCart({
 
     // Get fresh validation errors
     const isValid = validateForm();
-
     if (!isValid || !checkoutFormData) {
       toast.error('Missing required form data');
       return;
     }
-
     const data = {
       checkoutFormData,
       orderItems: cartItems,
     };
-
     console.log('Data ✅;', data);
-
     try {
       setLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       if (!baseUrl) {
         throw new Error('Base URL not configured');
       }
-
       const response = await fetch(`${baseUrl}/api/orders`, {
         method: 'POST',
         headers: {
@@ -198,16 +179,12 @@ export default function ShoppingCart({
         },
         body: JSON.stringify(data),
       });
-
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
-
       const responseData = await response.json();
-
       // Clear cart items
       cartItems.forEach((item) => dispatch(removeFromCart(item.id)));
-
       toast.success('Order Created Successfully');
       router.push(`/order-confirmation/${responseData.id}`);
     } catch (error) {
@@ -217,77 +194,35 @@ export default function ShoppingCart({
       setLoading(false);
     }
   }
-
   if (cartItems.length === 0) {
     return <EmptyCart />;
   }
-
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <ShoppingBag className="h-6 w-6" />
-        Your Shopping Cart
-      </h1>
-
+      <h2 className="text-xl font-bold flex items-center gap-2 text-brandBlack sm:text-2xl mb-5">
+        <ShoppingBag className="h-5 w-5" />
+        Shopping Cart
+      </h2>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left column - Cart items and recommendations */}
-        <div className="lg:col-span-2 space-y-6">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg">Items in Your Cart</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CartItemList cartItems={cartItems} />
-            </CardContent>
-          </Card>
-
+        <div className="lg:col-span-2 space-y-6 border border-gray-200 rounded-lg">
+          <CartItemList cartItems={cartItems} />
           {products && (
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-lg">Recommended For You</CardTitle>
-              </CardHeader>
               <CardContent>
                 <RecommendedProducts products={products} />
               </CardContent>
-            </Card>
           )}
         </div>
-
         {/* Right column - Checkout information */}
-        <div className="space-y-6">
-          <Card className="sticky top-4 overflow-hidden">
-            <div className="bg-gradient-to-r from-primary/10 to-primary/5 p-4">
-              <h3 className="text-xl font-semibold flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-primary" />
-                Delivery Information
-              </h3>
-              <p className="text-sm text-muted-foreground mt-1">
-                Please provide your delivery details below
-              </p>
-            </div>
-
-            <CardContent className="p-6 space-y-6">
+        <div className="sticky space-y-6">
+          <Card className="top-4 overflow-hidden">
+            <CardContent className="space-y-4 p-0">
               {/* Delivery Address Section */}
-              <div className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <h4 className="font-medium flex items-center gap-1.5">
-                    <MapPin className="h-4 w-4 text-primary" />
-                    Delivery Address
-                    <span className="text-destructive">*</span>
-                  </h4>
-                  {defaultLocation && (
-                    <Badge variant="outline" className="bg-primary/5">
-                      {defaultLocation.city}, {defaultLocation.district}
-                    </Badge>
-                  )}
-                </div>
-
+              <div className="">
                 <div
                   className={`rounded-lg ${validationAttempted && errors.name ? 'border-destructive shadow-sm shadow-destructive/10' : 'border-none'}  transition-all`}
                 >
                   <LocationManager userProfile={userProfile} />
                 </div>
-
                 {validationAttempted &&
                   defaultLocation &&
                   (errors.phone ||
@@ -314,11 +249,8 @@ export default function ShoppingCart({
                     </Alert>
                   )}
               </div>
-
-              <Separator />
-
               {/* Delivery Options Section */}
-              <div className="space-y-3">
+              <div className="space-y-2 m-2">
                 <h4 className="font-medium flex items-center gap-1.5">
                   <Truck className="h-4 w-4 text-primary" />
                   Delivery Options
@@ -357,35 +289,20 @@ export default function ShoppingCart({
                   )}
                 </div>
               </div>
-
-              <Separator />
-
-              {/* Payment Method Section */}
-              <div className="space-y-3">
+              <div className="m-2 pb-2">
                 <h4 className="font-medium flex items-center gap-1.5">
                   <CreditCard className="h-4 w-4 text-primary" />
-                  Payment Method
+                  Payment Method : Cash on Delivery
                 </h4>
-
-                <div className="rounded-lg border border-border p-4 bg-muted/30">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                      <CreditCard className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-medium">Cash on Delivery</p>
-                      <p className="text-sm text-muted-foreground">
-                        Pay when you receive your order
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                {/* <p className="text-sm text-muted-foreground">
+                  Pay when you receive your products.
+                </p> */}
               </div>
             </CardContent>
 
-            <Separator />
-
-            <CardContent className="p-6">
+          </Card>
+          <Card>
+            <CardContent className="p-2">
               <OrderSummary
                 subTotal={subTotal}
                 selectedDelivery={selectedDelivery}

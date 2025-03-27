@@ -32,7 +32,7 @@ export default function CartItemList({ cartItems }: CartItemListProps) {
   }
 
   return (
-    <div className="border border-gray-200 rounded-lg">
+    <div>
       {cartItems.map((item) => {
         return (
           <div key={item.id} className=" bg-white p-4 shadow-sm md:p-6">
