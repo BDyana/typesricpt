@@ -151,9 +151,10 @@ export default async function SidebarMenu() {
               <span className="text-sm">Mothers & Kids</span>
               <ChevronRight className="mr-1 shrink-0 w-4 h-4 right-0 absolute hidden group-hover:block" />
             </Link>
-            <ul className="absolute left-[275px] top-0 z-10 w-full px-3 py-1 bg-white h-[340px] hidden group-hover:block">
-              <h3 className="mb-1">Baby Food</h3>
-              <li className="py-1 hover:text-blue-700">
+            <ul className="absolute left-[275px] top-0 z-10 w-full px-3 py-1 bg-white h-[340px] hidden group-hover:block space-y-3 text-gray-600">
+              <div>
+              <h3 className="mb-1 text-gray-800">Baby Food</h3>
+              <li className="hover:text-blue-700">
                 <Link
                   className="hover:text-blue-700"
                   href="/categories/lactogen"
@@ -161,12 +162,29 @@ export default async function SidebarMenu() {
                   Lactogen
                 </Link>
               </li>
-              <li className="py-1 hover:text-blue-700">
+              <li className="hover:text-blue-700">
                 <Link
                   className="hover:text-blue-700"
                   href="/categories/cerelac"
                 >
                   Cerelac
+                </Link>
+              </li>
+              </div>
+              <li className="hover:text-blue-700">
+                <Link
+                  className="hover:text-blue-700"
+                  href="/categories/baby-diaper"
+                >
+                  Baby Diaper
+                </Link>
+              </li>
+              <li className="hover:text-blue-700">
+                <Link
+                  className="hover:text-blue-700"
+                  href="/categories/wipes--refills"
+                >
+                  Wipes & Refills
                 </Link>
               </li>
             </ul>
