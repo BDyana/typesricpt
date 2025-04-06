@@ -1,9 +1,10 @@
 import { type FC, Suspense } from 'react';
-import { type Banner, type Category } from '@prisma/client';
+import { type Banner, type Category, type Brand } from '@prisma/client';
 
 // Action imports
 import { getBanners } from '@/actions/banners';
 import { getAllCategories } from '@/actions/categories';
+import { getAllBrands } from '@/actions/brands';
 import { getFlashSaleProducts, getLatestProducts, getSponsoredProducts } from '@/actions/products';
 // Component imports
 import Hero from '@/components/(front-end)/hero';
@@ -11,6 +12,7 @@ import Products from '@/components/(front-end)/products';
 import FlashSales from '@/components/(front-end)/flash-sales';
 import SponsoredOne from '@/components/(front-end)/sponsored-one';
 import CategoryGrid from '@/components/(front-end)/category-grid';
+import BrandGrid from '@/components/(front-end)/brand-grid';
 import CategoryList from '@/components/(front-end)/category-list';
 import ProductBannerOne from '@/components/(front-end)/product-banner-one';
 import TrendingDeals from '@/components/(front-end)/trending-deals';
@@ -31,6 +33,7 @@ const FEATURED_CATEGORIES = [
 
 interface PageData {
   categories: Category[];
+  brands: Brand[];
   categories2: Category[];
   banners: Banner[];
   latestProducts: any[]; // Replace 'any' with your product type
@@ -39,16 +42,18 @@ interface PageData {
 }
 
 async function getPageData(): Promise<PageData> {
-  const [categoriesResponse, bannersData, latestProducts, flashSales, sponsoredOne] =
+  const [categoriesResponse, brandsResponse, bannersData, latestProducts, flashSales, sponsoredOne] =
     await Promise.all([
       getAllCategories(),
+      getAllBrands(),
       getBanners(),
       getLatestProducts(12),
       getFlashSaleProducts(),
       getSponsoredProducts(),
     ]);
 
-  const categories2 = categoriesResponse?.data ?? [];
+    const categories2 = categoriesResponse?.data ?? [];
+    const brands = brandsResponse?.data ?? [];
 
   const categories =
     categoriesResponse?.data?.filter((category: Category) =>
@@ -58,6 +63,7 @@ async function getPageData(): Promise<PageData> {
   return {
     categories,
     categories2,
+    brands,
     banners: bannersData?.data ?? [],
     latestProducts: latestProducts ?? [],
     flashSales: flashSales ?? [],
@@ -66,7 +72,7 @@ async function getPageData(): Promise<PageData> {
 }
 
 const Home: FC = async () => {
-  const { categories, banners, latestProducts, flashSales, categories2, sponsoredOne } =
+  const { categories, banners, latestProducts, flashSales, categories2, brands, sponsoredOne } =
     await getPageData();
 
   return (
@@ -111,6 +117,10 @@ const Home: FC = async () => {
               </div>
             ))}
           </section>
+        </Suspense>
+
+        <Suspense>
+        <BrandGrid data={brands as any} />
         </Suspense>
 
         <Suspense>

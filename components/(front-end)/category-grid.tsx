@@ -46,7 +46,7 @@ export default function CategoryGrid({ data }: IProps) {
           <Link
             key={category.id}
             href={`/categories/${category.slug}`}
-            className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-4 lg:pb-3"
+            className="gap-3 hover:bg-brandColor/10 duration-300 transition-all rounded-sm pt-3 pb-2 lg:pt-5 lg:pb-4"
           >
             <Image
               width={500}

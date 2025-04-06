@@ -12,7 +12,7 @@ const SponsoredOneHeader: React.FC = () => (
   <div className="flex items-center justify-between bg-[#4f7eff] p-2 rounded-t">
     <h2 className="text-white text-center lg:tracking-normal lg:text-lg text-sm flex items-center gap-1">
       <Moon />
-      Ramadan Kareem
+      Sponsored Products
     </h2>
     <Link
       className="text-white font-bold lg:text-sm text-xs flex items-center gap-1 hover:opacity-90 transition-opacity"

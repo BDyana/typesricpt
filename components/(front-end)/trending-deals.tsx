@@ -16,7 +16,7 @@ export default function TrendingDeals({
   className = 'bg-green-600',
 }: IProps) {
   return (
-    <div className="w-full">
+    <div className="w-full my-4">
       <div className={cn('w-full shadow-md py-2 rounded-t', className)}>
         <h2 className="text-center text-xl font-bold text-white">
           Trending Deals
