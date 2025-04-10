@@ -187,7 +187,7 @@ export async function getProductById(id: string) {
   }
 }
 export async function updateProduct(id: string, formData: Partial<Product>) {
-  // console.log('Update FormData:', formData);
+  // console.log('Update FormData ✅:', formData);
   try {
     // Check if the product exists
     const existingProduct = await db.product.findUnique({
@@ -201,6 +201,9 @@ export async function updateProduct(id: string, formData: Partial<Product>) {
       };
     }
     delete formData.id;
+
+    // @ts-ignore
+    delete formData.brand;
     // Validate and transform formData
     const updatedData = {
       ...formData,

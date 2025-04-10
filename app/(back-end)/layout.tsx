@@ -30,7 +30,7 @@ export default async function Layout({
   }
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar variant="sidebar" />
       <SidebarInset>
         <header className="flex h-12 shrink-0 items-center gap-2">
           <div className="flex items-center">

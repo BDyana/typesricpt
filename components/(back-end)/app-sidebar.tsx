@@ -53,9 +53,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {
           title: 'View Site',
           url: '/',
-          target:"_blank",
+          target: '_blank',
           icon: Send,
-          className: "font-bold text-md",
+          className: 'font-bold text-md',
         },
       ],
     };
@@ -226,9 +226,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-semibold">
                     {siteConfig.name}
                   </span>
-                  <span className="truncate text-xs">
-                    {role || 'SELLER'}
-                  </span>
+                  <span className="truncate text-xs">{role || 'SELLER'}</span>
                 </div>
               </a>
             </SidebarMenuButton>
