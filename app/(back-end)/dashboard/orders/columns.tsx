@@ -6,28 +6,6 @@ import DateColumn from '@/components/data-table/data-table-columns/date-column';
 import SortableColumn from '@/components/data-table/data-table-columns/sortable-column';
 import { ColumnDef } from '@tanstack/react-table';
 export const columns: ColumnDef<any>[] = [
-  // {
-  //   id: 'select',
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={
-  //         table.getIsAllPageRowsSelected() ||
-  //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-  //       }
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
   {
     accessorKey: 'orderNumber',
     header: ({ column }) => (
@@ -38,10 +16,6 @@ export const columns: ColumnDef<any>[] = [
     accessorKey: 'firstName',
     header: ({ column }) => <SortableColumn column={column} title="Name" />,
   },
-  // {
-  //   accessorKey: '{streetAddress}, {city}',
-  //   header: ({ column }) => <SortableColumn column={column} title="Address" />,
-  // },
   {
     accessorKey: 'city',
     header: ({ column }) => <SortableColumn column={column} title="City" />,

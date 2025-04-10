@@ -43,7 +43,7 @@ const getStaticRoutes = (): MetadataRoute.Sitemap => {
       priority: 0.8,
     },
     {
-      url: `${config.baseUrl}/farmer-pricing`,
+      url: `${config.baseUrl}/vendor-pricing`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
@@ -73,7 +73,7 @@ const getStaticRoutes = (): MetadataRoute.Sitemap => {
       priority: 0.8,
     },
     {
-      url: `${config.baseUrl}/register-farmer`,
+      url: `${config.baseUrl}/register-vendor`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,

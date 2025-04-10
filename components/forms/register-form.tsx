@@ -138,7 +138,7 @@ export default function RegisterForm({ role = 'USER' }) {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Are you a Seller?{' '}
             <Link
-              href="/farmer-pricing"
+              href="/vendor-pricing"
               className="text-brandColor hover:underline dark:text-brandColor"
             >
               Register here

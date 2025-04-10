@@ -26,7 +26,7 @@ const QuillEditor = dynamic(
     ssr: false,
   },
 );
-export default function ProductForm({ categories, brands, farmers, initialData, editingId,}: any) {
+export default function ProductForm({ categories, brands, vendors, initialData, editingId,}: any) {
   const initialContent = initialData?.content ?? '';
   const initialImageUrl = initialData?.imageUrl ?? '';
   const initialTags = Array.isArray(initialData?.tags)
@@ -110,12 +110,12 @@ export default function ProductForm({ categories, brands, farmers, initialData, 
       ? { value: initialBrand.id, label: initialBrand.title }
       : { label: '', value: '' };
   });
-  const [selectedFarmer, setSelectedFarmer] = useState<any>(() => {
-    const initialFarmer = farmers?.find(
-      (farmer: any) => farmer.id === initialData?.userId,
+  const [selectedVendor, setSelectedVendor] = useState<any>(() => {
+    const initialVendor = vendors?.find(
+      (vendor: any) => vendor.id === initialData?.userId,
     );
-    return initialFarmer
-      ? { value: initialFarmer.id, label: initialFarmer.title }
+    return initialVendor
+      ? { value: initialVendor.id, label: initialVendor.title }
       : { label: '', value: '' };
   });
   async function onSubmit(data: any, event: React.BaseSyntheticEvent) {
@@ -136,7 +136,7 @@ export default function ProductForm({ categories, brands, farmers, initialData, 
     data.productCode = productCode;
     data.categoryId = selectedCategory.value;
     data.brandId = selectedBrand.value;
-    data.userId = selectedFarmer.value;
+    data.userId = selectedVendor.value;
     data.wholesalePrice;
     data.imageUrl = productImages?.[0];
     setLoading(true);
@@ -265,13 +265,13 @@ export default function ProductForm({ categories, brands, farmers, initialData, 
                   <div className="grid grid-cols-2 gap-2">
                     <div className="space-y-4">
                     <FormSelectInput
-                      label="Farmer"
-                      options={farmers?.map((farmer: any) => ({
-                        value: farmer.id,
-                        label: farmer.title,
+                      label="Vendor"
+                      options={vendors?.map((vendor: any) => ({
+                        value: vendor.id,
+                        label: vendor.title,
                       }))}
-                      option={selectedFarmer}
-                      setOption={setSelectedFarmer}
+                      option={selectedVendor}
+                      setOption={setSelectedVendor}
                     />
                     <div className="space-y-4">
                       <FormField

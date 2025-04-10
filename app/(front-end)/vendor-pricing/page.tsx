@@ -37,7 +37,7 @@ const plans: PricingPlan[] = [
       { name: 'Unlimited products', included: true },
       { name: 'Unlimited revenue', included: true },
     ],
-    link: '/register-farmer?plan=free',
+    link: '/register-vendor?plan=free',
     buttonText: 'Start for free',
   },
   {
@@ -50,7 +50,7 @@ const plans: PricingPlan[] = [
       { name: 'Unlimited products', included: true },
       { name: 'Unlimited revenue', included: true },
     ],
-    link: '/register-farmer?plan=silver',
+    link: '/register-vendor?plan=silver',
     buttonText: 'Get started',
   },
   {
@@ -64,7 +64,7 @@ const plans: PricingPlan[] = [
       { name: 'Unlimited products', included: true },
       { name: 'Unlimited revenue', included: true },
     ],
-    link: '/register-farmer?plan=gold',
+    link: '/register-vendor?plan=gold',
     buttonText: 'Get Started',
   },
 ];

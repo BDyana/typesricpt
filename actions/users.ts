@@ -145,15 +145,15 @@ export async function registerUser(prevState: any, formData: FormData) {
     });
 
     // Optional: Send verification email
-    if (role === 'FARMER') {
+    if (role === 'VENDOR') {
       try {
         const resend = new Resend(process.env.RESEND_API_KEY);
         const verificationLink = `${process.env.NEXTAUTH_URL}/onboarding/${newUser.id}?token=${token}`;
 
         await resend.emails.send({
-          from: 'Desishub <info@jazzafricaadventures.com>',
+          from: 'BDyana <info.bdyana@gmail.com>',
           to: email,
-          subject: 'Account Verification - Limi Ecommerce',
+          subject: 'Account Verification - BDyana Ecommerce',
           html: `
             <p>Hello ${name},</p>
             <p>Thank you for creating an account. Please verify your account:</p>
@@ -209,11 +209,11 @@ export async function getUsers() {
   }
 }
 
-export async function getFarmers() {
+export async function getVendors() {
   try {
     const users = await db.user.findMany({
       where: {
-        role: 'FARMER',
+        role: 'VENDOR',
       },
       orderBy: { createdAt: 'desc' },
       select: {
@@ -225,13 +225,13 @@ export async function getFarmers() {
       },
     });
     return {
-      message: 'Farmers fetched successfully',
+      message: 'Vendors fetched successfully',
       data: users,
     };
   } catch (error) {
-    console.error('Fetch farmers error:', error);
+    console.error('Fetch vendors error:', error);
     return {
-      message: 'Failed to fetch farmers',
+      message: 'Failed to fetch vendors',
       errors: error instanceof Error ? { server: [error.message] } : {},
     };
   }
@@ -254,13 +254,13 @@ export async function getNormalUsers() {
       },
     });
     return {
-      message: 'Farmers fetched successfully',
+      message: 'Vendors fetched successfully',
       data: users,
     };
   } catch (error) {
-    console.error('Fetch farmers error:', error);
+    console.error('Fetch vendors error:', error);
     return {
-      message: 'Failed to fetch farmers',
+      message: 'Failed to fetch vendors',
       errors: error instanceof Error ? { server: [error.message] } : {},
     };
   }

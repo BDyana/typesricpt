@@ -145,9 +145,9 @@ export async function getCategoryBrief() {
       data: users,
     };
   } catch (error) {
-    console.error('Fetch farmers error:', error);
+    console.error('Fetch vendors error:', error);
     return {
-      message: 'Failed to fetch farmers',
+      message: 'Failed to fetch vendors',
       errors: error instanceof Error ? { server: [error.message] } : {},
     };
   }

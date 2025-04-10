@@ -169,7 +169,7 @@ model Training {
 enum UserRole {
   ADMIN
   USER
-  FARMER
+  VENDOR
   MODERATOR
 }
 
@@ -195,7 +195,7 @@ model User {
   plan                String?
   verificationToken   String?
   status              Boolean              @default(false)
-  farmerProfile       FarmerProfile?
+  vendorProfile       VendorProfile?
   profile             UserProfile? // Link to user profile
   orders              Order[] //User can have multiple Orders
   createdAt           DateTime             @default(now())
@@ -238,7 +238,7 @@ model UserProfile {
   user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-model FarmerProfile {
+model VendorProfile {
   id                 String    @id @default(auto()) @map("_id") @db.ObjectId
   code               String?
   contactPerson      String?

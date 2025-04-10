@@ -1,51 +1,26 @@
 'use client';
-
-import { Checkbox } from '@/components/ui/checkbox';
-
 import ActionColumn from '@/components/data-table/data-table-columns/action-column';
 import DateColumn from '@/components/data-table/data-table-columns/date-column';
 import ImageColumn from '@/components/data-table/data-table-columns/image-column';
 import SortableColumn from '@/components/data-table/data-table-columns/sortable-column';
 import { ColumnDef } from '@tanstack/react-table';
 export const columns: ColumnDef<any>[] = [
-  // {
-  //   id: 'select',
-  //   header: ({ table }) => (
-  //     <Checkbox
-  //       checked={
-  //         table.getIsAllPageRowsSelected() ||
-  //         (table.getIsSomePageRowsSelected() && 'indeterminate')
-  //       }
-  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //       aria-label="Select all"
-  //     />
-  //   ),
-  //   cell: ({ row }) => (
-  //     <Checkbox
-  //       checked={row.getIsSelected()}
-  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //       aria-label="Select row"
-  //     />
-  //   ),
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <SortableColumn column={column} title="Customer Name" />
+      <SortableColumn column={column} title="Vendor Name" />
     ),
   },
   {
     accessorKey: 'email',
     header: ({ column }) => (
-      <SortableColumn column={column} title="Customer Email" />
+      <SortableColumn column={column} title="Vendor Email" />
     ),
   },
   {
     accessorKey: 'role',
     header: ({ column }) => (
-      <SortableColumn column={column} title="Customer Role" />
+      <SortableColumn column={column} title="Vendor Role" />
     ),
   },
   {
@@ -61,7 +36,7 @@ export const columns: ColumnDef<any>[] = [
   //       <ActionColumn
   //         row={row}
   //         model="famer"
-  //         editEndpoint={`farmers/update/${famer.id}`}
+  //         editEndpoint={`vendors/update/${famer.id}`}
   //         id={famer.id}
   //       />
   //     );

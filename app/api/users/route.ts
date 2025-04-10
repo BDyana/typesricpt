@@ -5,7 +5,7 @@ import base64url from 'base64url';
 import { v4 as uuidv4 } from 'uuid';
 import { NextRequest, NextResponse } from 'next/server';
 
-type UserRole = 'FARMER' | 'CUSTOMER'; // Add other roles as needed
+type UserRole = 'VENDOR' | 'CUSTOMER'; // Add other roles as needed
 type PlanType = 'BASIC' | 'PREMIUM'; // Add other plans as needed
 
 interface UserRequestBody {
@@ -64,8 +64,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Optionally, send a verification email if role is "FARMER"
-    if (role === 'FARMER') {
+    // Optionally, send a verification email if role is "VENDOR"
+    if (role === 'VENDOR') {
       const resend = new Resend(process.env.RESEND_API_KEY!);
       const verificationLink = `${process.env.NEXTAUTH_URL}/onboarding/${newUser.id}?token=${token}`;
 

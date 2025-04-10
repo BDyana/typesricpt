@@ -1,7 +1,7 @@
 import { getBrandBrief } from '@/actions/brands';
 import { getCategoryBrief } from '@/actions/categories';
 import { getProductById } from '@/actions/products';
-import { getFarmers } from '@/actions/users';
+import { getVendors } from '@/actions/users';
 import ProductForm from '@/components/forms/product-form';
 
 export default async function page({
@@ -13,13 +13,13 @@ export default async function page({
   const product = await getProductById(id);
   const categoriesData = await getCategoryBrief();
   const brandsData = await getBrandBrief();
-  const farmersData = (await getFarmers()) ?? [];
+  const vendorsData = (await getVendors()) ?? [];
   const categories = categoriesData?.data;
   const brands = brandsData?.data;
-  const farmers = farmersData.data?.map((farmer: any) => {
+  const vendors = vendorsData.data?.map((vendor: any) => {
     return {
-      id: farmer.id,
-      title: farmer.name,
+      id: vendor.id,
+      title: vendor.name,
     };
   });
   return (
@@ -28,7 +28,7 @@ export default async function page({
         initialData={product}
         categories={categories}
         brands={brands}
-        farmers={farmers}
+        vendors={vendors}
         editingId={id}
       />
     </div>

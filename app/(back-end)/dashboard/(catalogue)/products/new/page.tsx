@@ -14,11 +14,11 @@ export default async function page() {
   if (!brandsData || !usersData) {
     return <Loader />;
   }
-  const farmersData = users?.filter((user) => user.role === 'FARMER') ?? [];
-  const farmers = farmersData?.map((farmer) => {
+  const vendorsData = users?.filter((user) => user.role === 'VENDOR') ?? [];
+  const vendors = vendorsData?.map((vendor) => {
     return {
-      id: farmer.id,
-      title: farmer.name,
+      id: vendor.id,
+      title: vendor.name,
     };
   });
   const categories = categoriesData.data?.map((category) => {
@@ -35,7 +35,7 @@ export default async function page() {
   });
   return (
     <div>
-      <ProductForm categories={categories} brands={brands} farmers={farmers} />
+      <ProductForm categories={categories} brands={brands} vendors={vendors} />
     </div>
   );
 }

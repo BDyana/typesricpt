@@ -1,23 +1,8 @@
 'use client';
 
-import {
-  Command,
-  Frame,
-  Headset,
-  ImageIcon,
-  LifeBuoy,
-  List,
-  Package,
-  PieChart,
-  Send,
-  SquareTerminal,
-  Tag,
-  Users,
-  UsersRound,
-} from 'lucide-react';
+import { Command, Frame, Headset, ImageIcon, LifeBuoy, List, Package, PieChart, Send, SquareTerminal, Tag, Users, UsersRound} from 'lucide-react';
 import * as React from 'react';
 import { useSession } from 'next-auth/react';
-
 import { NavMain } from '@/components/(back-end)/nav-main';
 import { NavProjects } from '@/components/(back-end)/nav-projects';
 import { NavSecondary } from '@/components/(back-end)/nav-secondary';
@@ -116,8 +101,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   icon: Users,
                 },
                 {
-                  title: 'Seller',
-                  url: '/dashboard/farmers',
+                  title: 'Vendor',
+                  url: '/dashboard/vendors',
                   icon: UsersRound,
                 },
                 // {
@@ -141,7 +126,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             },
           ],
         };
-      case 'FARMER':
+      case 'VENDOR':
         return {
           ...baseConfig,
           navMain: [
@@ -192,8 +177,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   icon: Users,
                 },
                 {
-                  title: 'Seller',
-                  url: '/dashboard/farmers',
+                  title: 'Vendors',
+                  url: '/dashboard/vendors',
                   icon: UsersRound,
                 },
               ],
@@ -226,7 +211,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-semibold">
                     {siteConfig.name}
                   </span>
-                  <span className="truncate text-xs">{role || 'SELLER'}</span>
+                  <span className="truncate text-xs">{role || 'VENDOR'}</span>
                 </div>
               </a>
             </SidebarMenuButton>
