@@ -76,7 +76,7 @@ export const getLatestProducts = async (pageSize?: number) => {
         isActive: true,
         // brandId: { not: null },
         user: {
-          // role: 'VENDOR', // ✅ Correct enum value
+          role: 'VENDOR', // ✅ Correct enum value
         },
       },
       take: pageSize || 10,
