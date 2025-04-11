@@ -75,9 +75,6 @@ export const getLatestProducts = async (pageSize?: number) => {
       where: {
         isActive: true,
         // brandId: { not: null },
-        user: {
-          role: 'VENDOR', // ✅ Correct enum value
-        },
       },
       take: pageSize || 10,
       include: {

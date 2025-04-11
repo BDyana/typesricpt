@@ -101,7 +101,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   icon: Users,
                 },
                 {
-                  title: 'Vendor',
+                  title: 'Vendors',
                   url: '/dashboard/vendors',
                   icon: UsersRound,
                 },
